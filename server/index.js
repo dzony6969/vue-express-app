@@ -3,10 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const MONGO_URL = 'mongodb://luki:lukasz1@ds135290.mlab.com:35290/vuedb'
-mongoose.connect(MONGO_URL, { useNewUrlParser: true }); 
 
-
-const app = express();
 //routes
 const posts = require('./routes/api/posts.js');
 const order = require('./routes/api/order')
@@ -26,4 +23,4 @@ if (process.env.NODE_ENV === 'production') {
 
 //locals
   const port = process.env.PORT || 5000;
-  app.listen(port, process.env.IP, () => console.log(__dirname + `Server started on port ${port}` ));
+  app.listen(port, () => console.log(__dirname + `Server started on port ${port}` ));
