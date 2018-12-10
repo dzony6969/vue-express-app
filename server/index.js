@@ -15,10 +15,10 @@ app.use('/api/order', order);
 //mongoconnect
 if (process.env.NODE_ENV === 'production') {
     // Static folder
-    app.use(express.static(__dirname + '/mevnn/public/'));
+    app.use(express.static(__dirname + '/public/'));
   
     // Handle SPA
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/mevvn/public/index.html'));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
   }
 
 //locals
