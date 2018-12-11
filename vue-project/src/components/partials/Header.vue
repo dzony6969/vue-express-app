@@ -6,10 +6,19 @@
       fixed
       v-model="drawer"
       app
+      id='drawer--z'
 
     >
     {{checkOrder}}
       <v-list dense>
+        <v-list-tile @click='drawer = false'>
+          <v-list-tile-action>
+            <v-icon>close</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+           Close panel
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile to='/'>
           <v-list-tile-action>
             <v-icon>home</v-icon>
@@ -66,7 +75,7 @@
       </v-list>
     </v-navigation-drawer>
     
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar color="indigo" dark fixed id='toolbar-zIndex'>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Application</v-toolbar-title>
        <v-spacer></v-spacer>
@@ -104,6 +113,12 @@ import { mapGetters } from 'vuex'
     
 </script>
 <style scoped>
+  #toolbar-zIndex {
+    z-index: 1000;
+  }
+  #drawer--z {
+    z-index: 10001;
+  }
     a{
         color: white;
 

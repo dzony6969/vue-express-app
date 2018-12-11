@@ -1,5 +1,5 @@
 <template>
-<div>
+<v-content>
 <section>
          <v-parallax
     dark
@@ -42,7 +42,7 @@
         <div id='five'>
           <app-footer></app-footer>
         </div>
-      </div>
+</v-content>
 </template>
 <script>
 import AfterParalex from './HomePage/AfterParalex'

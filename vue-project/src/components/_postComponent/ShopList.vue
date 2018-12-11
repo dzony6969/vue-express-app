@@ -7,6 +7,7 @@
       <v-layout row wrap>
         
       <v-flex v-for="post in filteredPosts" :key="post._id" xs12 sm6 lg4 class="my-3">
+        
         <v-hover>
     <v-card
       slot-scope="{ hover }"
@@ -14,6 +15,8 @@
       color="grey lighten-4"
       max-width="500"
     >
+    <router-link 
+                  v-bind:to="{ name: 'showPost', params: { id: post._id } }">
       <v-img
         :aspect-ratio="16/9"
         :src="post.img"
@@ -28,6 +31,7 @@
           </div>
         </v-expand-transition>
       </v-img>
+      </router-link>
       <v-card-text
         class="pt-4"
         style="position: relative;"
@@ -44,17 +48,17 @@
           <v-icon @click='addToCart(post), priceSum()' >shopping_basket</v-icon>
         </v-btn>
         <a href="#" @click="deletePost(post._id)">Delete</a>
-        <router-link 
-                  v-bind:to="{ name: 'showPost', params: { id: post._id } }">
+      
         <div class="font-weight-light grey--text title mb-2">
            
           {{post.title}}</div>
-        </router-link>
+        
                   <div class="font-weight-light title mb-2">
         </div>
       </v-card-text>
     </v-card>
      </v-hover>
+     
     </v-flex>
       </v-layout>
   </v-container>  

@@ -1,70 +1,59 @@
 <template>
-<div>
-   <br>
+<v-content>
+  <br>
+  <br> 
   <br>
   <br>
-  <br>
-  <br>
-<div>
-<v-container id='listOfProduct' grid-list-md text-xs-center>
-   <div class="list-group btn-group btn-group-toggle" >
-    <p>Choose category</p>
-            <label
-            class="btn btn-secondary"
-            ><input
-            type="radio" 
-            autocomplete="off" 
-            checked
-            value=''
-            v-model='filteredText'
-            >All</label>
-            <label
-            class="btn btn-secondary"
-            ><input 
-            type="radio" 
-            class='list-group-item' 
-            value='Devices'
-            v-model='filteredText'
-            >Devices</label>
-            <label
-            class="btn btn-secondary"
-            ><input 
-            type="radio" 
-            class='list-group-item' 
-            value='Nature'
-            v-model='filteredText'
-            >Nature</label>
-            <label
-            class="btn btn-secondary"
-            ><input 
-            type="radio" 
-            class='list-group-item' 
-            value='Plants'
-            v-model='filteredText'
-            >Plants</label>
-          </div>
-  <div id='center--input'> 
-<v-text-field
-        text-center
-        v-model="filteredText"
-        label="Search product"
-      ></v-text-field>
-      </div>
-      <div v-if='filteredPosts.length === 0'>
+      <v-container>
+        
+        <div v-if='filteredPosts.length === 0'>
      <div class="alert alert-info" role="alert">
   No found
 </div>
       </div>
-      
-</v-container>
-  </div>
-  <Circle2 
-  v-if='posts.length === 0'
-  id='spin'></Circle2>
-  <!-- list of posts render here -->
-    <shop-list :filteredPosts='filteredPosts'></shop-list>
-  </div>
+        <v-layout row wrap class='text-center'>
+          <v-flex xs12 md2>
+            <div class="text-xs-center">
+              <div id='center--input'> 
 
+          <v-text-field
+        text-center
+        v-model="filteredText"
+        label="Search product"
+      ></v-text-field>
+        </div>
+              <v-layout justify-space-between>
+                <div row color='purple'>
+               <h3>choose category</h3>
+               <v-radio-group v-model="filteredText">
+        <div slot="label">What you<strong> need?</strong></div>
+        <v-radio  value="">
+          <div slot="label">All products<strong class="success--text"></strong></div>
+        </v-radio>
+        <v-radio value="Devices">
+          <div slot="label">Devices <strong class="primary--text">category</strong></div>
+        </v-radio>
+        <v-radio value="Nature">
+          <div slot="label">Nature products <strong class="primary--text">category</strong></div>
+        </v-radio>
+         <v-radio value="Plants">
+          <div slot="label">Plants <strong class="primary--text">category</strong></div>
+        </v-radio>
+      </v-radio-group>
+      </div>
+              </v-layout>
+            </div>
+          </v-flex>
+          
+          <v-flex xs12 md8 >
+            <Circle2 
+        v-if='posts.length === 0'
+        id='spin'></Circle2>
+            <shop-list v-if='filteredPosts.length > 0' :filteredPosts='filteredPosts'></shop-list>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
 </template>
 
 <script>
@@ -76,6 +65,7 @@ export default {
   data () {
     return {
       filteredText: '',
+      searchInput: '',
     }
   },
   components: {
@@ -103,7 +93,8 @@ export default {
 				});
       }  else {
         return this.posts.filter(post => {
-          return post.title.toUpperCase() === this.filteredText.toUpperCase()
+          return post.title.toLowerCase().match(this.filteredText.toLowerCase());
+          // return post.title.toUpperCase() === this.searchInput.toUpperCase()
         })
       }
 		}
