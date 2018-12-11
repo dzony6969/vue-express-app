@@ -7,6 +7,7 @@ const store = new Vuex.Store({
   state: {
     posts: [],
     cart: [],
+    orders: [],
     summary: 0,
   },
   mutations: {
@@ -33,6 +34,9 @@ const store = new Vuex.Store({
             const sum = cur + item.price
            return state.summary = sum;
         }, 0)
+     },
+     GET_ORDERS (state, orders) {
+       state.orders = orders
      }
     
   },
@@ -41,6 +45,12 @@ const store = new Vuex.Store({
       const response = await PostsService.fetchPosts()
       const posts = response.data
       commit('SET_POSTS', posts)
+    },
+    async getOrders ({commit}) {
+      const response = await PostsService.getOrder()
+      const orders = response.data
+      console.log(orders);
+      commit('GET_ORDERS', orders)
     },
     async deletePost ({commit}, id) {
       await PostsService.deletePost(id)
@@ -57,6 +67,7 @@ const store = new Vuex.Store({
   },
   getters: {
     cart: state => state.cart,
+    orders: state => state.orders,
     summary: state => state.summary
   }
 

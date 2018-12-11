@@ -6,6 +6,7 @@ import NewPost from '@/components/NewPost.vue'
 import showPost from '@/components/showPost.vue'
 import ShopList from '../components/ShopList.vue'
 import Payment from '../components/Payment.vue'
+import Dashboard from '../components/Dashboard.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
         path: '/payment',
         name: 'order',
         component: Payment,
+      },
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard,
       }    
   ]
 })

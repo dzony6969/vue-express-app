@@ -3,6 +3,9 @@ export default {
   fetchPosts () {
     return Api().get('/posts')
   },
+  getOrder () {
+    return Api().get('/order')
+  },
   addPost (params) {
     return Api().post('/posts', params)
   },
@@ -15,10 +18,5 @@ export default {
   deletePost (id) {
     return Api().delete('/posts/' + id)
   },
-  addUser(params) {
-    return Api().post('/user/register', params);
-  },
-  login(params) {
-    return Api().post('/user/login', params);
-  }
+  
 }
