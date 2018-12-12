@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
-
-
-var orderSchema = new mongoose.Schema({
-   order: [],
+const Schema = mongoose.Schema;
+var Order = new Schema({
+   order: Array,
    name: String,
    address: String,
    city: String,
    state: String,
    zip: String,
    country: String,
-    
-})
+   summary: Number,
+   createdAt: { type: Date, default: Date.now },
+   status: String,
+},{
+   collection: 'orders'
+});
 
 
-module.exports = mongoose.model("order", orderSchema);
+module.exports = mongoose.model('Order', Order);

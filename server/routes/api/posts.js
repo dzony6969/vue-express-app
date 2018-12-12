@@ -14,6 +14,16 @@ router.route('/').post(function (req, res) {
         res.status(400).send("unable to save to database");
       });
   });
+  router.route('/').get(function (req, res) {
+    Post.find(function(err, posts){
+    if(err){
+      res.json(err);
+    }
+    else {
+      res.json(posts)
+    }
+  }).sort({_id: -1});
+});
 
 //add posts
 // router.post('/', async (req, res) => {
@@ -37,16 +47,7 @@ router.route('/').post(function (req, res) {
 //         const posts = await loadPostsCollection();
 //         res.send(await posts.find({}).sort({_id: -1}).toArray());
 // })
-router.route('/').get(function (req, res) {
-    Post.find(function(err, posts){
-    if(err){
-      res.json(err);
-    }
-    else {
-      res.json(posts)
-    }
-  }).sort({_id: -1});
-});
+
 
 
 //   router.get('/:id',async (req, res) => {

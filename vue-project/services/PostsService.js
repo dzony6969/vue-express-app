@@ -18,5 +18,11 @@ export default {
   deletePost (id) {
     return Api().delete('/posts/delete/' + id)
   },
+  oneOrder(params) {
+    return Api().get('/order/' + params.id)
+  },
+  updateOrder (params) {
+    return Api().put('/order/update/' + params.id, params)
+  },
   
 }

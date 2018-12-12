@@ -6,24 +6,28 @@
       <br>
       <br>
       <h1 class='text-center'>Admin dashboard</h1>
- <v-data-table :headers="mainHeaders"
+ <v-data-table  :headers="mainHeaders"
                :items="orders"
                item-key="name"
                hide-actions
                expand
                class="elevation-1">
   <template slot="items" scope="props">
-    <tr>
+    <tr >
       <td @click="props.expanded = !props.expanded" class="text-xs click">{{ props.item.name }}</td>
       <td class="text-xs">{{ props.item.order.length }}</td>
       <td class="text-xs">{{ props.item.address }}</td>
       <td class="text-xs">{{ props.item.summary }} $</td>
       <td class="text-xs">{{ props.item.createdAt }} $</td>
+      <td class="text-xs">{{ props.item.status }}</td>
       <td class="text-xs"> 
-          <v-switch value input-value="true" color="orange" label="New order"></v-switch>
+          <router-link 
+                  v-bind:to="{ name: 'EachOrder', params: { id: props.item._id} }">click
+                  </router-link>
+          <!-- <v-switch value input-value="true" color="orange" label="New order"></v-switch>
       <v-switch color='blue' label="Sending" value="Sending"></v-switch>
       <v-switch color="green" label="Arrived" value="Arrive"></v-switch>
-      <v-switch color="red" label="Lost" value="Lost"></v-switch>
+      <v-switch color="red" label="Lost" value="Lost"></v-switch> -->
           </td>
     </tr>
   </template>
@@ -36,6 +40,7 @@
 import {mapGetters, mapState} from 'vuex'
 import Chart from './_Dashboard/Chart.vue'
     export default {
+        name: 'dashboard',
         components: {
             Chart
         },
@@ -48,6 +53,7 @@ import Chart from './_Dashboard/Chart.vue'
         {text: 'price', value: 'price'},
         {text: 'Created At', value: 'created'},
         {text: 'status', value: 'status'},
+        {text: 'Detail', value: 'detail'},
       ],
       subHeaders: [
         { text: 'order', value: 'order detail' },

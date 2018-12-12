@@ -48,8 +48,8 @@ const store = new Vuex.Store({
     },
     async getOrders ({commit}) {
       const response = await PostsService.getOrder()
-      const orders = response.data
-      console.log(orders);
+      const orders = response.data;
+      console.log(orders)
       commit('GET_ORDERS', orders)
     },
     async deletePost ({commit}, id) {

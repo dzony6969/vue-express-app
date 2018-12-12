@@ -10,9 +10,9 @@ let Post = new Schema({
     type: String
   },
   img: String,
-  price: String,
+  price: Number,
   postType: String,
-  createdAt: Date,
+  createdAt: { type: Date, default: Date.now },
 },{
     collection: 'posts'
 });

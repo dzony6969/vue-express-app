@@ -141,6 +141,7 @@ export default {
     state: '',
     zip: '',
     country: '',
+    status: 'New order',
     formHasErrors: false,
     countries: ['Poland', 'USA', "France"],
         }
@@ -180,7 +181,8 @@ export default {
         city: this.city,
         zip: this.zip,
         country: this.countries,
-        summary: this.summary
+        summary: this.summary,
+        status: this.status
 
       })
       this.$router.push({ name: 'Posts' })

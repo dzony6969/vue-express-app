@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '../components/Hello'
+import EachOrder from '../components/_Dashboard/EachOrder.vue'
 // import Posts from '../components/Posts'
 // import NewPost from '../components/NewPost.vue'
 // import showPost from '../components/showPost.vue'
@@ -67,10 +68,7 @@ export default new Router({
     {
         path: '/posts/:id',
         name: 'showPost',
-        component: showPost, beforeEnter: (to, from, next) => {
-          console.log('inside route setup');
-            next();
-        }
+        component: showPost,
       },
       {
         path: '/shop',
@@ -86,6 +84,11 @@ export default new Router({
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
+      },
+      {
+        path: '/dashboard/:id',
+        name: 'EachOrder',
+        component: EachOrder,
       }    
   ]
 })
