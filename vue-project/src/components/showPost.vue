@@ -90,7 +90,6 @@ export default {
         id: this.$route.params.id
       })
       this.product.title = response.data.title
-      console.log(this.$route.params.id)
       this.product.text = response.data.text
       this.product.img = response.data.img
       this.product.price = response.data.price

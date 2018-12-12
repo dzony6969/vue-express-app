@@ -3,16 +3,24 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const MONGO_URL = 'mongodb://luki:lukasz1@ds135290.mlab.com:35290/vuedb'
+const mongoose = require('mongoose')
+
+mongoose.Promise = global.Promise;
+mongoose.connect(MONGO_URL, { useNewUrlParser: true }).then(
+  () => {console.log('Database is connected') },
+  err => { console.log('Can not connect to the database'+ err)}
+);
 
 //routes
 const posts = require('./routes/api/posts.js');
 const order = require('./routes/api/order')
 //middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/api/posts', posts);
 app.use('/api/order', order);
-//mongoconnect
+// mongoconnect
 if (process.env.NODE_ENV === 'production') {
     // Static folder
     app.use(express.static(__dirname + '/public/'));
