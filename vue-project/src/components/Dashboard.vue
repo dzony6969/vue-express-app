@@ -22,7 +22,11 @@
       <td class="text-xs">{{ props.item.status }}</td>
       <td class="text-xs"> 
           <router-link 
-                  v-bind:to="{ name: 'EachOrder', params: { id: props.item._id} }">click
+                  v-bind:to="{ name: 'EachOrder', params: { id: props.item._id} }">
+                    <v-btn outline fab color="indigo">
+                    <v-icon>edit</v-icon>
+                </v-btn>
+          
                   </router-link>
           <!-- <v-switch value input-value="true" color="orange" label="New order"></v-switch>
       <v-switch color='blue' label="Sending" value="Sending"></v-switch>
@@ -83,5 +87,8 @@ import Chart from './_Dashboard/Chart.vue'
     .click:hover {
         background-color: lightblue;
         transition-duration: 0.5s;
+    }
+    a {
+        text-decoration: none;
     }
 </style>

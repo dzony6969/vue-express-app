@@ -13,10 +13,10 @@
       <v-list dense>
         <v-list-tile @click='drawer = false'>
           <v-list-tile-action>
-            <v-icon>close</v-icon>
+            <v-icon large>close</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-           Close panel
+           CLOSE PANEL
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to='/'>

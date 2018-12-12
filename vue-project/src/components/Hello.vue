@@ -27,6 +27,9 @@
           <v-btn color="error" 
       @click="$vuetify.goTo('#four', options)"
       dark large>Contact Us!</v-btn>
+      <router-link to='/posts'>
+      <v-btn color="error" dark large>Visit our online shop</v-btn>
+      </router-link>
       </div>
         </after-paralex>
         </div>

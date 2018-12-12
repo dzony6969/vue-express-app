@@ -25,7 +25,7 @@
                       <v-icon x-large class="blue--text text--lighten-2">{{item}}</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Material Design</div>
+                      <div class="headline text-xs-center">Nature shop</div>
                     </v-card-title>
                     <v-card-text>
                       Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare. 
@@ -48,7 +48,7 @@
     export default {
         data() {
             return {
-                items: ['color_lens', 'flash_on','build']
+                items: ['favorite', 'flash_on','build']
             }
         }
     }

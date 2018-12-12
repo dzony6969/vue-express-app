@@ -28,16 +28,16 @@
                <v-radio-group v-model="filteredText">
         <div slot="label">What you<strong> need?</strong></div>
         <v-radio  value="">
-          <div slot="label">All products<strong class="success--text"></strong></div>
+          <div slot="label"><strong class="primary--text">All</strong> products</div>
         </v-radio>
         <v-radio value="Devices">
-          <div slot="label">Devices <strong class="primary--text">category</strong></div>
+          <div slot="label"><strong class="primary--text">Devices</strong> category</div>
         </v-radio>
         <v-radio value="Nature">
-          <div slot="label">Nature products <strong class="primary--text">category</strong></div>
+          <div slot="label"><strong class="primary--text">Nature</strong> category</div>
         </v-radio>
          <v-radio value="Plants">
-          <div slot="label">Plants <strong class="primary--text">category</strong></div>
+          <div slot="label"><strong class="primary--text">Plants </strong>category</div>
         </v-radio>
       </v-radio-group>
       </div>
