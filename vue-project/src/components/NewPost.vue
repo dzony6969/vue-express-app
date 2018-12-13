@@ -138,24 +138,18 @@
       </v-stepper-content>
   
       <v-stepper-step step="4">Add product to shop list</v-stepper-step>
-      <c-content>
       <v-stepper-content step="4">
         <v-card color="" class="mb-5" height="70px">
-         <v-app>
           <div class='text-center'>  
           <v-btn large dark color="success" @click='addPost'>
                 Add new product
             </v-btn>
           </div>
-          </v-app>
         </v-card>
         <v-btn dark large @click="e6 = 1">Back to beginning</v-btn>
          <v-btn white large class='elevation-10' flat @click='e6 = 3'>Back to step 3</v-btn>
       </v-stepper-content>
-      </c-content>
     </v-stepper>
-
-
         </div>
         </v-content>
         </div>

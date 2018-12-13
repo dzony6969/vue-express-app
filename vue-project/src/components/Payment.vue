@@ -1,4 +1,5 @@
 <template>
+<v-content>
 <div>
     <div v-if='cart.length > 0'>
         <br>
@@ -72,27 +73,26 @@
             ></v-text-field>
             <v-text-field
               ref="zip"
-              v-model.number="zip"
+              v-model.Number="zip"
               label="ZIP / Postal Code"
               required
               placeholder=""
             ></v-text-field>
             {{zip}}
-            <v-autocomplete
+            <v-text-field
               ref="country"
-              :rules="[() => !!country || 'This field is required']"
-              :items="countries"
               v-model="country"
               label="Country"
-              placeholder="Select..."
+              placeholder="Country"
               required
-            ></v-autocomplete>
+            ></v-text-field>
           </v-card-text>
           <v-divider class="mt-5"></v-divider>
           <p>*this field is not required</p>
           <v-card-actions>
-              
-            <v-btn flat>Cancel</v-btn>
+              <router-link to='/shop' >
+            <v-btn flat >Back to order</v-btn>
+            </router-link>
             <v-spacer></v-spacer>
             <v-slide-x-reverse-transition>
               <v-tooltip
@@ -110,7 +110,14 @@
                 <span>Refresh form</span>
               </v-tooltip>
             </v-slide-x-reverse-transition>
-            <v-btn color="primary" flat @click="addOrder()">Submit</v-btn>
+            <div class="text-xs-center" v-if='spinner'>
+      <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+            </div>
+            <v-btn v-if='!spinner' color="primary" flat @click="addOrder(), getId()">Submit</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -119,6 +126,11 @@
     </div>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
+  
+</v-content>
 
 </template>
 
@@ -132,18 +144,22 @@ export default {
                {text: 'Title', value: 'title'},
                {text: 'Price', value: 'price'},
                {text: 'Quantity', value: 'quantity'},
-               {text: 'Delete'}
+               {text: 'Delete', value: 'delete'}
             ],
     errorMessages: '',
     name: '',
+    randomNum: 0,
+    postData: [],
     address: '',
     city: '',
     state: '',
+    spinner: false,
     zip: '',
     country: '',
     status: 'New order',
+    _id: '',
     formHasErrors: false,
-    countries: ['Poland', 'USA', "France"],
+    countries: '',
         }
     },
     computed: {
@@ -165,12 +181,7 @@ export default {
       return true
     },
     resetForm () {
-      this.errorMessages = []
-      this.formHasErrors = false
-
-      Object.keys(this.form).forEach(f => {
-        this.$refs[f].reset()
-      })
+    
     },
     async addOrder () {
       if(this.name.length > 0 && this.address.length > 4 && this.city.length > 3) {
@@ -180,16 +191,30 @@ export default {
         address: this.address,
         city: this.city,
         zip: this.zip,
-        country: this.countries,
+        country: this.country,
         summary: this.summary,
-        status: this.status
-
-      })
-      this.$router.push({ name: 'Posts' })
-        } else {
+        status: this.status,
+        randomNum: this.getRandomNum()
+        })
+        setTimeout(() => {
+          this.$router.push({name: 'UserOrder', params: { id: this._id} })  
+        }, 3000); 
+          } else {
           alert('Fill the form')
         }
       },
+      getRandomNum() {
+       return this.randomNum = Math.random() * 30
+      },
+      async getId() {
+        const response = await PostsService.getOrder()
+        const mapdata = response.data.map(item => {
+          if (item.randomNum === this.randomNum) {
+          this._id =  item._id
+          this.spinner = true;
+          }
+        })
+      }
     }
 }
 </script>

@@ -11,6 +11,7 @@ var Order = new Schema({
    summary: Number,
    createdAt: { type: Date, default: Date.now },
    status: String,
+   randomNum: Number,
 },{
    collection: 'orders'
 });

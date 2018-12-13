@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '../components/Hello'
 import EachOrder from '../components/_Dashboard/EachOrder.vue'
+import UserOrder from '../components/UserOrder.vue'
+import CheckOrder from '../components/CheckOrder'
+import PageNotFound from '../components/PageNotFound'
 // import Posts from '../components/Posts'
 // import NewPost from '../components/NewPost.vue'
 // import showPost from '../components/showPost.vue'
@@ -89,6 +92,24 @@ export default new Router({
         path: '/dashboard/:id',
         name: 'EachOrder',
         component: EachOrder,
-      }    
+      },
+      {
+        path: '/payment/:id',
+        name: 'UserOrder',
+        component: UserOrder,
+      },
+      {
+        path: '/checkorder',
+        name: 'CheckOrder',
+        component: CheckOrder,
+      },
+      {
+        path: "*",
+        component: PageNotFound,
+      },
+      {
+        path: "/*/*",
+        component: PageNotFound,
+      }
   ]
 })

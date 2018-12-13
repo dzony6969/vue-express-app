@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <v-app>
    <app-header></app-header>
        <transition 
        mode='out-in'
@@ -9,6 +10,7 @@
        >
          <router-view/>
        </transition>
+       </v-app>
   </div>
 </template>
 

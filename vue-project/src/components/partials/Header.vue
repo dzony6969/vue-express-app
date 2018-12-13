@@ -72,6 +72,14 @@
             admin dashboard
           </v-list-tile-content>
         </v-list-tile>
+         <v-list-tile to='/checkorder'>
+          <v-list-tile-action>
+            <v-icon>shopping_basket</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            Check order status
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     
