@@ -117,7 +117,7 @@
         indeterminate
       ></v-progress-circular>
             </div>
-            <v-btn v-if='!spinner' color="primary" flat @click="addOrder(), getId()">Submit</v-btn>
+            <v-btn v-if='!spinner' color="primary" :disabled="disableButton"  flat @click="addOrder(), getId()">Submit</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -148,6 +148,7 @@ export default {
             ],
     errorMessages: '',
     name: '',
+    disableButton: false,
     randomNum: 0,
     postData: [],
     address: '',
@@ -198,6 +199,7 @@ export default {
         status: this.status,
         randomNum: this.getRandomNum()
         })
+        this.disableButton = true;
         setTimeout(() => {
           this.cleanCart()
           this.newOrders()

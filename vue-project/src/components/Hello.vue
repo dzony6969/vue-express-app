@@ -13,9 +13,11 @@
     >
       <h1 class="display-2 font-weight-black font-italic">Nature shop</h1>
       <h4 class="subheading">Build your application today!</h4>
-      <v-btn color="error" 
+      <div class=''>
+      <v-btn class='elevation-20 hover--button' large color='transparent'
       @click="$vuetify.goTo('#first', options)"
-      dark large>Our product</v-btn>
+      >Our product</v-btn>
+      </div>
       
     </v-layout>
   </v-parallax>
@@ -24,11 +26,11 @@
          <div id='first'>
         <after-paralex>
           <div align-center>
-          <v-btn color="error" 
+          <v-btn dark large
       @click="$vuetify.goTo('#four', options)"
-      dark large>Contact Us!</v-btn>
+      >Contact Us!</v-btn>
       <router-link to='/posts'>
-      <v-btn color="error" dark large>Visit our online shop</v-btn>
+      <v-btn  dark large>Visit our online shop</v-btn>
       </router-link>
       </div>
         </after-paralex>
@@ -84,6 +86,9 @@ hr.style10 {
 	border-bottom: 1px dotted #fff;
   width: 50%;
 }
-
+.hover--button:hover {
+  background-color: white;
+  transition-duration: 0.6s;
+}
 
 </style>

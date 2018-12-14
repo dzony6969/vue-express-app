@@ -27,6 +27,6 @@ export default {
 
 <style>
 * {
-font-family: 'Open Sans', sans-serif;
+font-family: 'Arvo', serif;
 }
 </style>

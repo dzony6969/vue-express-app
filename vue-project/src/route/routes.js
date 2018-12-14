@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../_store/store'
 import Hello from '../components/Hello'
 import EachOrder from '../components/_Dashboard/EachOrder.vue'
 import UserOrder from '../components/UserOrder.vue'
@@ -67,7 +68,8 @@ export default new Router({
     {
         path: '/new',
         name: 'NewPost',
-        component: NewPost
+        component: NewPost,
+        beforeEnter: checkAuth
     },
     {
         path: '/posts/:id',
@@ -88,11 +90,13 @@ export default new Router({
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
+        beforeEnter: checkAuth
       },
       {
         path: '/dashboard/:id',
         name: 'EachOrder',
         component: EachOrder,
+        beforeEnter: checkAuth
       },
       {
         path: '/payment/:id',
@@ -117,5 +121,13 @@ export default new Router({
         path: "/*/*",
         component: PageNotFound,
       }
-  ]
+  ],
+  
 })
+function checkAuth(to, from, next) {
+if (!store.getters.admin.isAdmin) {
+  next('*')
+} else {
+  next()
+}
+}
