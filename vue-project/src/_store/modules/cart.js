@@ -9,7 +9,10 @@ const actions = {
       },
       priceSum ({commit}) {
         commit('PRICE_SUM')
-      }
+      },
+    cleanCart({commit}) {
+      commit("CLEAN_CART")
+    }
 }
 
 const mutations = {
@@ -24,6 +27,9 @@ const mutations = {
       DELETE_CART (state, payload) {
         const record = state.cart.find(element => element.id == payload.id)
         return state.cart.splice(state.cart.indexOf(record), 1);
+      },
+      CLEAN_CART (state, payload) {
+        state.cart = []
       },
       PRICE_SUM(state) {
         state.cart.reduce((cur, item) => {

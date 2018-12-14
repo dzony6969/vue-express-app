@@ -1,10 +1,27 @@
 <template>
-    <div>
+    <v-content>
         <br>
         <br>
         <br>
         <br>
-        
-        <h1>Page not found kurwa</h1>
-    </div>
+        <v-container>
+            <v-flex align-center>
+                <v-card class='notFound text-center'>
+                    <h1>404 not found</h1>
+                    <router-link to='/posts'>
+                    <v-btn dark >Back to shop</v-btn>
+                    </router-link>
+                </v-card>
+                
+            </v-flex>
+        </v-container>
+    </v-content>
 </template>
+
+<style lang="scss">
+    .notFound {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 50px;
+    }
+</style>

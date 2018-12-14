@@ -35,14 +35,6 @@
             SHOP
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile to='/new'>
-          <v-list-tile-action>
-            <v-icon>shop</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            NEW ITEM
-          </v-list-tile-content>
-        </v-list-tile>
         <v-list-tile to='/shop'>
           <v-list-tile-action>
             <v-icon> shopping_basket</v-icon>
@@ -64,20 +56,55 @@
           </div>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile to='/dashboard'>
-          <v-list-tile-action>
-            <v-icon>shopping_basket</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            admin dashboard
-          </v-list-tile-content>
-        </v-list-tile>
-         <v-list-tile to='/checkorder'>
+        <v-list-tile to='/checkorder'>
           <v-list-tile-action>
             <v-icon>shopping_basket</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             Check order status
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-if='!admin.isAdmin' to='/admin'>
+          <v-list-tile-action>
+            <v-icon>shopping_basket</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            Login as admin
+          </v-list-tile-content>
+        </v-list-tile>
+        <div v-if='admin.isAdmin'>
+        <br>
+        <h3>Admin dashboard</h3>
+        </div>
+        <v-list-tile v-if='admin.isAdmin' to='/dashboard'>
+          <v-list-tile-action>
+            <v-icon>shopping_basket</v-icon>
+          </v-list-tile-action>
+          <div flat>
+          <v-badge
+            color="cyan"
+            right
+          >
+          Users orders
+            <span slot="badge"> {{newOrder}}</span>
+          </v-badge>
+          </div>
+        </v-list-tile>
+        <v-list-tile v-if='admin.isAdmin' to='/new'>
+          <v-list-tile-action>
+            <v-icon>shop</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            NEW ITEM
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-if='admin.isAdmin' @click='logout'>
+          <v-list-tile-action>
+            <v-icon>shop</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            Log out
+            
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -100,21 +127,36 @@
 
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
    export default {
      data() {
        return {
-         drawer: false,
+        drawer: false,
+        adminPassword: '',
+        adminUser: ''
        }
      },
      computed: {
        ...mapGetters([
-         'cart'
+         'cart',
+         'admin',
+         'newOrder'
        ]),
        checkOrder() {
          if(this.cart.length > 0) {
            return this.drawer = true;
          }
+       },
+     },
+     methods: {
+       ...mapActions([
+         'newOrders'
+       ]),
+        logout() {
+         this.admin.password = '',
+         this.admin.user = '',
+         this.admin.isAdmin = false;
+         this.$router.push({name: 'Posts'})
        }
      }
 }

@@ -21,13 +21,14 @@
         <br>
         <input type="text" v-model='order.name'>
         <input type="text" v-model='order.status'>
-        <button class="app_post_btn" @click="upPost">Update</button>
+        <button class="app_post_btn" @click="upPost()">Update</button>
         </v-container>
     </v-content>
 </template>
 
 <script>
 import PostsService from '../../../services/PostsService'
+import { mapActions } from 'vuex';
 
     export default {
         name: 'EachOrder',
@@ -50,6 +51,9 @@ import PostsService from '../../../services/PostsService'
               this.getOneOrder()
         },
         methods: {
+            ...mapActions([
+                'newOrders'
+            ]),
         async getOneOrder () {
       try {
       const response = await PostsService.oneOrder({
@@ -64,7 +68,6 @@ import PostsService from '../../../services/PostsService'
       this.order.createdAt = response.data.createdAt
       this.order.status = response.data.status
       } catch(err) {
-        console.log(err)
       }
     },
     async upPost() {
@@ -73,6 +76,7 @@ import PostsService from '../../../services/PostsService'
             status: this.order.status,
             name: this.order.name
             })
+            this.newOrders()
              this.$router.push({ name: 'dashboard' })
         }
      }

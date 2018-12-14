@@ -171,7 +171,9 @@ export default {
     },
     methods: {
         ...mapActions([
-            'deleteItem'
+            'deleteItem',
+            'newOrders',
+            'cleanCart'
         ]),
         addressCheck () {
       this.errorMessages = this.address && !this.name
@@ -197,6 +199,8 @@ export default {
         randomNum: this.getRandomNum()
         })
         setTimeout(() => {
+          this.cleanCart()
+          this.newOrders()
           this.$router.push({name: 'UserOrder', params: { id: this._id} })  
         }, 3000); 
           } else {

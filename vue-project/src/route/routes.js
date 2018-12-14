@@ -5,6 +5,7 @@ import EachOrder from '../components/_Dashboard/EachOrder.vue'
 import UserOrder from '../components/UserOrder.vue'
 import CheckOrder from '../components/CheckOrder'
 import PageNotFound from '../components/PageNotFound'
+import AdminLogin from '../components/AdminLogin'
 // import Posts from '../components/Posts'
 // import NewPost from '../components/NewPost.vue'
 // import showPost from '../components/showPost.vue'
@@ -102,6 +103,11 @@ export default new Router({
         path: '/checkorder',
         name: 'CheckOrder',
         component: CheckOrder,
+      },
+      {
+        path: '/admin',
+        name: 'admin',
+        component: AdminLogin,
       },
       {
         path: "*",

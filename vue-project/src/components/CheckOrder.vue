@@ -63,7 +63,7 @@ import PostsService from '../../services/PostsService'
                 if(item === this.id) {
                     this.$router.push({name: 'UserOrder', params: { id: this.id} }) 
                     } else if(item != this.id) {
-                        this.errorMsg = true;
+                            this.errorMsg = true;
                         setTimeout(() => {
                             this.errorMsg = false;
                         }, 5000)

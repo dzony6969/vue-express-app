@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import postModule from './modules/posts.js'
 import orderModule from './modules/order'
 import cartModule from './modules/cart'
+import adminModule from './modules/admin'
 Vue.use(Vuex)
 const store = new Vuex.Store({
 
@@ -22,6 +23,7 @@ const store = new Vuex.Store({
     postModule,
     orderModule,
     cartModule,
+    adminModule,
   }
 
   })
