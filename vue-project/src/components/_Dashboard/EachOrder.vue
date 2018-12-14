@@ -1,5 +1,5 @@
 <template>
-<v-content>
+<div>
     <br>
     <br>    
     <br>
@@ -59,7 +59,7 @@
           </div>
           <br>
         </v-card>
-    </v-content>
+    </div>
 </template>
 
 <script>

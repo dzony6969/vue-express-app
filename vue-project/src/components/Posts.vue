@@ -1,5 +1,5 @@
 <template>
-<v-content>
+<div>
   <br>
   <br> 
   <br>
@@ -53,7 +53,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-content>
+    </div>
 </template>
 
 <script>

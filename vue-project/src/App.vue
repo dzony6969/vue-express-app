@@ -1,4 +1,5 @@
 <template>
+  <v-content>
   <div id="app">
     <v-app>
    <app-header></app-header>
@@ -12,6 +13,7 @@
        </transition>
        </v-app>
   </div>
+  </v-content>
 </template>
 
 <script>
@@ -29,4 +31,5 @@ export default {
 * {
 font-family: 'Arvo', serif;
 }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-<v-content>
+<div>
 <div>
     <div v-if='cart.length > 0'>
         <br>
@@ -129,8 +129,7 @@
   <br>
   <br>
   <br>
-  
-</v-content>
+  </div>
 
 </template>
 

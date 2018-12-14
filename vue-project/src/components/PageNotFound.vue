@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+   <div>
         <br>
         <br>
         <br>
@@ -15,7 +15,7 @@
                 
             </v-flex>
         </v-container>
-    </v-content>
+</div>
 </template>
 
 <style lang="scss">

@@ -1,5 +1,4 @@
 <template>
-<v-content>
     <v-container>
     <v-layout row class="text-xs-center">
       <v-flex xs4 class="grey lighten-4 center--login">
@@ -20,7 +19,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-</v-content>
 </template>
 
 <script>
@@ -53,6 +51,6 @@ import {mapGetters, mapActions} from 'vuex'
 </script>
 <style lang="scss">
     .center--login {
-        margin: 60px auto;
+        margin: 0px auto;
     }
 </style>

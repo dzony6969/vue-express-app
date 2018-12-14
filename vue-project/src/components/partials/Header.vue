@@ -1,9 +1,12 @@
 <template>
+
 <div>
 <div>
     
     <v-navigation-drawer
+    enable-resize-watcher
       fixed
+      :clipped="clipped"
       v-model="drawer"
       app
       id='drawer--z'
@@ -110,7 +113,9 @@
       </v-list>
     </v-navigation-drawer>
     
-    <v-toolbar color="indigo" dark fixed id='toolbar-zIndex'>
+    <v-toolbar color="indigo" 
+    :clipped-left="clipped"
+    dark fixed app id='toolbar-zIndex'>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Application</v-toolbar-title>
        <v-spacer></v-spacer>
@@ -121,7 +126,6 @@
     </v-toolbar>
 </div>
 </div>
-
 </template>
 
 
@@ -133,7 +137,8 @@ import { mapGetters, mapActions, mapState } from 'vuex'
        return {
         drawer: false,
         adminPassword: '',
-        adminUser: ''
+        adminUser: '',
+        clipped: false,
        }
      },
      computed: {

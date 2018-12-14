@@ -1,5 +1,5 @@
 <template>
-<v-content>
+<div>
 <section>
          <v-parallax
     dark
@@ -47,7 +47,7 @@
         <div id='five'>
           <app-footer></app-footer>
         </div>
-</v-content>
+        </div>
 </template>
 <script>
 import AfterParalex from './HomePage/AfterParalex'
@@ -81,11 +81,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-hr.style10 {
-	border-top: 1px dotted #8c8b8b;
-	border-bottom: 1px dotted #fff;
-  width: 50%;
-}
+
 .hover--button:hover {
   background-color: white;
   transition-duration: 0.6s;

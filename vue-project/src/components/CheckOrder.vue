@@ -1,5 +1,5 @@
 <template>
-<v-content>
+<div>
     <br>
     <br>
     <br>
@@ -41,7 +41,7 @@
         <br>
   </v-card>
   
-  </v-content>
+  </div>
 </template>
 <script>
 import PostsService from '../../services/PostsService'

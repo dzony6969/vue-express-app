@@ -1,6 +1,5 @@
 <template>
 <div>
-<v-content>
   <div class="">
     <br>
     <br>
@@ -151,7 +150,6 @@
       </v-stepper-content>
     </v-stepper>
         </div>
-        </v-content>
         </div>
 </template>
 

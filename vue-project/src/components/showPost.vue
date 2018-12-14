@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+ <div>
     <br>
     <br>
     <br>
@@ -7,7 +7,7 @@
 
       <div class="row">
 
-        <div class="col-lg-3">
+        <div class=" offset-lg-2 col-lg-2">
           <h1 class="my-4">Nature shop</h1>
           <div class="list-group">
             <a href="#" class="list-group-item active">Category 1</a>
@@ -17,7 +17,7 @@
         </div>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-6">
+        <div class="col-lg-5">
 
           <div class="card mt-4">
             <img class="card-img-top img-fluid" :src="product.img" alt="">
@@ -62,7 +62,7 @@
       </div>
 
     </div>
-  </v-content>
+    </div>
 </template>
 
 <script>

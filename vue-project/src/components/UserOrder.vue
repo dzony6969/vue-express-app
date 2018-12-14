@@ -1,10 +1,7 @@
 <template>
-<v-content>
+<div>
     <br>
     <br>    
-    <br>
-    <br>
-    <br>
     <br>
        <v-card
       class="mx-auto elevation-20"
@@ -41,7 +38,8 @@
           </div>
           <br>
         </v-card>
-    </v-content>
+        </div>
+    
 </template>
 
 <script>
