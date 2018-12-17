@@ -14,12 +14,15 @@ mongoose.connect(MONGO_URL, { useNewUrlParser: true }).then(
 //routes
 const posts = require('./routes/api/posts.js');
 const order = require('./routes/api/order')
+const comment = require('./routes/api/comments')
 //middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/api/posts', posts);
 app.use('/api/order', order);
+app.use('/api/posts', comment)
+
 // mongoconnect
 if (process.env.NODE_ENV === 'production') {
     // Static folder

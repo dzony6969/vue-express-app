@@ -2,6 +2,7 @@
 
 <div>
 <div>
+
     
     <v-navigation-drawer
     enable-resize-watcher
@@ -10,16 +11,20 @@
       v-model="drawer"
       app
       id='drawer--z'
+      dark
+      class='elevation-20'
 
     >
     {{checkOrder}}
+    <br>
+    <br>
       <v-list dense>
         <v-list-tile @click='drawer = false'>
-          <v-list-tile-action>
+          <v-list-tile-action class='text-center'>
             <v-icon large>close</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-           CLOSE PANEL
+          
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to='/'>
@@ -27,7 +32,7 @@
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-           HOME
+           <strong>HOME</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to='/posts'>
@@ -35,7 +40,7 @@
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            SHOP
+            <strong>SHOP</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile to='/shop'>
@@ -44,7 +49,7 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <div v-if='cart.length === 0'>
-             Your order ({{cart.length}})
+             <strong>YOUR ORDER ({{cart.length}})</strong>
              </div>
           <div
           v-if='cart.length > 0' flat
@@ -53,7 +58,7 @@
             color="cyan"
             right
           >
-          ORDER
+          <strong>ORDER</strong>
             <span slot="badge"> {{cart.length}}</span>
           </v-badge>
           </div>
@@ -64,7 +69,7 @@
             <v-icon>shopping_basket</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            Check order status
+            <strong>CHECK STATUS</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if='!admin.isAdmin' to='/admin'>
@@ -72,7 +77,7 @@
             <v-icon>shopping_basket</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            Login as admin
+           <strong>LOGIN</strong>
           </v-list-tile-content>
         </v-list-tile>
         <div v-if='admin.isAdmin'>
@@ -81,39 +86,39 @@
         </div>
         <v-list-tile v-if='admin.isAdmin' to='/dashboard'>
           <v-list-tile-action>
-            <v-icon>shopping_basket</v-icon>
+            <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <div flat>
           <v-badge
             color="cyan"
             right
           >
-          Users orders
+          <strong>USER ORDERS</strong>
             <span slot="badge"> {{newOrder}}</span>
           </v-badge>
           </div>
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' to='/new'>
           <v-list-tile-action>
-            <v-icon>shop</v-icon>
+            <v-icon>create_new_folder</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            NEW ITEM
+            <strong>NEW ITEM</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' @click='logout'>
           <v-list-tile-action>
-            <v-icon>shop</v-icon>
+            <v-icon>offline_bolt</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            Log out
+            <strong>LOGOUT</strong>
             
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     
-    <v-toolbar color="indigo" 
+    <v-toolbar color="blue-grey lighten-1" 
     :clipped-left="clipped"
     dark fixed app id='toolbar-zIndex'>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -217,7 +222,7 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 a {
   text-decoration: none;
 }
-#aside--menu {
-  display: none;
+
+.v-list__tile__content:hover {
 }
 </style>

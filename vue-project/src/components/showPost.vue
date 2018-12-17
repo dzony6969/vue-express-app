@@ -32,12 +32,21 @@
           fab
           medium
           right
-          bottom
+          middle
+          @click='addToCart(product)'
         >
-          <v-icon @click='addToCart(product)' >shopping_basket</v-icon>
+          <v-icon  >shopping_basket</v-icon>
         </v-btn>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
+              <v-rating
+                              
+                              background-color="green lighten-3"
+                              color="green"
+                              medium
+                              :value='avgRating'
+                              readonly
+                            ></v-rating>
+                           <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
+                           <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
             </div>
           </div>
           <!-- /.card -->
@@ -47,15 +56,65 @@
               Product Reviews
             </div>
             <div class="card-body">
-              
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <div v-for='comment in product.comments' :key='comment._id' class='comment'>
+                <all-comment></all-comment>
+              <v-rating
+                              :value='comment.rating'
+                              background-color="green lighten-3"
+                              color="green"
+                              medium
+                              readonly
+                            ></v-rating>
+
+                          
+                            <p>{{comment.text}}</p>
+              <small class="text-muted">Posted by {{comment.author}} on 3/1/17</small>
               <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
+              </div>
+               <div class="form-group">
+                    
+                            <div class="col-sm-12">
+                              <v-textarea
+                                    v-model='comment.text'
+                                    auto-grow
+                                    box
+                                    color="deep-purple"
+                                    label="Comment"
+                                    rows="1"
+                                  ></v-textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          
+                            <div class="col-sm-12 w-25">                    
+                                <div class="input-group">
+                                  <v-text-field
+                                    v-model="comment.author"
+                                    color="purple darken-2"
+                                    label="Author"
+                                    required
+                                    
+                                  ></v-text-field>
+                                </div>
+                            </div>
+                            <div class='col-sm-12'>
+                              <p>Rating:</p>
+                            <v-rating
+                           v-model='comment.rating'
+                              background-color="green lighten-3"
+                              color="green"
+                              medium
+                            ></v-rating>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">                    
+                                <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
+                            </div>
+                        </div>  
             </div>
           </div>
           <!-- /.card -->
-
         </div>
         <!-- /.col-lg-9 -->
 
@@ -67,6 +126,8 @@
 
 <script>
 import PostsService from '../../services/PostsService'
+import AllComment from './_postComponent/AllComment'
+import { mapState } from 'vuex';
 export default {
   name: 'showPost',
   data () {
@@ -77,13 +138,26 @@ export default {
       img: '',
       price: '',
       id: '',
-     }
+      comments: [],
+      avgRatings: 0,
+     },
+      comment: [{
+         text: '',
+         author: '',
+         rating: '',
+      }]
     }
+  },
+  components: {
+    AllComment,
   },
   mounted () {
     this.getPost()
   },
   methods: {
+    reloadPage(){
+    window.location.reload()
+  },
     async getPost () {
       try {
       const response = await PostsService.getPost({
@@ -94,8 +168,22 @@ export default {
       this.product.img = response.data.img
       this.product.price = response.data.price
       this.product.id = response.data._id
+      this.product.comments = response.data.comments
       } catch(err) {
         console.log(err)
+      }
+    },
+    async addComment () {
+      if(this.comment.rating > 0) {
+      await PostsService.addComment({
+        id: this.$route.params.id,
+        text: this.comment.text,
+        author: this.comment.author,
+        rating: this.comment.rating,
+      })
+      this.reloadPage()
+      } else {
+        alert('You must to evaluate this product')
       }
     },
     addToCart(product) {
@@ -108,29 +196,24 @@ export default {
                 quantity: 1
                 })
             }
+  },
+  computed: {
+    ...mapState([
+      'comments'
+    ]),
+    avgRating() {
+      const rate = this.product.comments.map((item) => item.rating)
+      const rateArray = Array.from(rate)
+      const sum = rateArray.reduce((prev, cur) => {
+        return prev + cur
+      }, 0)
+      let avg = sum/this.product.comments.length
+      return avg
+      
+    },
   }
 }
 </script>
 <style type="text/css">
-.form input, .form textarea {
-  width: 500px;
-  padding: 10px;
-  border: 1px solid #e0dede;
-  outline: none;
-  font-size: 12px;
-}
-.form div {
-  margin: 20px;
-}
-.app_post_btn {
-  background: #4d7ef7;
-  color: #fff;
-  padding: 10px 80px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-  width: 520px;
-  border: none;
-  cursor: pointer;
-}
+
 </style>

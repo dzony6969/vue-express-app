@@ -3,12 +3,14 @@ const mongodb = require('mongodb');
 const router = express.Router();
 //get posts
 const Post = require('../../models/posts')
+const Comment = require('../../models/posts')
 
 router.route('/').post(function (req, res) {
     let post = new Post(req.body);
     post.save()
+    post.comments.push(Comment)
       .then(() => {
-        res.status(200).json({'business': 'business in added successfully'});
+        res.status(200).json({});
       })
       .catch(() => {
         res.status(400).send("unable to save to database");
@@ -55,17 +57,25 @@ router.route('/').post(function (req, res) {
 //     const data = await posts.findOne({ _id: new mongodb.ObjectID(req.params.id) });
 //     return res.send(data);
 // })
-router.route('/:id').get(function (req, res) {
-    let id = req.params.id;
-    Post.findById(id, function (err, post){
-        if(err) {
-          res.json(err);
+// router.route('/:id').get(function (req, res) {
+//     let id = req.params.id;
+//     Post.findById(id).populate('comments', function (err, post){
+//         if(err) {
+//           res.json(err);
+//         }
+//         res.json(post);
+//     });
+//   });
+
+  router.get('/:id', (req, res) => {
+    Post.findById(req.params.id).populate('comments').exec(function (err, post) {
+        if(!err) {
+          console.log(post)
+            res.json(post)
         }
-        res.json(post);
-    });
-  });
+    })    
 
-
+});
 //delete posts
 // router.delete('/:id', async (req, res) => {
 //     try {

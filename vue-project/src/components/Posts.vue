@@ -52,6 +52,13 @@
             <shop-list v-if='filteredPosts.length > 0' :filteredPosts='filteredPosts'></shop-list>
           </v-flex>
         </v-layout>
+        <div class="text-xs-center">
+      <v-pagination
+        v-model='pagination.page'
+        :length='posts.length'
+        
+      ></v-pagination>
+    </div>
       </v-container>
     </div>
 </template>
@@ -66,6 +73,11 @@ export default {
     return {
       filteredText: '',
       searchInput: '',
+       pagination: {
+        page: 1,
+        perPage: 0,
+        visible: 7
+ }
     }
   },
   components: {
@@ -77,6 +89,12 @@ export default {
     this.$store.dispatch('deletePost')
   },
   methods: {
+  },
+  watch: {
+    setPage() {
+      this.pagination.page = this.posts.length/3
+      this.pagination.perPage = this.posts.length/2
+    }
   },
   computed: {
     ...mapState([
@@ -98,7 +116,10 @@ export default {
         })
       }
 		}
-	}
+  },
+  paginationSetup() {
+    console.log(this.posts.length)
+  }
 }
 </script>
 <style lang="scss">

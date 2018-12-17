@@ -9,6 +9,12 @@ export default {
   addPost (params) {
     return Api().post('/posts', params)
   },
+  addComment (params) {
+    return Api().post("/posts/"+ params.id +'/comment', params)
+  },
+  fetchComment () {
+    return Api().get('/comment')
+  },
   addOrder (params) {
     return Api().post('/order', params)
   },
