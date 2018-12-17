@@ -19,6 +19,16 @@ router.post('/:id/comment', (req, res) => {
         console.log(err)
     })
 })
+router.route('/all/comment').get(function (req, res) {
+    Comment.find(function(err, comment){
+    if(err){
+      res.json(err);
+    }
+    else {
+      res.json(comment);
+    }
+  });
+});
 
 
 module.exports = router;

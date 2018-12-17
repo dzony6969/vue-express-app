@@ -6,18 +6,9 @@
     <div v-if='product.id.length > 3' class="container">
 
       <div class="row">
-
-        <div class=" offset-lg-2 col-lg-2">
-          <h1 class="my-4">Nature shop</h1>
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
-        </div>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-5">
+        <div class=" offset-lg-3 col-lg-5">
 
           <div class="card mt-4">
             <img class="card-img-top img-fluid" :src="product.img" alt="">
@@ -37,43 +28,23 @@
         >
           <v-icon  >shopping_basket</v-icon>
         </v-btn>
-              <v-rating
-                              
-                              background-color="green lighten-3"
-                              color="green"
-                              medium
-                              :value='avgRating'
-                              readonly
-                            ></v-rating>
-                           <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
-                           <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
+              <v-rating      
+                background-color="green lighten-3"
+                color="green"
+                medium
+                :value='avgRating'
+                readonly
+              ></v-rating>
+              <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
+              <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
             </div>
           </div>
-          <!-- /.card -->
+            <h3>Add review of our product</h3>
+          <!-- <add-comment :showComment='showComment'></add-comment> -->
+          <div>
+    <div>
 
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Product Reviews
-            </div>
-            <div class="card-body">
-              <div v-for='comment in product.comments' :key='comment._id' class='comment'>
-                <all-comment></all-comment>
-              <v-rating
-                              :value='comment.rating'
-                              background-color="green lighten-3"
-                              color="green"
-                              medium
-                              readonly
-                            ></v-rating>
-
-                          
-                            <p>{{comment.text}}</p>
-              <small class="text-muted">Posted by {{comment.author}} on 3/1/17</small>
-              <hr>
-              </div>
-               <div class="form-group">
-                    
-                            <div class="col-sm-12">
+                                <div class="col-sm-12">
                               <v-textarea
                                     v-model='comment.text'
                                     auto-grow
@@ -83,7 +54,7 @@
                                     rows="1"
                                   ></v-textarea>
                             </div>
-                        </div>
+                      
                         <div class="form-group">
                           
                             <div class="col-sm-12 w-25">                    
@@ -105,6 +76,7 @@
                               color="green"
                               medium
                             ></v-rating>
+                        
                             </div>
                         </div>
                         <div class="form-group">
@@ -112,6 +84,31 @@
                                 <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
                             </div>
                         </div>  
+                            
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+          
+          <br>
+          <br>
+          <br>
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+            Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
+            </div>
+         
+            <div class="card-body">
+                <transition-group 
+       mode='in-out'
+       enter-active-class="animated slideInDown" 
+       leave-active-class="animated slideOutDown"
+       >
+                <all-comment v-if='!showComment' v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
+                </transition-group>
+                    
+                            
             </div>
           </div>
           <!-- /.card -->
@@ -126,12 +123,19 @@
 
 <script>
 import PostsService from '../../services/PostsService'
+import AddComment from './_postComponent/AddComment.vue'
 import AllComment from './_postComponent/AllComment'
 import { mapState } from 'vuex';
 export default {
   name: 'showPost',
   data () {
     return {
+      showComment: true,
+      comment: [{
+                    text: '',
+                    author: '',
+                    rating: '',
+                    }],
      product: {
       title: '',
       text: '',
@@ -139,24 +143,22 @@ export default {
       price: '',
       id: '',
       comments: [],
-      avgRatings: 0,
      },
-      comment: [{
-         text: '',
-         author: '',
-         rating: '',
-      }]
     }
   },
   components: {
     AllComment,
+    AddComment,
   },
   mounted () {
     this.getPost()
+    setInterval(() => {
+      this.getPost()
+    }, 1000)
   },
   methods: {
-    reloadPage(){
-    window.location.reload()
+    loadComment(){
+    this.showComment = !this.showComment
   },
     async getPost () {
       try {
@@ -173,19 +175,27 @@ export default {
         console.log(err)
       }
     },
-    async addComment () {
-      if(this.comment.rating > 0) {
+     async addComment () {
+       if(this.comment.rating > 0) {
       await PostsService.addComment({
         id: this.$route.params.id,
         text: this.comment.text,
         author: this.comment.author,
         rating: this.comment.rating,
-      })
-      this.reloadPage()
-      } else {
-        alert('You must to evaluate this product')
-      }
+      },
+      this.comment.author = '',
+        this.comment.text = '',
+        this.comment.rating = '',
+        setTimeout(() => {
+          this.getPost()
+        }, 1000),
+        this.showComment = false,
+      )
+       } else {
+         alert('Please rate this product')
+       } 
     },
+    
     addToCart(product) {
             this.$store.commit({
                 type: 'addToCart',
@@ -215,5 +225,8 @@ export default {
 }
 </script>
 <style type="text/css">
-
+.show--comment {
+  cursor: pointer;
+  color: blueviolet
+}
 </style>

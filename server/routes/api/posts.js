@@ -70,7 +70,7 @@ router.route('/').post(function (req, res) {
   router.get('/:id', (req, res) => {
     Post.findById(req.params.id).populate('comments').exec(function (err, post) {
         if(!err) {
-          console.log(post)
+          
             res.json(post)
         }
     })    

@@ -13,7 +13,7 @@ export default {
     return Api().post("/posts/"+ params.id +'/comment', params)
   },
   fetchComment () {
-    return Api().get('/comment')
+    return Api().get('/posts/all/comment')
   },
   addOrder (params) {
     return Api().post('/order', params)
