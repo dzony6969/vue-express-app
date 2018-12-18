@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import appHeader from './components/partials/Header'
 export default {
   name: 'App',
