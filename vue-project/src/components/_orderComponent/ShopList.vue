@@ -124,7 +124,6 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
                 'summary'
             ]),
         },
-
         methods: { 
             ...mapActions([
                 'deleteItem',

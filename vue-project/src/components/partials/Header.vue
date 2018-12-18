@@ -106,6 +106,14 @@
             <strong>NEW ITEM</strong>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile v-if='admin.isAdmin' to='/adminpost'>
+          <v-list-tile-action>
+            <v-icon>create_new_folder</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <strong>Product list</strong>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' @click='logout'>
           <v-list-tile-action>
             <v-icon>offline_bolt</v-icon>

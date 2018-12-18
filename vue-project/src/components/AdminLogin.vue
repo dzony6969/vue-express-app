@@ -43,7 +43,6 @@ import {mapGetters, mapActions} from 'vuex'
                 } else {
                     alert('wrong password or username')
                 }
-    
             }
         }
     }

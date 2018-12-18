@@ -38,7 +38,6 @@
             <v-text-field
               ref="name"
               v-model="name"
-              :rules="[() => !!name || 'This field is required']"
               :error-messages="errorMessages"
               label="Full Name"
               placeholder=""
@@ -46,11 +45,6 @@
             ></v-text-field>
             <v-text-field
               ref="address"
-              :rules="[
-                () => !!address || 'This field is required',
-                () => !!address && address.length <= 25 || 'Address must be less than 25 characters',
-                addressCheck
-              ]"
               v-model="address"
               label="Address Line"
               placeholder=""
@@ -59,7 +53,6 @@
             ></v-text-field>
             <v-text-field
               ref="city"
-              :rules="[() => !!city || 'This field is required', addressCheck]"
               v-model="city"
               label="City"
               placeholder=""
@@ -135,7 +128,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import PostsService from '../../services/PostsService.js'
+import PostsService from '../../../services/PostsService.js'
 export default {
     data() {
         return {
@@ -175,17 +168,7 @@ export default {
             'newOrders',
             'cleanCart'
         ]),
-        addressCheck () {
-      this.errorMessages = this.address && !this.name
-        ? 'Hey! I\'m required'
-        : ''
-
-      return true
-    },
-    resetForm () {
-    
-    },
-    async addOrder () {
+          async addOrder () {
       if(this.name.length > 0 && this.address.length > 4 && this.city.length > 3) {
       await PostsService.addOrder({
         order: this.cart,

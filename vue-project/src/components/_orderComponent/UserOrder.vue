@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import PostsService from '../../services/PostsService'
+import PostsService from '../../../services/PostsService'
 
     export default {
         name: 'UserOrder',

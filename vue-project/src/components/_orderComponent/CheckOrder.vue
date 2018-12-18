@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import PostsService from '../../services/PostsService'
+import PostsService from '../../../services/PostsService'
     export default {
 
         data() {
@@ -62,13 +62,13 @@ import PostsService from '../../services/PostsService'
                 const checkId = this.orderIds.filter(item => {
                 if(item === this.id) {
                     this.$router.push({name: 'UserOrder', params: { id: this.id} }) 
-                    } else if(item != this.id) {
-                            this.errorMsg = true;
-                        setTimeout(() => {
-                            this.errorMsg = false;
+                } else if(item != this.id) {
+                        this.errorMsg = true;
+                    setTimeout(() => {
+                        this.errorMsg = false;
                         }, 5000)
                     }
-                    })
+                })
             },
             async getId() {
                 const response = await PostsService.getOrder()

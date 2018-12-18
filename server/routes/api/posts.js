@@ -8,7 +8,6 @@ const Comment = require('../../models/posts')
 router.route('/').post(function (req, res) {
     let post = new Post(req.body);
     post.save()
-    post.comments.push(Comment)
       .then(() => {
         res.status(200).json({});
       })

@@ -49,6 +49,7 @@
                                     v-model='comment.text'
                                     auto-grow
                                     box
+                                    outline
                                     color="deep-purple"
                                     label="Comment"
                                     rows="1"
@@ -57,7 +58,7 @@
                       
                         <div class="form-group">
                           
-                            <div class="col-sm-12 w-25">                    
+                            <div class="col-sm-12 col-md-6 col-lg-5">                    
                                 <div class="input-group">
                                   <v-text-field
                                     v-model="comment.author"
@@ -68,10 +69,10 @@
                                   ></v-text-field>
                                 </div>
                             </div>
-                            <div class='col-sm-12'>
+                            <div class='col-sm-12 col-md-5 col-lg-5'>
                               <p>Rating:</p>
                             <v-rating
-                           v-model='comment.rating'
+                           v-model.number='comment.rating'
                               background-color="green lighten-3"
                               color="green"
                               medium
@@ -80,14 +81,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-10">                    
-                                <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
+                            <div class="col-sm-offset-4 col-sm-10">   
+                              <br>
+                              <br>                 
+                                <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Add comment</button>
+                            <br>
+                            <br>
+
                             </div>
                         </div>  
                             
                             </div>
-                            <br>
-                            <br>
+                           
                         </div>
           
           <br>
@@ -122,9 +127,9 @@
 </template>
 
 <script>
-import PostsService from '../../services/PostsService'
-import AddComment from './_postComponent/AddComment.vue'
-import AllComment from './_postComponent/AllComment'
+import PostsService from '../../../services/PostsService'
+import AddComment from './AddComment.vue'
+import AllComment from './AllComment'
 import { mapState } from 'vuex';
 export default {
   name: 'showPost',
@@ -134,7 +139,7 @@ export default {
       comment: [{
                     text: '',
                     author: '',
-                    rating: '',
+                    rating: 0,
                     }],
      product: {
       title: '',
@@ -195,7 +200,6 @@ export default {
          alert('Please rate this product')
        } 
     },
-    
     addToCart(product) {
             this.$store.commit({
                 type: 'addToCart',
@@ -204,9 +208,9 @@ export default {
                 img: this.product.img,
                 price: this.product.price,
                 quantity: 1
-                })
+              })
             }
-  },
+          },
   computed: {
     ...mapState([
       'comments'

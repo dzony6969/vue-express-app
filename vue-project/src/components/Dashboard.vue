@@ -68,29 +68,28 @@ import DateRange from 'vuetify-daterange-picker';
             Chart,
         },
         data () {
-            
-    return {
-        picker: new Date().toISOString().substr(0, 10),
-        datePopup: true,
-        searchByName: '',
-      mainHeaders: [
-        { text: 'name', value: 'name' },
-        { text: 'order', value: 'order' },
-        { text: 'address', value: 'address'},
-        {text: 'price', value: 'price'},
-        {text: 'Created At', value: 'created'},
-        {text: 'status', value: 'status'},
-        {text: 'Detail', value: 'detail'},
-      ],
-      subHeaders: [
-        { text: 'order', value: 'order detail' },
-        { text: 'Value', value: 'value' }
-      ],
-    }
+            return {
+                    picker: new Date().toISOString().substr(0, 10),
+                    datePopup: true,
+                    searchByName: '',
+                    mainHeaders: [
+                        { text: 'name', value: 'name' },
+                        { text: 'order', value: 'order' },
+                        { text: 'address', value: 'address'},
+                        {text: 'price', value: 'price'},
+                        {text: 'Created At', value: 'created'},
+                        {text: 'status', value: 'status'},
+                        {text: 'Detail', value: 'detail'},
+                    ],
+                    subHeaders: [
+                        { text: 'order', value: 'order detail' },
+                        { text: 'Value', value: 'value' }
+                    ],
+            }
         },
-          mounted () {
-    this.$store.dispatch('getOrders')
-  },
+        mounted () {
+            this.$store.dispatch('getOrders')
+        },
         methods: {
             toggle() {
                 this.datePopup= !this.datePopup
@@ -106,9 +105,9 @@ import DateRange from 'vuetify-daterange-picker';
             },
             datePicker() {
                const orderList = this.orders.filter(item => {
-                   let date = item.createdAt.substring(0, 10)
-                    let searchInput = item.name.toLowerCase().includes(this.searchByName.toLowerCase())
-                // let searchInput = 'chuj'
+                    let date = item.createdAt.substring(0, 10)
+                    let searchInput = item.name.toLowerCase()
+                    .includes(this.searchByName.toLowerCase())
                     if(this.picker === date && !this.datePopup) {
                         return searchInput
                     } else if (this.datePopup) {
@@ -117,7 +116,6 @@ import DateRange from 'vuetify-daterange-picker';
                 })
                 return orderList
             },
-            
         }
 }
 </script>

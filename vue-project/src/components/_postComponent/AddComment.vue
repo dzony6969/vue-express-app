@@ -61,27 +61,25 @@ import PostsService from '../../../services/PostsService'
                     text: '',
                     author: '',
                     rating: '',
-                    }]
+                }]
+            }
+        },
+        methods: {
+            async addComment () {
+                if(this.comment.rating > 0) {
+                    await PostsService.addComment({
+                        id: this.$route.params.id,
+                        text: this.comment.text,
+                        author: this.comment.author,
+                        rating: this.comment.rating,
+                })
+                    this.comment.author = ''
+                    this.comment.text = ''
+                    this.comment.rating = ''
+                } else {
+                    alert('add rating before')
                 }
             },
-        methods: {
-            
-            async addComment () {
-      if(this.comment.rating > 0) {
-      await PostsService.addComment({
-        id: this.$route.params.id,
-        text: this.comment.text,
-        author: this.comment.author,
-        rating: this.comment.rating,
-      })
-        this.comment.author = ''
-        this.comment.text = ''
-        this.comment.rating = ''
-      } else {
-        alert('add rating before')
-      }
-      console.log('chuj')
-    },
-        }
+        }   
     }
 </script>

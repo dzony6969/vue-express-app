@@ -2,24 +2,41 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../_store/store'
 import Hello from '../components/Hello'
-import EachOrder from '../components/_Dashboard/EachOrder.vue'
-import UserOrder from '../components/UserOrder.vue'
-import CheckOrder from '../components/CheckOrder'
-import PageNotFound from '../components/PageNotFound'
-import AdminLogin from '../components/AdminLogin'
-// import Posts from '../components/Posts'
-// import NewPost from '../components/NewPost.vue'
-// import showPost from '../components/showPost.vue'
-// import ShopList from '../components/ShopList.vue'
-// import Payment from '../components/Payment.vue'
-// import Dashboard from '../components/Dashboard.vue'
+
 Vue.use(Router)
 
-// const Hello = resolve => {
-//   require.ensure(['../components/Hello'], () => {
-//       resolve(require('../components/Hello'));
-//   });
-// }
+
+const EachOrder = resolve => {
+  require.ensure(['../components/_Dashboard/EachOrder.vue'], () => {
+      resolve(require('../components/_Dashboard/EachOrder.vue'));
+  });
+}
+
+const UserOrder = resolve => {
+  require.ensure(['../components/_orderComponent/UserOrder.vue'], () => {
+      resolve(require('../components/_orderComponent/UserOrder.vue'));
+  });
+}
+
+const CheckOrder = resolve => {
+  require.ensure(['../components/_orderComponent/CheckOrder'], () => {
+      resolve(require('../components/_orderComponent/CheckOrder'));
+  });
+}
+
+const PageNotFound = resolve => {
+  require.ensure(['../components/partials/PageNotFound'], () => {
+      resolve(require('../components/partials/PageNotFound'));
+  });
+}
+
+
+const AdminLogin = resolve => {
+  require.ensure(['../components/AdminLogin'], () => {
+      resolve(require('../components/AdminLogin'));
+  });
+}
+
 const Posts = resolve => {
   require.ensure(['../components/Posts'], () => {
       resolve(require('../components/Posts'));
@@ -31,24 +48,29 @@ const NewPost = resolve => {
   });
 }
 const showPost = resolve => {
-  require.ensure(['../components/showPost.vue'], () => {
-      resolve(require('../components/showPost.vue'));
+  require.ensure(['../components/_postComponent/showPost.vue'], () => {
+      resolve(require('../components/_postComponent/showPost.vue'));
   });
 }
 const ShopList = resolve => {
-  require.ensure(['../components/ShopList.vue'], () => {
-      resolve(require('../components/ShopList.vue'));
+  require.ensure(['../components/_orderComponent/ShopList.vue'], () => {
+      resolve(require('../components/_orderComponent/ShopList.vue'));
   });
 }
 const Payment = resolve => {
-  require.ensure(['../components/Payment.vue'], () => {
-      resolve(require('../components/Payment.vue'));
+  require.ensure(['../components/_orderComponent/Payment.vue'], () => {
+      resolve(require('../components/_orderComponent/Payment.vue'));
   });
 }
 const Dashboard = resolve => {
   require.ensure(['../components/Dashboard.vue'], () => {
       resolve(require('../components/Dashboard.vue'));
   });
+}
+const PostAdmin = resolve => {
+  require.ensure(['../components/_Dashboard/PostAdmin.vue'], () => {
+    resolve(require('../components/_Dashboard/PostAdmin.vue'))
+  })
 }
 
 
@@ -112,6 +134,12 @@ export default new Router({
         path: '/admin',
         name: 'admin',
         component: AdminLogin,
+      },
+      {
+        path: '/adminpost',
+        name: 'adminPost',
+        component: PostAdmin,
+        beforeEnter: checkAuth,
       },
       {
         path: "*",
