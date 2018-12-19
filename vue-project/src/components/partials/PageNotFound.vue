@@ -19,9 +19,9 @@
 </template>
 
 <style lang="scss">
-    .notFound {
-        margin: 0 auto;
-        max-width: 600px;
-        padding: 50px;
-    }
+.notFound {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 50px;
+}
 </style>

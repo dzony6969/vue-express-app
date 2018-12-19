@@ -17,18 +17,17 @@
 </template>
 
 <script>
-import appHeader from './components/partials/Header'
+import appHeader from "./components/partials/Header";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    appHeader,
-  },
-}
+    appHeader
+  }
+};
 </script>
 
 <style>
 * {
-font-family: 'Arvo', serif;
+  font-family: "Arvo", serif;
 }
-
 </style>

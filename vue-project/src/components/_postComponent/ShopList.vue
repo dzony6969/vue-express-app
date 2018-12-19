@@ -66,36 +66,32 @@
 
 
 <script>
-import {mapActions} from 'vuex'
-    export default {
-        props: ['filteredPosts'],
-    mounted () {
-        this.$store.dispatch('getPosts'),
-        this.$store.dispatch('deletePost')
-    },
-    methods: {
-        ...mapActions([
-        'deletePost',
-        'priceSum'
-            ]),
-        addToCart(posts) {
-            this.$store.commit({
-                type: 'addToCart',
-                id: posts._id,
-                title: posts.title,
-                img: posts.img,
-                price: posts.price,
-                quantity: 1
-                })
-            }
+import { mapActions } from "vuex";
+export default {
+  props: ["filteredPosts"],
+  mounted() {
+    this.$store.dispatch("getPosts"), this.$store.dispatch("deletePost");
+  },
+  methods: {
+    ...mapActions(["deletePost", "priceSum"]),
+    addToCart(posts) {
+      this.$store.commit({
+        type: "addToCart",
+        id: posts._id,
+        title: posts.title,
+        img: posts.img,
+        price: posts.price,
+        quantity: 1
+      });
     }
-    }
+  }
+};
 </script>
 
 <style lang="scss">
-  #spin {
+#spin {
   margin: 20px auto;
-   width: 200px;
+  width: 200px;
   height: 150px;
   line-height: 150px;
   color: white;
@@ -103,5 +99,4 @@ import {mapActions} from 'vuex'
   font-size: 3em;
   text-align: center;
 }
-
 </style>

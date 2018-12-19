@@ -154,48 +154,46 @@
 </template>
 
 <script>
-import PostsService from '../../services/PostsService'
+import PostsService from "../../services/PostsService";
 
 export default {
-  name: 'NewPost',
+  name: "NewPost",
 
-  data () {
+  data() {
     return {
-      items: ['Nature', 'Devices', 'Plants'],
-      title: '',
-      text: '',
-      img: '',
-      price: '',
-      postType: '',
-      selected: 'post-title',
-      e6: 1,
-
-    }
+      items: ["Nature", "Devices", "Plants"],
+      title: "",
+      text: "",
+      img: "",
+      price: "",
+      postType: "",
+      selected: "post-title",
+      e6: 1
+    };
   },
   methods: {
-    async addPost () {
+    async addPost() {
       await PostsService.addPost({
         title: this.title,
         text: this.text,
         img: this.img,
         price: this.price,
         postType: this.postType
-      })
-      this.$router.push({ name: 'Posts' })
-    },
+      });
+      this.$router.push({ name: "Posts" });
+    }
   }
-}
+};
 </script>
 <style type="scss">
-  .set--width {
-    max-width : 600px;
-    padding: 20px;
-  }
-  .set--margin {
-    margin: 0 auto;
-  }
-  #v--stepper {
-    max-width: 1000px;
-  }
-
+.set--width {
+  max-width: 600px;
+  padding: 20px;
+}
+.set--margin {
+  margin: 0 auto;
+}
+#v--stepper {
+  max-width: 1000px;
+}
 </style>

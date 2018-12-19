@@ -45,13 +45,13 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                items: ['favorite', 'flash_on','build']
-            }
-        }
-    }
+export default {
+  data() {
+    return {
+      items: ["favorite", "flash_on", "build"]
+    };
+  }
+};
 </script>
 
 <style>
@@ -59,7 +59,7 @@
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   width: 100%;
 }

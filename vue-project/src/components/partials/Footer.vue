@@ -25,18 +25,11 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                links: [
-            'Home',
-            'About Us',
-            'Team',
-            'Services',
-            'Blog',
-            'Contact Us'
-          ]
-            }
-        }
-    }
+export default {
+  data() {
+    return {
+      links: ["Home", "About Us", "Team", "Services", "Blog", "Contact Us"]
+    };
+  }
+};
 </script>

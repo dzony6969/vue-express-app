@@ -144,64 +144,56 @@
 
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
-   export default {
-     data() {
-       return {
-        drawer: false,
-        adminPassword: '',
-        adminUser: '',
-        clipped: false,
-       }
-     },
-     computed: {
-       ...mapGetters([
-         'cart',
-         'admin',
-         'newOrder'
-       ]),
-       checkOrder() {
-         if(this.cart.length > 0) {
-           return this.drawer = true;
-         }
-       },
-     },
-     methods: {
-       ...mapActions([
-         'newOrders'
-       ]),
-        logout() {
-         this.admin.password = '',
-         this.admin.user = '',
-         this.admin.isAdmin = false;
-         this.$router.push({name: 'Posts'})
-       }
-     }
-}
-    
+import { mapGetters, mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      drawer: false,
+      adminPassword: "",
+      adminUser: "",
+      clipped: false
+    };
+  },
+  computed: {
+    ...mapGetters(["cart", "admin", "newOrder"]),
+    checkOrder() {
+      if (this.cart.length > 0) {
+        return this.drawer = true
+      }
+    }
+  },
+  methods: {
+    ...mapActions(["newOrders"]),
+    logout() {
+      (this.admin.password = ""),
+        (this.admin.user = ""),
+        (this.admin.isAdmin = false);
+      this.$router.push({ name: "Posts" });
+    }
+  }
+};
 </script>
 <style scoped>
-  #toolbar-zIndex {
-    z-index: 1000;
-  }
-  #drawer--z {
-    z-index: 10001;
-  }
-    a{
-        color: white;
-
-    }
-    a:hover {
-        color: black;
-        transition-duration: 0.3s;
-    }
-    .nav>li>a:hover {
-        background-color: white;
-        transition-duration: 0.4s;
-    }
-    .router-anim-enter-active {
+#toolbar-zIndex {
+  z-index: 1000;
+}
+#drawer--z {
+  z-index: 10001;
+}
+a {
+  color: white;
+}
+a:hover {
+  color: black;
+  transition-duration: 0.3s;
+}
+.nav > li > a:hover {
+  background-color: white;
+  transition-duration: 0.4s;
+}
+.router-anim-enter-active {
   animation: coming 1s;
-  animation-delay: .5s;
+  animation-delay: 0.5s;
   opacity: 0;
 }
 .router-anim-leave-active {
@@ -229,8 +221,5 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 }
 a {
   text-decoration: none;
-}
-
-.v-list__tile__content:hover {
 }
 </style>

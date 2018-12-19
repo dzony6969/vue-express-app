@@ -22,34 +22,28 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-    export default {
-        name: 'admin',
-        computed: {
-            ...mapGetters([
-                'admin'
-            ])
-        },
-        methods: {
-            ...mapActions([
-                'newOrders'
-            ]),
-            checkAdmin() {
-                if(this.admin.password === 'admin' && this.admin.user === 'admin') {
-                    this.admin.isAdmin = true;
-                    this.admin.password = 'admin',
-                    this.admin.user = 'admin'
-                    this.$router.push({name: 'dashboard'})
-                } else {
-                    alert('wrong password or username')
-                }
-            }
-        }
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: "admin",
+  computed: {
+    ...mapGetters(["admin"])
+  },
+  methods: {
+    ...mapActions(["newOrders"]),
+    checkAdmin() {
+      if (this.admin.password === "admin" && this.admin.user === "admin") {
+        this.admin.isAdmin = true;
+        (this.admin.password = "admin"), (this.admin.user = "admin");
+        this.$router.push({ name: "dashboard" });
+      } else {
+        alert("wrong password or username");
+      }
     }
-
+  }
+};
 </script>
 <style lang="scss">
-    .center--login {
-        margin: 0px auto;
-    }
+.center--login {
+  margin: 0px auto;
+}
 </style>

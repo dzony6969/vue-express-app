@@ -7,11 +7,11 @@ module.exports = {
       patterns: [path.resolve(__dirname, "./src/styles/global.scss")]
     }
   },
-  outputDir: path.resolve(__dirname, '../server/public'),
+  outputDir: path.resolve(__dirname, "../server/public"),
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:5000'
+      "/api": {
+        target: "http://localhost:5000"
       }
     }
   }

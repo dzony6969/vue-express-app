@@ -43,22 +43,21 @@
 
 <script>
 export default {
-    data: () => ({
+  data: () => ({
     fab: false
   }),
 
   methods: {
-    onScroll (e) {
-      if (typeof window === 'undefined') return
-      const top = window.pageYOffset ||   e.target.scrollTop || 0
-      this.fab = top > 20
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.fab = top > 20;
     },
-    toTop () {
-      this.$vuetify.goTo(0)
+    toTop() {
+      this.$vuetify.goTo(0);
     }
   }
-}
-
+};
 </script>
 
 <style lang="text/css">

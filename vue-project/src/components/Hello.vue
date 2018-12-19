@@ -50,41 +50,36 @@
         </div>
 </template>
 <script>
-import AfterParalex from './HomePage/AfterParalex'
-import AppProduct from './HomePage/AppProduct.vue'
-import AppParallax from './HomePage/LastParallax.vue'
-import AppFooter from './partials/Footer.vue'
-import CompanyInfo from './HomePage/CompanyInfo.vue'
+import AfterParalex from "./HomePage/AfterParalex";
+import AppProduct from "./HomePage/AppProduct.vue";
+import AppParallax from "./HomePage/LastParallax.vue";
+import AppFooter from "./partials/Footer.vue";
+import CompanyInfo from "./HomePage/CompanyInfo.vue";
 
 export default {
-  name: 'posts',
+  name: "posts",
   components: {
     AfterParalex,
     AppProduct,
     AppParallax,
     AppFooter,
-    CompanyInfo,
-
+    CompanyInfo
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
-  computed:{
+  computed: {
     options() {
       return {
-        duration: 500,
-      }
+        duration: 500
+      };
     }
-  },
-
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
-
-
 .hover--button:hover {
   background-color: white;
   transition-duration: 0.6s;
 }
-
 </style>

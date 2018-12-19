@@ -43,50 +43,49 @@
 </template>
 
 <script>
-import PostsService from '../../../services/PostsService'
+import PostsService from "../../../services/PostsService";
 
-    export default {
-        name: 'UserOrder',
-        data() {
-            return {
-                order: {
-                    id: '',
-                    order: [],
-                    name: '',
-                    address: '',
-                    city: '',
-                    zip: '',
-                    summary: '',
-                    createdAt: '',
-                    status: '',
-                    country: '',
-                }
-            }
-        },
-          mounted () {
-              this.getOneOrder()
-        },
-        methods: {
-        async getOneOrder () {
+export default {
+  name: "UserOrder",
+  data() {
+    return {
+      order: {
+        id: "",
+        order: [],
+        name: "",
+        address: "",
+        city: "",
+        zip: "",
+        summary: "",
+        createdAt: "",
+        status: "",
+        country: ""
+      }
+    };
+  },
+  mounted() {
+    this.getOneOrder();
+  },
+  methods: {
+    async getOneOrder() {
       try {
-      const response = await PostsService.oneOrder({
-        id: this.$route.params.id
-      })
-      this.order.id = response.data._id
-      this.order.address = response.data.address
-      this.order.city = response.data.city
-      this.order.country = response.data.country
-      this.order.order = response.data.order
-      this.order.name = response.data.name
-      this.order.zip = response.data.zip
-      this.order.summary = response.data.summary
-      this.order.createdAt = response.data.createdAt
-      this.order.status = response.data.status
-      } catch(err) {
-        console.log(err)
-            }
-        },
+        const response = await PostsService.oneOrder({
+          id: this.$route.params.id
+        });
+        this.order.id = response.data._id;
+        this.order.address = response.data.address;
+        this.order.city = response.data.city;
+        this.order.country = response.data.country;
+        this.order.order = response.data.order;
+        this.order.name = response.data.name;
+        this.order.zip = response.data.zip;
+        this.order.summary = response.data.summary;
+        this.order.createdAt = response.data.createdAt;
+        this.order.status = response.data.status;
+      } catch (err) {
+        console.log(err);
+      }
     }
-}
-    
+  }
+};
 </script>

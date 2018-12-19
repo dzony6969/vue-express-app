@@ -1,39 +1,90 @@
 <template>
 <div>
-        <h2 class='text-center'>Nature category products</h2>
-    <table  class="table table--width">
-  <thead>
-    <tr>
-      <th scope="col">Index</th>
-      <th scope="col name--width">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody v-for='(post, index) in posts' v-if='post.postType === "Nature"' :key='post._id'>
-    <tr>
-      <th scope="row">{{index}}</th>
-      <td>{{post.title}}</td>
-      <td>{{post.price}}$</td>
-      <td>
-          <v-dialog
+    <br>
+    <br>
+    <h1 class='text-center'>Products in store</h1>
+    <v-dialog v-model="dialogs" max-width="500px">
+      <v-card slot='activator' class='elevation-20' id='ustawTenJebanyMargin'>
+    <v-btn color="primary" dark class="m-auto">New Item</v-btn>
+    </v-card>
+    <v-card>
+        <v-card-title>
+        <span class="headline"></span>
+        </v-card-title>
+        <v-card-text>
+        <v-container grid-list-md>
+          <p v-if='!selectForm' class='alert alert-info'>You can add product with this form or move to product creator</p>
+            <router-link to='/new'> <v-btn color='primary'>Move to creator</v-btn> </router-link>
+            <v-btn @click='selectForm = true' class='primary'>Use local form</v-btn>
+            <v-layout v-if='selectForm' wrap>
+            <v-flex xs12>
+                <v-text-field v-model='product.title' label="Product name"></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+                <v-textarea
+          v-model="product.text"
+          auto-grow
+          box
+          label="Description"
+          rows="2"
+        ></v-textarea>
+            </v-flex>
+            <v-flex xs12>
+                <v-text-field v-model='product.img' label="Image link"></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+                 <v-slider
+                v-model="product.price"
+                :label="`price: ${product.price}$`"
+                hint="Nie przesadzaj"
+                min="1"
+                max="100" 
+                thumb-label
+              ></v-slider>
+            </v-flex>
+            <v-flex xs12>
+                <v-radio-group class='text-center' v-model="product.postType" row>
+                <v-radio
+                  v-for='item in items'
+                  :key='item' 
+                  :label='item'
+                  color="purple darken-2"
+                  :value='item'
+                ></v-radio>
+         </v-radio-group>
+            </v-flex>
+            </v-layout>
+        </v-container>
+        </v-card-text>
+        <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" flat @click.native='setDialog()'>Cancel</v-btn>
+        <v-btn color="blue darken-1" v-if='selectForm' flat @click="addPost()">Save</v-btn>
+        </v-card-actions>
+    </v-card>
+    </v-dialog>
+    <v-data-table :headers="headers" :items="posts" hide-actions class="elevation-3 data--table">
+    <template slot="items" slot-scope="props">
+        <td>{{ props.item.title }}</td>
+        <td class="text-xs-left">{{ props.item.price }}</td>
+        <td class="text-xs-left">{{ props.item.postType }}</td>
+        <td class="justify-left layout px-0">
+        <v-dialog
         v-model="dialog"
         width="500"
       >
-        <v-btn
-          slot="activator"
-          color="red lighten-2"
-          dark
-        >
-          Click Me
+        <v-btn slot='activator'
+         icon 
+         class=""
+         >
+         <v-icon color="pink">delete</v-icon>
         </v-btn>
-  
         <v-card>
           <v-card-title
             class="headline grey lighten-2"
             primary-title
           >
-            Privacy Policy
+            Deleting item from shop
           </v-card-title>
   
           <v-card-text>
@@ -44,211 +95,88 @@
   
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class='warning' @click='deletePost(post._id), setDialog()'>Delete</v-btn>
+            <v-btn class="error" @click="deletePost(props.item._id), setDialog()">
+              Delete
+            </v-btn>
             <v-btn dark @click='setDialog()'>Cancel</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<h2 class='text-center'>Devices category products</h2>
-    <table class="table table--width">
-  <thead>
-    <tr>
-      <th scope="col">Index</th>
-      <th scope="col name--width">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody  v-for='(post, index) in posts' v-if='post.postType === "Devices"' :key='post._id'>
-    <tr>
-      <th scope="row">{{index}}</th>
-      <td>{{post.title}}</td>
-      <td>{{post.price}}$</td>
-      <td>
-          <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <v-btn
-          slot="activator"
-          color="red lighten-2"
-          dark
-        >
-          Click Me
-        </v-btn>
-  
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Privacy Policy
-          </v-card-title>
-  
-          <v-card-text>
-              Are you sure about deleting this product?
-          </v-card-text>
-  
-          <v-divider></v-divider>
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class='warning' @click='deletePost(post._id), setDialog()'>Delete</v-btn>
-            <v-btn dark @click='setDialog()'>Cancel</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<h1 class='text-center'>Plants category products</h1>
-<table class="table table--width">
-  <thead>
-    <tr>
-      <th scope="col">Index</th>
-      <th scope="col name--width">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody  v-for='(post, index) in posts' v-if='post.postType === "Plants"' :key='post._id'>
-    <tr>
-      <th scope="row">{{index}}</th>
-      <td>{{post.title}}</td>
-      <td>{{post.price}}$</td>
-      <td>
-          <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <v-btn
-          slot="activator"
-          color="red lighten-2"
-          dark
-        >
-          Click Me
-        </v-btn>
-  
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Privacy Policy
-          </v-card-title>
-  
-          <v-card-text>
-              Are you sure about deleting this product?
-          </v-card-text>
-  
-          <v-divider></v-divider>
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class='warning' @click='deletePost(post._id), setDialog()'>Delete</v-btn>
-            <v-btn dark @click='setDialog()'>Cancel</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<h1 class='text-center'>No category product</h1>
-<table class="table table--width">
-  <thead>
-    <tr>
-      <th scope="col">Index</th>
-      <th scope="col name--width">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody  v-for='(post, index) in posts' v-if='post.postType === ""' :key='post._id'>
-    <tr>
-      <th scope="row">{{index}}</th>
-      <td>{{post.title}}</td>
-      <td>{{post.price}}$</td>
-      <td>
-          <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <v-btn
-          slot="activator"
-          color="red lighten-2"
-          dark
-        >
-          Click Me
-        </v-btn>
-  
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Privacy Policy
-          </v-card-title>
-  
-          <v-card-text>
-              Are you sure about deleting this product?
-          </v-card-text>
-  
-          <v-divider></v-divider>
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class='warning' @click='deletePost(post._id), setDialog()'>Delete</v-btn>
-            <v-btn dark @click='setDialog()'>Cancel</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-          
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+        </td>
+    </template>
+    </v-data-table>
 </div>
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
-    export default {
-        data() {
-            return {
-                dialog: false,
-            }
-        },
-         mounted () {
-            this.$store.dispatch('getPosts'),
-            this.$store.dispatch('deletePost')
-         },
-         computed: {
-             ...mapState(['posts'])
-         },
-         methods: {
-        ...mapActions([
-        'deletePost',
-            ]),
-           setDialog() {
-               this.dialog = false;
-           }
-        }
+import { mapState, mapActions } from "vuex";
+import PostsService from '../../../services/PostsService'
+export default {
+  data() {
+    return {
+      dialog: false,
+      dialogs: false,
+      selectForm: false,
+      headers: [
+    {
+        text: 'Product name',
+        align: 'left',
+        sortable: false,
+        value: 'name'
+    },
+    { text: 'Price', value: 'price' },
+    { text: 'Category', value: 'postType' },
+    { text: 'Actions', value: 'name', sortable: false }
+      ],
+      product: {
+        title: '',
+        text: '',
+        img: '',
+        price: '',
+        postType: ''
+      },
+      items: ["Nature", "Devices", "Plants"],
+    };
+  },
+  mounted() {
+    this.$store.dispatch("getPosts")
+  },
+  computed: {
+    ...mapState(["posts"])
+  },
+  methods: {
+    ...mapActions(["deletePost"]),
+    setDialog() {
+      this.dialog = false;
+      this.dialogs = false;
+    },
+     async addPost() {
+      await PostsService.addPost({
+        title: this.product.title,
+        text: this.product.text,
+        img: this.product.img,
+        price: this.product.price,
+        postType: this.product.postType
+      });
+     setTimeout(() => {
+       this.$store.dispatch("getPosts")
+       this.dialogs = false;
+     }, 2000)
     }
+  },
+};
 </script>
 
 <style lang="scss">
-    .table--width {
-        max-width: 960px;
-        margin: 30px auto;
-    }
-    .name--width {
-        max-width: 230px;
-    }
+
+.data--table {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.data--button {
+  margin: 0 auto;
+}
+#ustawTenJebanyMargin {
+  margin: 0px 0px 40px 500px;
+}
 </style>

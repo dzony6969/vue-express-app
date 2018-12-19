@@ -44,37 +44,36 @@
   </div>
 </template>
 <script>
-import PostsService from '../../../services/PostsService'
-    export default {
-
-        data() {
-            return {
-                id: '',
-                orderIds: [],
-                errorMsg: false,
-            }
-        },
-        mounted() {
-            this.getId()
-        },
-        methods: {
-            checkOrder() {
-                const checkId = this.orderIds.filter(item => {
-                if(item === this.id) {
-                    this.$router.push({name: 'UserOrder', params: { id: this.id} }) 
-                } else if(item != this.id) {
-                        this.errorMsg = true;
-                    setTimeout(() => {
-                        this.errorMsg = false;
-                        }, 5000)
-                    }
-                })
-            },
-            async getId() {
-                const response = await PostsService.getOrder()
-                const mapdata = response.data.map(item => item._id)  
-                this.orderIds = mapdata
-            }
+import PostsService from "../../../services/PostsService";
+export default {
+  data() {
+    return {
+      id: "",
+      orderIds: [],
+      errorMsg: false
+    };
+  },
+  mounted() {
+    this.getId();
+  },
+  methods: {
+    checkOrder() {
+      const checkId = this.orderIds.filter(item => {
+        if (item === this.id) {
+          this.$router.push({ name: "UserOrder", params: { id: this.id } });
+        } else if (item != this.id) {
+          this.errorMsg = true;
+          setTimeout(() => {
+            this.errorMsg = false;
+          }, 5000);
         }
+      });
+    },
+    async getId() {
+      const response = await PostsService.getOrder();
+      const mapdata = response.data.map(item => item._id);
+      this.orderIds = mapdata;
     }
+  }
+};
 </script>

@@ -57,80 +57,75 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex'
-import Chart from './_Dashboard/Chart.vue'
-
-import moment from 'moment'
-import DateRange from 'vuetify-daterange-picker';
-    export default {
-        name: 'dashboard',
-        components: {
-            Chart,
-        },
-        data () {
-            return {
-                    picker: new Date().toISOString().substr(0, 10),
-                    datePopup: true,
-                    searchByName: '',
-                    mainHeaders: [
-                        { text: 'name', value: 'name' },
-                        { text: 'order', value: 'order' },
-                        { text: 'address', value: 'address'},
-                        {text: 'price', value: 'price'},
-                        {text: 'Created At', value: 'created'},
-                        {text: 'status', value: 'status'},
-                        {text: 'Detail', value: 'detail'},
-                    ],
-                    subHeaders: [
-                        { text: 'order', value: 'order detail' },
-                        { text: 'Value', value: 'value' }
-                    ],
-            }
-        },
-        mounted () {
-            this.$store.dispatch('getOrders')
-        },
-        methods: {
-            toggle() {
-                this.datePopup= !this.datePopup
-            },
-        },
-        computed: {
-            ...mapGetters([
-                'orders'
-            ]),
-            filterDate() {
-               let dataFormat = this.orders.map(date => date.createdAt.substring(0, 10))
-
-            },
-            datePicker() {
-               const orderList = this.orders.filter(item => {
-                    let date = item.createdAt.substring(0, 10)
-                    let searchInput = item.name.toLowerCase()
-                    .includes(this.searchByName.toLowerCase())
-                    if(this.picker === date && !this.datePopup) {
-                        return searchInput
-                    } else if (this.datePopup) {
-                        return searchInput
-                    } 
-                })
-                return orderList
-            },
+import { mapGetters } from "vuex";
+import Chart from "./_Dashboard/Chart.vue";
+export default {
+  name: "dashboard",
+  components: {
+    Chart
+  },
+  data() {
+    return {
+      picker: new Date().toISOString().substr(0, 10),
+      datePopup: true,
+      searchByName: "",
+      mainHeaders: [
+        { text: "name", value: "name" },
+        { text: "order", value: "order" },
+        { text: "address", value: "address" },
+        { text: "price", value: "price" },
+        { text: "Created At", value: "created" },
+        { text: "status", value: "status" },
+        { text: "Detail", value: "detail" }
+      ],
+      subHeaders: [
+        { text: "order", value: "order detail" },
+        { text: "Value", value: "value" }
+      ]
+    };
+  },
+  mounted() {
+    this.$store.dispatch("getOrders");
+  },
+  methods: {
+    toggle() {
+      this.datePopup = !this.datePopup;
+    }
+  },
+  computed: {
+    ...mapGetters(["orders"]),
+    // filterDate() {
+    //   let dataFormat = this.orders.map(date => date.createdAt.substring(0, 10));
+    // },
+    datePicker() {
+      const orderList = this.orders.filter(item => {
+        let date = item.createdAt.substring(0, 10);
+        let searchInput = item.name
+          .toLowerCase()
+          .includes(this.searchByName.toLowerCase());
+        if (this.picker === date && !this.datePopup) {
+          return searchInput;
+        } else if (this.datePopup) {
+          return searchInput;
         }
-}
+      });
+      return orderList;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
-    #inspire {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+#inspire {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .click {
-        color: lightblue;
-        border-radius: 50%;
-    }
-    a {
-        text-decoration: none;
-    }
+.click {
+  color: lightblue;
+  border-radius: 50%;
+}
+a {
+  text-decoration: none;
+}
 </style>

@@ -64,69 +64,66 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
-import {Circle2} from 'vue-loading-spinner'
-import ShopList from './_postComponent/ShopList.vue'
+import { mapState } from "vuex";
+import { Circle2 } from "vue-loading-spinner";
+import ShopList from "./_postComponent/ShopList.vue";
 export default {
-  name: 'posts',
-  data () {
+  name: "posts",
+  data() {
     return {
-      filteredText: '',
-      searchInput: '',
-       pagination: {
+      filteredText: "",
+      searchInput: "",
+      pagination: {
         page: 1,
         perPage: 0,
         visible: 7
- }
-    }
+      }
+    };
   },
   components: {
     Circle2,
     ShopList
   },
-  mounted () {
-    this.$store.dispatch('getPosts'),
-    this.$store.dispatch('deletePost')
+  mounted() {
+    this.$store.dispatch("getPosts"), this.$store.dispatch("deletePost");
   },
-  methods: {
-  },
+  methods: {},
   watch: {
     setPage() {
-      this.pagination.page = this.posts.length/3
-      this.pagination.perPage = this.posts.length/2
+      this.pagination.page = this.posts.length / 3;
+      this.pagination.perPage = this.posts.length / 2;
     }
   },
   computed: {
-    ...mapState([
-    'posts'
-  ]),
-		filteredPosts() {
-			if(this.filteredText === "") {
-				return this.posts
-      } else if(this.filteredText === 'Nature' 
-      || this.filteredText === 'Devices' 
-      || this.filteredText === 'Plants' ) {
-				return this.posts.filter(post =>  {
-					return post.postType === this.filteredText;
-				});
-      }  else {
+    ...mapState(["posts"]),
+    filteredPosts() {
+      if (this.filteredText === "") {
+        return this.posts;
+      } else if (
+        this.filteredText === "Nature" ||
+        this.filteredText === "Devices" ||
+        this.filteredText === "Plants"
+      ) {
         return this.posts.filter(post => {
-          return post.title.toLowerCase().match(this.filteredText.toLowerCase());
+          return post.postType === this.filteredText;
+        });
+      } else {
+        return this.posts.filter(post => {
+          return post.title
+            .toLowerCase()
+            .match(this.filteredText.toLowerCase());
           // return post.title.toUpperCase() === this.searchInput.toUpperCase()
-        })
+        });
       }
-		}
-  },
-  paginationSetup() {
-    console.log(this.posts.length)
+    }
   }
-}
+};
 </script>
 <style lang="scss">
-    @import '../styles/global.scss';
+@import "../styles/global.scss";
 #spin {
   margin: 20px auto;
-   width: 200px;
+  width: 200px;
   height: 150px;
   line-height: 150px;
   color: white;
@@ -140,5 +137,4 @@ export default {
 #center--input {
   text-align: center;
 }
-
 </style>

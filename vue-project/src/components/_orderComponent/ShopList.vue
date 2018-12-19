@@ -116,20 +116,13 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapActions} from 'vuex'
-    export default {
-        computed: {
-            ...mapGetters([
-                'cart',
-                'summary'
-            ]),
-        },
-        methods: { 
-            ...mapActions([
-                'deleteItem',
-                'priceSum'
-            ]),
-            
-        }
-    }
+import { mapGetters, mapMutations, mapActions } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["cart", "summary"])
+  },
+  methods: {
+    ...mapActions(["deleteItem", "priceSum"])
+  }
+};
 </script>

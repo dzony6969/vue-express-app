@@ -119,96 +119,89 @@
     </div>
     </div>
   </div>
-  <br>
-  <br>
-  <br>
   </div>
 
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import PostsService from '../../../services/PostsService.js'
+import { mapGetters, mapActions } from "vuex";
+import PostsService from "../../../services/PostsService.js";
 export default {
-    data() {
-        return {
-            headers: [
-               {text: 'Title', value: 'title'},
-               {text: 'Price', value: 'price'},
-               {text: 'Quantity', value: 'quantity'},
-               {text: 'Delete', value: 'delete'}
-            ],
-    errorMessages: '',
-    name: '',
-    disableButton: false,
-    randomNum: 0,
-    postData: [],
-    address: '',
-    city: '',
-    state: '',
-    spinner: false,
-    zip: '',
-    country: '',
-    status: 'New order',
-    _id: '',
-    formHasErrors: false,
-    countries: '',
-        }
-    },
-    computed: {
-        ...mapGetters([
-            'cart',
-            'summary'
-        ]),
-
-    },
-    methods: {
-        ...mapActions([
-            'deleteItem',
-            'newOrders',
-            'cleanCart'
-        ]),
-          async addOrder () {
-      if(this.name.length > 0 && this.address.length > 4 && this.city.length > 3) {
-      await PostsService.addOrder({
-        order: this.cart,
-        name: this.name,
-        address: this.address,
-        city: this.city,
-        zip: this.zip,
-        country: this.country,
-        summary: this.summary,
-        status: this.status,
-        randomNum: this.getRandomNum()
-        })
+  data() {
+    return {
+      headers: [
+        { text: "Title", value: "title" },
+        { text: "Price", value: "price" },
+        { text: "Quantity", value: "quantity" },
+        { text: "Delete", value: "delete" }
+      ],
+      errorMessages: "",
+      name: "",
+      disableButton: false,
+      randomNum: 0,
+      postData: [],
+      address: "",
+      city: "",
+      state: "",
+      spinner: false,
+      zip: "",
+      country: "",
+      status: "New order",
+      _id: "",
+      formHasErrors: false,
+      countries: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["cart", "summary"])
+  },
+  methods: {
+    ...mapActions(["deleteItem", "newOrders", "cleanCart"]),
+    async addOrder() {
+      if (
+        this.name.length > 0 &&
+        this.address.length > 4 &&
+        this.city.length > 3
+      ) {
+        await PostsService.addOrder({
+          order: this.cart,
+          name: this.name,
+          address: this.address,
+          city: this.city,
+          zip: this.zip,
+          country: this.country,
+          summary: this.summary,
+          status: this.status,
+          randomNum: this.getRandomNum()
+        });
         this.disableButton = true;
         setTimeout(() => {
-          this.cleanCart()
-          this.newOrders()
-          this.$router.push({name: 'UserOrder', params: { id: this._id} })  
-        }, 3000); 
-          } else {
-          alert('Fill the form')
-        }
-      },
-      getRandomNum() {
-       return this.randomNum = Math.random() * 30
-      },
-      async getId() {
-        const response = await PostsService.getOrder()
-        const mapdata = response.data.map(item => {
-          if (item.randomNum === this.randomNum) {
-          this._id =  item._id
-          this.spinner = true;
-          }
-        })
+          this.cleanCart();
+          this.newOrders();
+          this.$router.push({ name: "UserOrder", params: { id: this._id } });
+        }, 3000);
+      } else {
+        alert("Fill the form");
       }
+    },
+    getRandomNum() {
+      return (this.randomNum = Math.random() * 30);
+    },
+    async getId() {
+      const response = await PostsService.getOrder();
+      const mapdata = response.data.map(item => {
+        if (item.randomNum === this.randomNum) {
+          this._id = item._id;
+          this.spinner = true;
+        }
+      });
     }
-}
+  }
+};
 </script>
 <style lang="scss">
-    #order--table {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
+#order--table {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 </style>

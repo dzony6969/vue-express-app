@@ -53,15 +53,15 @@
 
 
 <script>
-  export default {
-    data() {
-      return {
-        arrs: ['https://i.wpimg.pl/O/644x428/d.wpimg.pl/204634975-1593965418/bazylia.jpg',
-                'https://ogrod.smcloud.net/s/photos/t/11189/chmiel_1004241.jpg',
-                'https://7.allegroimg.com/s512/0144c4/3f9bc396465f881d892521432af7'
-              ]
-      }
-    }
+export default {
+  data() {
+    return {
+      arrs: [
+        "https://i.wpimg.pl/O/644x428/d.wpimg.pl/204634975-1593965418/bazylia.jpg",
+        "https://ogrod.smcloud.net/s/photos/t/11189/chmiel_1004241.jpg",
+        "https://7.allegroimg.com/s512/0144c4/3f9bc396465f881d892521432af7"
+      ]
+    };
   }
-
+};
 </script>

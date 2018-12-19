@@ -84,22 +84,31 @@
                             <div class="col-sm-offset-4 col-sm-10">   
                               <br>
                               <br>                 
-                                <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Add comment</button>
+        <button @click='addComment()' 
+        :disabled='disabledButton'
+        v-if='!spinner'
+        class="btn btn-success btn-circle text-uppercase text-center" 
+        type="submit" id="submitComment">
+        <span class="glyphicon glyphicon-send"></span> Add comment</button>
+                            <div class="text-xs-center"  v-if='spinner'>
+      <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+            </div>
                             <br>
                             <br>
-
                             </div>
                         </div>  
-                            
                             </div>
-                           
                         </div>
           
           <br>
           <br>
           <br>
 
-          <div class="card card-outline-secondary my-4">
+          <div class="card card-outline-secondary my-4 col-sm-12">
             <div class="card-header">
             Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
             </div>
@@ -127,110 +136,117 @@
 </template>
 
 <script>
-import PostsService from '../../../services/PostsService'
-import AddComment from './AddComment.vue'
-import AllComment from './AllComment'
-import { mapState } from 'vuex';
+import PostsService from "../../../services/PostsService";
+import AddComment from "./AddComment.vue";
+import AllComment from "./AllComment";
+import { mapState } from "vuex";
 export default {
-  name: 'showPost',
-  data () {
+  name: "showPost",
+  data() {
     return {
       showComment: true,
-      comment: [{
-                    text: '',
-                    author: '',
-                    rating: 0,
-                    }],
-     product: {
-      title: '',
-      text: '',
-      img: '',
-      price: '',
-      id: '',
-      comments: [],
-     },
-    }
+      spinner: false,
+      disabledButton: false,
+      comment: [
+        {
+          text: "",
+          author: "",
+          rating: 0
+        }
+      ],
+      product: {
+        title: "",
+        text: "",
+        img: "",
+        price: "",
+        id: "",
+        comments: []
+      }
+    };
   },
   components: {
     AllComment,
-    AddComment,
+    AddComment
   },
-  mounted () {
-    this.getPost()
-    setInterval(() => {
-      this.getPost()
-    }, 1000)
+  mounted() {
+    this.getPost();
   },
   methods: {
-    loadComment(){
-    this.showComment = !this.showComment
-  },
-    async getPost () {
+    loadComment() {
+      this.showComment = !this.showComment;
+    },
+    async getPost() {
       try {
-      const response = await PostsService.getPost({
-        id: this.$route.params.id
-      })
-      this.product.title = response.data.title
-      this.product.text = response.data.text
-      this.product.img = response.data.img
-      this.product.price = response.data.price
-      this.product.id = response.data._id
-      this.product.comments = response.data.comments
-      } catch(err) {
-        console.log(err)
+        const response = await PostsService.getPost({
+          id: this.$route.params.id
+        });
+        this.product.title = response.data.title;
+        this.product.text = response.data.text;
+        this.product.img = response.data.img;
+        this.product.price = response.data.price;
+        this.product.id = response.data._id;
+        this.product.comments = response.data.comments;
+      } catch (err) {
+        console.log(err);
       }
     },
-     async addComment () {
-       if(this.comment.rating > 0) {
-      await PostsService.addComment({
-        id: this.$route.params.id,
-        text: this.comment.text,
-        author: this.comment.author,
-        rating: this.comment.rating,
-      },
-      this.comment.author = '',
-        this.comment.text = '',
-        this.comment.rating = '',
-        setTimeout(() => {
-          this.getPost()
-        }, 1000),
-        this.showComment = false,
-      )
-       } else {
-         alert('Please rate this product')
-       } 
-    },
-    addToCart(product) {
-            this.$store.commit({
-                type: 'addToCart',
-                id: this.product.id,
-                title: this.product.title,
-                img: this.product.img,
-                price: this.product.price,
-                quantity: 1
-              })
-            }
+    async addComment() {
+      if (this.comment.rating > 0) {
+        await PostsService.addComment(
+          {
+            id: this.$route.params.id,
+            text: this.comment.text,
+            author: this.comment.author,
+            rating: this.comment.rating
           },
-  computed: {
-    ...mapState([
-      'comments'
-    ]),
-    avgRating() {
-      const rate = this.product.comments.map((item) => item.rating)
-      const rateArray = Array.from(rate)
-      const sum = rateArray.reduce((prev, cur) => {
-        return prev + cur
-      }, 0)
-      let avg = sum/this.product.comments.length
-      return avg
-      
+          (this.comment.author = ""),
+          (this.comment.text = ""),
+          (this.comment.rating = 0),
+          (this.spinner = true),
+          (this.disabledButton = true),
+          setTimeout(() => {
+            this.getPost();
+              this.spinner = false 
+              this.disabledButton = false
+          }, 3000),
+          (this.showComment = false)
+        );
+      } else {
+        alert("Please rate this product");
+      }
     },
+    addToCart() {
+      this.$store.commit({
+        type: "addToCart",
+        id: this.product.id,
+        title: this.product.title,
+        img: this.product.img,
+        price: this.product.price,
+        quantity: 1
+      });
+    }
+  },
+  computed: {
+    ...mapState(["comments"]),
+    avgRating() {
+      const rate = this.product.comments.map(item => item.rating);
+      const rateArray = Array.from(rate);
+      const sum = rateArray.reduce((prev, cur) => {
+        return prev + cur;
+      }, 0);
+      let avg = sum / this.product.comments.length;
+      return Number(avg);
+      console.log(typeof avg)
+    },
+    typeofAvg() {
+      console.log(typeof this.avgRating)
+    }
   }
-}
+};
 </script>
 <style type="text/css">
 .show--comment {
   cursor: pointer;
-  color: blueviolet
+  color: blueviolet;
 }
 </style>

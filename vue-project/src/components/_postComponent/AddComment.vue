@@ -52,34 +52,36 @@
 </template>
 
 <script>
-import PostsService from '../../../services/PostsService'
-    export default {
-        props: ['showComment'],
-        data() {
-                return {
-                    comment: [{
-                    text: '',
-                    author: '',
-                    rating: '',
-                }]
-            }
-        },
-        methods: {
-            async addComment () {
-                if(this.comment.rating > 0) {
-                    await PostsService.addComment({
-                        id: this.$route.params.id,
-                        text: this.comment.text,
-                        author: this.comment.author,
-                        rating: this.comment.rating,
-                })
-                    this.comment.author = ''
-                    this.comment.text = ''
-                    this.comment.rating = ''
-                } else {
-                    alert('add rating before')
-                }
-            },
-        }   
+import PostsService from "../../../services/PostsService";
+export default {
+  props: ["showComment"],
+  data() {
+    return {
+      comment: [
+        {
+          text: "",
+          author: "",
+          rating: ""
+        }
+      ]
+    };
+  },
+  methods: {
+    async addComment() {
+      if (this.comment.rating > 0) {
+        await PostsService.addComment({
+          id: this.$route.params.id,
+          text: this.comment.text,
+          author: this.comment.author,
+          rating: this.comment.rating
+        });
+        this.comment.author = "";
+        this.comment.text = "";
+        this.comment.rating = "";
+      } else {
+        alert("add rating before");
+      }
     }
+  }
+};
 </script>
