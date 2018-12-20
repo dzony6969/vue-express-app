@@ -21,6 +21,7 @@
                 v-model="title"
                 color="purple darken-2"
                 label="Product name"
+                :rules='titleRules'
                 required
               ></v-text-field>
     <br>
@@ -30,6 +31,7 @@
                 :label="`price: ${price}$`"
                 hint="Nie przesadzaj"
                 min="1"
+                :rules='priceRules'
                 max="100" 
                 thumb-label
               ></v-slider>
@@ -37,6 +39,7 @@
      <v-textarea
           v-model="text"
           auto-grow
+          :rules='textRules'
           box
           color="deep-purple"
           label="Description"
@@ -45,7 +48,9 @@
         </div>
           
         </v-card>
-        <v-btn dark large @click="e6 = 2">Continue</v-btn>
+        {{preventFirstStep}}
+  
+        <v-btn class='success' large :disabled='firstStep' @click="e6 = 2">Continue</v-btn>
         <router-link to='/posts'>
         <v-btn white large class='elevation-10' flat @click='e6 = 1'>Back to shop</v-btn>
         </router-link>
@@ -60,6 +65,7 @@
           <h3>Copy and past link of your product image</h3>
           <v-text-field
         v-model="img"
+        :rules='imageRules'
         color="purple darken-2"
         label='Image link (update 1day)'
         required
@@ -67,6 +73,7 @@
         <h3>Choose category</h3>
          <v-radio-group class='text-center' v-model="postType" row>
                 <v-radio
+                  :rules='postTypeRule'
                   v-for='item in items'
                   :key='item' 
                   :label='item'
@@ -78,7 +85,8 @@
             </div>
          
         </v-card>
-        <v-btn dark large @click="e6 = 3">Continue</v-btn>
+        {{preventSecondStep}}
+        <v-btn class='success' :disabled='secondStep' large @click="e6 = 3">Continue</v-btn>
         <v-btn white large class='elevation-10' flat @click='e6 = 1'>Back to step 1</v-btn>
       </v-stepper-content>
   
@@ -163,16 +171,41 @@ export default {
     return {
       items: ["Nature", "Devices", "Plants"],
       title: "",
+      titleRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length > 1 || 'Name must be atleast more than 1 characters'
+        ],
       text: "",
+      textRules: [
+          (v) => !!v || 'Description is required',
+          (v) => v && v.length > 10 || 'To short. Atleast 10 characters'
+        ],
       img: "",
+      imageRules: [
+        (v) => v && v.match(/\.(jpeg|jpg|gif|png)$/) || 'this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png '
+      ],
       price: "",
+      priceRules: [
+          // (v) => !!v || 'Name is required',
+          (v) => v && v >= 1 && v <= 100 || 'You need to setup price between 1$ or 100$'
+        ],
       postType: "",
-      selected: "post-title",
-      e6: 1
+      postTypeRule: [
+        (v) => v && v.length > 0 || 'Choose category'
+      ],
+      e6: 1,
+      firstStep: true,
+      secondStep: true,
     };
   },
   methods: {
     async addPost() {
+      if(this.postType.length > 0 &&
+      this.price > 0 && 
+      this.img.length > 0 &&
+      this.title.length > 1 &&
+      this.text.length > 10
+      ) {
       await PostsService.addPost({
         title: this.title,
         text: this.text,
@@ -181,8 +214,27 @@ export default {
         postType: this.postType
       });
       this.$router.push({ name: "Posts" });
+      } else {
+        alert('Data missing, check your form')
+      }
+    }, 
+  },
+   computed: {
+      preventFirstStep() {
+        if(this.text.length > 10 && this.price > 0 && this.title.length > 1) {
+          this.firstStep = false
+        } else {
+          this.firstStep = true
+        }
+      },
+      preventSecondStep() {
+        if(this.postType.length > 1 && this.img.match(/\.(jpeg|jpg|gif|png)$/)) {
+          this.secondStep = false
+        } else {
+          this.secondStep = true
+        }
+      }
     }
-  }
 };
 </script>
 <style type="scss">

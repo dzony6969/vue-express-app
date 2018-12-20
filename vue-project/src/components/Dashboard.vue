@@ -70,13 +70,13 @@ export default {
       datePopup: true,
       searchByName: "",
       mainHeaders: [
-        { text: "name", value: "name" },
-        { text: "order", value: "order" },
-        { text: "address", value: "address" },
-        { text: "price", value: "price" },
-        { text: "Created At", value: "created" },
-        { text: "status", value: "status" },
-        { text: "Detail", value: "detail" }
+        { text: "NAME", value: "name", sortable: false },
+        { text: "ORDER", value: "order" },
+        { text: "ADDRESS", value: "address", sortable: false },
+        { text: "AMOUNT", value: "price", sortable: false },
+        { text: "CREATED AT", value: "created" },
+        { text: "STATUS", value: "status" },
+        { text: "DETAIL", value: "detail", sortable: false }
       ],
       subHeaders: [
         { text: "order", value: "order detail" },

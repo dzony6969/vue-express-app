@@ -84,7 +84,7 @@
                             <div class="col-sm-offset-4 col-sm-10">   
                               <br>
                               <br>                 
-        <button @click='addComment()' 
+        <button @click='addComment(), updateRating()' 
         :disabled='disabledButton'
         v-if='!spinner'
         class="btn btn-success btn-circle text-uppercase text-center" 
@@ -160,7 +160,8 @@ export default {
         img: "",
         price: "",
         id: "",
-        comments: []
+        comments: [],
+        avgRating: 0,
       }
     };
   },
@@ -186,6 +187,7 @@ export default {
         this.product.price = response.data.price;
         this.product.id = response.data._id;
         this.product.comments = response.data.comments;
+        this.product.avgRating = response.data.avgRating
       } catch (err) {
         console.log(err);
       }
@@ -224,7 +226,13 @@ export default {
         price: this.product.price,
         quantity: 1
       });
-    }
+    },
+    async updateRating() {
+      await PostsService.updatePost({
+        id: this.$route.params.id,
+        avgRating: this.avgRating
+        })
+    },
   },
   computed: {
     ...mapState(["comments"]),
@@ -236,11 +244,8 @@ export default {
       }, 0);
       let avg = sum / this.product.comments.length;
       return Number(avg);
-      console.log(typeof avg)
+      this.comments = avg 
     },
-    typeofAvg() {
-      console.log(typeof this.avgRating)
-    }
   }
 };
 </script>

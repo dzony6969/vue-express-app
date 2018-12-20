@@ -1,7 +1,7 @@
 <template>
     <v-container>
     <v-layout row class="text-xs-center">
-      <v-flex xs4 class="grey lighten-4 center--login">
+      <v-flex xs12 md4 lg4 class="grey lighten-4 center--login">
         <v-container class="text-xs-center">
           <v-card flat>
             <v-card-title primary-title>

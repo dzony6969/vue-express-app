@@ -1,13 +1,13 @@
 <template>
       
-    <v-container id='listOfProduct' grid-list-md text-xs-center
+    <v-container id='listOfProduct' grid-list-md
     class='elevation-5'
     >
     <h1>OUR PRODUCTS</h1>
       <v-layout row wrap>
         
       <v-flex v-for="post in filteredPosts" :key="post._id" xs12 sm6 lg4 class="my-3">
-        
+          
         <v-hover>
     <v-card
       slot-scope="{ hover }"
@@ -27,7 +27,7 @@
             class="d-flex transition-fast-in-fast-out indigo darken-2 v-card--reveal display-3 white--text"
             style="height: 100%;"
           >
-            {{`$${post.price}`}}
+            {{`Details`}}
           </div>
         </v-expand-transition>
       </v-img>
@@ -49,9 +49,25 @@
         </v-btn>
         <a href="#" @click="deletePost(post._id)">Delete</a>
       
-        <div class="font-weight-light grey--text title mb-2">
-           
-          {{post.title}}</div>
+        <div class="">
+          <p class='title text-left'>{{post.title}}
+            <span id='align-right' class='font-weight-bold'>{{post.price}}$</span></p>
+            <p class='text-left'>{{`${post.text.substr(0, 50)}...`}}</p>
+            <div v-if='post.avgRating > 0' class='text-left'>
+            <v-rating
+        v-model="post.avgRating"
+        background-color="pink lighten-3"
+        color="pink"
+      ></v-rating> <span class='align-right'>Average user rating: <strong>{{` ${post.avgRating.toFixed(2)}`}}</strong></span> 
+      </div>
+      <div class='text-left' v-if='post.avgRating === 0'>
+        <v-rating
+        v-model="post.avgRating"
+        background-color="pink lighten-3"
+        color="pink"
+      ></v-rating> <span class='align-right'>No rating available</span>
+      </div>
+          </div>
         
                   <div class="font-weight-light title mb-2">
         </div>
@@ -98,5 +114,9 @@ export default {
   font-weight: bold;
   font-size: 3em;
   text-align: center;
+}
+#align-right {
+  float: right;
+  color: blueviolet;
 }
 </style>

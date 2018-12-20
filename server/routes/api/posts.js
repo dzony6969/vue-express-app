@@ -85,6 +85,23 @@ router.route('/').post(function (req, res) {
 //         console.log(error)
 //     }
 //   });
+
+router.route('/update/:id').put(function (req, res) {
+  Post.findById(req.params.id, function(err, post) {
+  if (!post)
+    res.status(404).send("data is not found");
+  else {
+      post.avgRating = req.body.avgRating,
+      post.save().then(() => {
+        res.json('Update complete');
+    })
+    .catch(() => {
+          res.status(400).send("unable to update the database");
+    });
+  }
+});
+});
+
 router.route('/delete/:id').delete(function (req, res) {
     Post.findByIdAndRemove({_id: req.params.id}, function(err){
         if(err) res.json(err);

@@ -18,11 +18,15 @@
             <v-btn @click='selectForm = true' class='primary'>Use local form</v-btn>
             <v-layout v-if='selectForm' wrap>
             <v-flex xs12>
-                <v-text-field v-model='product.title' label="Product name"></v-text-field>
+                <v-text-field 
+                v-model='product.title' 
+                :rules='product.titleRules'
+                label="Product name"></v-text-field>
             </v-flex>
             <v-flex xs12>
                 <v-textarea
           v-model="product.text"
+          :rules='product.textRules'
           auto-grow
           box
           label="Description"
@@ -30,11 +34,15 @@
         ></v-textarea>
             </v-flex>
             <v-flex xs12>
-                <v-text-field v-model='product.img' label="Image link"></v-text-field>
+                <v-text-field 
+                v-model='product.img' 
+                :rules='product.imageRules'
+                label="Image link"></v-text-field>
             </v-flex>
             <v-flex xs12>
                  <v-slider
                 v-model="product.price"
+                :rules='product.priceRules'
                 :label="`price: ${product.price}$`"
                 hint="Nie przesadzaj"
                 min="1"
@@ -43,7 +51,9 @@
               ></v-slider>
             </v-flex>
             <v-flex xs12>
-                <v-radio-group class='text-center' v-model="product.postType" row>
+                <v-radio-group class='text-center' 
+                :rules='product.postTypeRule'
+                v-model="product.postType" row>
                 <v-radio
                   v-for='item in items'
                   :key='item' 
@@ -58,8 +68,9 @@
         </v-card-text>
         <v-card-actions>
         <v-spacer></v-spacer>
+        {{checkForm}}
         <v-btn color="blue darken-1" flat @click.native='setDialog()'>Cancel</v-btn>
-        <v-btn color="blue darken-1" v-if='selectForm' flat @click="addPost()">Save</v-btn>
+        <v-btn color="blue darken-1" :disabled='disableButton' v-if='selectForm' flat @click="addPost()">Save</v-btn>
         </v-card-actions>
     </v-card>
     </v-dialog>
@@ -117,6 +128,7 @@ export default {
       dialog: false,
       dialogs: false,
       selectForm: false,
+      disableButton: true,
       headers: [
     {
         text: 'Product name',
@@ -130,10 +142,28 @@ export default {
       ],
       product: {
         title: '',
+        titleRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length > 1 || 'Name must be atleast more than 1 characters'
+        ],
         text: '',
+        textRules: [
+          (v) => !!v || 'Description is required',
+          (v) => v && v.length > 10 || 'To short. Atleast 10 characters'
+        ],
         img: '',
+        imageRules: [
+        (v) => v && v.match(/\.(jpeg|jpg|gif|png)$/) || 'this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png '
+      ],
         price: '',
-        postType: ''
+        priceRules: [
+          // (v) => !!v || 'Name is required',
+          (v) => v && v >= 1 && v <= 100 || 'You need to setup price between 1$ or 100$'
+        ],
+        postType: '',
+        postTypeRule: [
+        (v) => v && v.length > 0 || 'Choose category'
+        ],
       },
       items: ["Nature", "Devices", "Plants"],
     };
@@ -142,7 +172,18 @@ export default {
     this.$store.dispatch("getPosts")
   },
   computed: {
-    ...mapState(["posts"])
+    ...mapState(["posts"]),
+    checkForm() {
+      if(this.product.title.length > 1 
+      && this.product.text.length > 10 
+      && this.product.img.match(/\.(jpeg|jpg|gif|png)$/)
+      && this.product.price > 0
+      && this.product.postType.length > 0) {
+        this.disableButton = false
+      } else {
+        this.disableButton = true
+      }
+    }
   },
   methods: {
     ...mapActions(["deletePost"]),

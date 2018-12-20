@@ -30,5 +30,8 @@ export default {
   updateOrder (params) {
     return Api().put('/order/update/' + params.id, params)
   },
+  updatePost(params) {
+    return Api().put('/posts/update/' + params.id, params)
+  }
   
 }

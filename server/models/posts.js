@@ -14,8 +14,9 @@ const Post = new Schema({
   img: String,
   price: Number,
   postType: String,
+  avgRating: {type: Number, default: 0},
   createdAt: { type: Date, default: Date.now },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+  comments: [{ type: Schema.Types.ObjectId, rating: Schema.Types.rating, ref: 'Comment' }]
 },{
     collection: 'posts'
 });

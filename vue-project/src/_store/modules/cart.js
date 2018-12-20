@@ -20,7 +20,7 @@ const mutations = {
     if (!record) {
       return state.cart.push(payload);
     } else {
-      payload.quantity++;
+      alert('Already in the basket')
     }
   },
   DELETE_CART(state, payload) {
