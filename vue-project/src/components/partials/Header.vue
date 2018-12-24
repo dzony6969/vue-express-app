@@ -106,14 +106,14 @@
           </div>
         
         </v-list-tile>
-        <!-- <v-list-tile v-if='admin.isAdmin' to='/charts'>
+        <v-list-tile v-if='admin.isAdmin' to='/charts'>
           <v-list-tile-action>
             <v-icon>bar_chart</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <strong>Charts</strong>
           </v-list-tile-content>
-        </v-list-tile> -->
+        </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' to='/new'>
           <v-list-tile-action>
             <v-icon>create_new_folder</v-icon>
