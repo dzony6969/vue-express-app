@@ -12,13 +12,20 @@
       app
       id='drawer--z'
       dark
-      class='elevation-20'
+      class='elevation-10'
 
     >
     {{checkOrder}}
-    <br>
-    <br>
       <v-list dense>
+        <v-img v-if='admin.isAdmin' :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+          <v-layout pa-2 column fill-height class="lightbox white--text">
+            <v-spacer></v-spacer>
+            <v-flex shrink>
+              <div class="subheading"><p class='admin--font'>HELLO ADMIN</p></div>
+              <div class="body-1"><p class='admin--font'>You have <strong class='new--order'>{{newOrder}}</strong> new order to check</p></div>
+            </v-flex>
+          </v-layout>
+        </v-img>
         <v-list-tile @click='drawer = false'>
           <v-list-tile-action class='text-center'>
             <v-icon large>close</v-icon>
@@ -97,6 +104,15 @@
             <span slot="badge"> {{newOrder}}</span>
           </v-badge>
           </div>
+        
+        </v-list-tile>
+        <v-list-tile v-if='admin.isAdmin' to='/charts'>
+          <v-list-tile-action>
+            <v-icon>bar_chart</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <strong>Charts</strong>
+          </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' to='/new'>
           <v-list-tile-action>
@@ -221,5 +237,15 @@ a:hover {
 }
 a {
   text-decoration: none;
+}
+.lightbox {
+  box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px);
+}
+.admin--font {
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.new--order {
+  color: palevioletred;
 }
 </style>

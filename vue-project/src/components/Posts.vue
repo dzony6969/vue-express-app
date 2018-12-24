@@ -2,8 +2,6 @@
 <div>
   <br>
   <br> 
-  <br>
-  <br>
       <v-container>
         
         <div v-if='filteredPosts.length === 0'>
@@ -64,7 +62,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import { Circle2 } from "vue-loading-spinner";
 import ShopList from "./_postComponent/ShopList.vue";
 export default {
@@ -96,6 +94,7 @@ export default {
   },
   computed: {
     ...mapState(["posts"]),
+    ...mapGetters(['admin']),
     filteredPosts() {
       if (this.filteredText === "") {
         return this.posts;

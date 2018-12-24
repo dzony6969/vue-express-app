@@ -11,6 +11,12 @@ const EachOrder = resolve => {
   });
 };
 
+const Chart = resolve => {
+  require.ensure(["../components/_Dashboard/Chart.vue"], () => {
+    resolve(require("../components/_Dashboard/Chart.vue"));
+  });
+};
+
 const UserOrder = resolve => {
   require.ensure(["../components/_orderComponent/UserOrder.vue"], () => {
     resolve(require("../components/_orderComponent/UserOrder.vue"));
@@ -141,6 +147,11 @@ export default new Router({
     {
       path: "*",
       component: PageNotFound
+    },
+    {
+      path: '/charts',
+      component: Chart,
+      beforeEnter: checkAuth
     },
     {
       path: "/*/*",

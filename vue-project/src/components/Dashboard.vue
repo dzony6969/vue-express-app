@@ -51,8 +51,6 @@
   </template>
  </v-data-table>
 
- <chart :orders='orders'></chart>
-
 </div>
 </template>
 

@@ -20,11 +20,12 @@
       <v-img
         :aspect-ratio="16/9"
         :src="post.img"
+        class='zoom--hover'
       >
         <v-expand-transition>
           <div
             v-if="hover"
-            class="d-flex transition-fast-in-fast-out indigo darken-2 v-card--reveal display-3 white--text"
+            class="zoom--hover d-flex transition-fast-in-fast-out indigo darken-2 v-card--reveal display-3 white--text"
             style="height: 100%;"
           >
             {{`Details`}}
@@ -36,6 +37,7 @@
         class="pt-4"
         style="position: relative;"
       >
+
         <v-btn
           absolute
           color="orange"
@@ -47,7 +49,8 @@
         >
           <v-icon @click='addToCart(post), priceSum()' >shopping_basket</v-icon>
         </v-btn>
-        <a href="#" @click="deletePost(post._id)">Delete</a>
+        <br>
+        <a v-if='admin.isAdmin' href="#" @click="deletePost(post._id)">Delete</a>
       
         <div class="">
           <p class='title text-left'>{{post.title}}
@@ -82,7 +85,7 @@
 
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["filteredPosts"],
   mounted() {
@@ -100,6 +103,9 @@ export default {
         quantity: 1
       });
     }
+  },
+  computed: {
+    ...mapGetters(['admin'])
   }
 };
 </script>
@@ -118,5 +124,10 @@ export default {
 #align-right {
   float: right;
   color: blueviolet;
+}
+.zoom--hover:hover {
+  transform: scale(1.02);
+  border-radius: 40px;
+  transition-duration: 0.5s;
 }
 </style>
