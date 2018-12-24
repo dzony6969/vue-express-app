@@ -158,6 +158,7 @@ export default {
   methods: {
     ...mapActions(["deleteItem", "newOrders", "cleanCart"]),
     async addOrder() {
+      this.disableButton = true;
       if (
         this.name.length > 0 &&
         this.address.length > 4 &&
@@ -174,12 +175,9 @@ export default {
           status: this.status,
           randomNum: this.getRandomNum()
         });
-        this.disableButton = true;
-        setTimeout(() => {
-          this.cleanCart();
-          this.newOrders();
+        await this.cleanCart();
+        await this.newOrders();
           this.$router.push({ name: "UserOrder", params: { id: this._id } });
-        }, 3000);
       } else {
         alert("Fill the form");
       }
