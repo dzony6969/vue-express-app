@@ -26,14 +26,6 @@
             </v-flex>
           </v-layout>
         </v-img>
-        <v-list-tile @click='drawer = false'>
-          <v-list-tile-action class='text-center'>
-            <v-icon large>close</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-          
-          </v-list-tile-content>
-        </v-list-tile>
         <v-list-tile to='/'>
           <v-list-tile-action>
             <v-icon>home</v-icon>

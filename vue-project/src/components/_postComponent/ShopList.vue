@@ -55,6 +55,9 @@
         <div class="">
           <p class='title text-left'>{{post.title}}
             <span id='align-right' class='font-weight-bold'>{{post.price}}$</span></p>
+            <h4 class='text-left'>Category: {{post.postType}}</h4>
+            <br>
+
             <p class='text-left'>{{`${post.text.substr(0, 50)}...`}}</p>
             <div v-if='post.avgRating > 0' class='text-left'>
             <v-rating

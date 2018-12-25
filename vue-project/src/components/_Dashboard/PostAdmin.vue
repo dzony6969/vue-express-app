@@ -218,6 +218,6 @@ export default {
   margin: 0 auto;
 }
 #ustawTenJebanyMargin {
-  margin: 0px 0px 40px 500px;
+  margin: 0px auto;
 }
 </style>

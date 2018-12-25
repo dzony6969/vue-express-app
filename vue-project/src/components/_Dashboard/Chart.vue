@@ -3,28 +3,28 @@
   <br>
   <br>
   <br>
-  <div class='set--width--chart elevation-10' >
+  <div class='set--width--chart elevation-10 grey lighten-4' >
     <br>
     <h1 class='text-center'>Charts overview</h1>
     <br>
     <strong><hr></strong>
 <v-layout row wrap >
-      <v-flex xs12 offset-sm1 sm5>
+      <v-flex xs12 offset-sm1 sm5 pl-1>
         <v-date-picker
           ref="picker"
           v-model="typeDate"
           full-width
         ></v-date-picker>
       </v-flex>
-      <v-flex xs12 sm5>
-        <div class="title">Daily news({{ typeDate || 'change month...' }})<v-btn class='info' @click='filterChart()'>Choose this day</v-btn></div>
+      <v-flex xs12 sm5 pl-3>
+        <div class="title">Daily news({{ typeDate || 'change month...' }})<v-btn class='info' @click='filterChart()'>Pick date</v-btn></div>
         <div class="subheading">wrap up for selected date</div>
         <div></div>
         <ul>
           <div v-if='chartValueObject.length === 1'>
           <strong><li>Overall amount: {{chartValueArray[1][1]}}$</li></strong>
           <strong><li>Tax due: {{`${chartValueArray[1][2].toFixed(2)}`}}$</li></strong>
-          <strong><li>Amount - tax: {{`${chartValueArray[1][3].toFixed(2)}`}}$</li></strong>
+          <strong><li>Profit: {{`${chartValueArray[1][3].toFixed(2)}`}}$</li></strong>
           </div>
           <div v-if='chartValueObject.length >1'><v-alert
         :value="true"
@@ -38,7 +38,7 @@
     </v-layout>
     <br>
      <GChart
-     class='elevation-20'
+     class='elevation-15 pa-4'
     type="ColumnChart"
     :data="chartValueArray"
     :options="chartOptions"
@@ -53,10 +53,16 @@
     <hr>
     <h1>Overall amount per day</h1>
     <br>
+    <div>
  <line-chart 
- class='elevation-20'
+ class='elevation-15 set--width--chart'
  height='300px'
+ width='1000px'
  :data="lineChartValueArray"></line-chart>
+ </div>
+ <br>
+ <br>
+ <br> 
  </div>
  </div>
   </div>
