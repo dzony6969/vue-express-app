@@ -22,7 +22,7 @@ export default {
   name: "App",
   components: {
     appHeader
-  }
+  },
 };
 </script>
 

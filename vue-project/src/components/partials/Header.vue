@@ -15,7 +15,6 @@
       class='elevation-10'
 
     >
-    {{checkOrder}}
       <v-list dense>
         <v-img v-if='admin.isAdmin' :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
           <v-layout pa-2 column fill-height class="lightbox white--text">
@@ -62,6 +61,9 @@
           </v-badge>
           </div>
           </v-list-tile-content>
+          <div class='check--order'> 
+            {{checkOrder}}
+            </div>
         </v-list-tile>
         <v-list-tile to='/checkorder'>
           <v-list-tile-action>
@@ -146,6 +148,7 @@
         </v-menu>
     </v-toolbar>
 </div>
+
 </div>
 </template>
 
@@ -239,5 +242,8 @@ a {
 }
 .new--order {
   color: palevioletred;
+}
+.check--order {
+  visibility: hidden;
 }
 </style>

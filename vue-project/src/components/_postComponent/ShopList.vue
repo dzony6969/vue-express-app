@@ -1,7 +1,8 @@
 <template>
       
     <v-container id='listOfProduct' grid-list-md
-    class='elevation-5'
+
+    class='elevation-5 green lighten-5'
     >
     <h1>OUR PRODUCTS</h1>
       <v-layout row wrap>

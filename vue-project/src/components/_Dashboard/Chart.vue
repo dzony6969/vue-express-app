@@ -37,8 +37,9 @@
       </v-flex>
     </v-layout>
     <br>
+    <h1 class='text-center'>Daily chart</h1>
      <GChart
-     class='elevation-15 pa-4'
+     class='elevation-15 pa-5'
     type="ColumnChart"
     :data="chartValueArray"
     :options="chartOptions"
@@ -53,13 +54,13 @@
     <hr>
     <h1>Overall amount per day</h1>
     <br>
-    <div>
  <line-chart 
  class='elevation-15 set--width--chart'
  height='300px'
  width='1000px'
  :data="lineChartValueArray"></line-chart>
- </div>
+
+ <pie-chart :data="lineChartValueArray"></pie-chart>
  <br>
  <br>
  <br> 
@@ -164,12 +165,16 @@ export default {
       return this.chartsLib.charts.Bar.convertOptions({
         chart: {
           title: 'Company Performance',
-          subtitle: 'Sale overall per day'
+          subtitle: 'Sale overall per day',
+          fill: '#1b9e77'
         },
         bars: 'horizontal', // Required for Material Bar Charts.
         hAxis: { format: 'decimal' },
         height: 300,
         width: 1000,
+        backgroundColor: {
+          fill: '#f5f5f5'
+        },
         colors: ['#1b9e77', '#d95f02', '#7570b3']
       })
     }
@@ -183,5 +188,8 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   
+}
+canvas {
+  padding: 20px;
 }
 </style>

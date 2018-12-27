@@ -1,7 +1,29 @@
 <template>
 <div>
-  <br>
-  <br> 
+  <v-jumbotron
+      :gradient="gradient"
+      dark
+      src="http://www.youandthemat.com/wp-content/uploads/nature-2-26-17.jpg"
+    >
+      <v-container fill-height class='shop--info--image'>
+        <v-layout align-center>
+          <v-flex text-xs-center>
+            
+          <vue-typed-js :strings="['Welcome in Nature shop']">
+  <h1 class='center--typed'> <v-icon large>nature</v-icon> <span class="typing"></span></h1>
+</vue-typed-js>
+<br>
+<br>
+<br>
+<br>
+<vue-typed-js :strings="['<p>^2000  -20% WITH CODE NATURE </p>']" :contentType="'html'">
+  <h2 class="typing center--typed font-color--typed"></h2>
+</vue-typed-js>
+        
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-jumbotron>
       <v-container>
         
         <div v-if='filteredPosts.length === 0'>
@@ -9,33 +31,80 @@
   No found
 </div>
       </div>
-        <v-layout row wrap class='text-center'>
-          <v-flex xs12 md2>
-            <div class="text-xs-center">
-              <div id='center--input'> 
+        <v-layout wrap class='text-center'>
+          <v-flex xs12 md4 lg3 class=''>
+            <div v-if='scrolled' class="text-xs-center always--fixed">
+              <div> 
 
           <v-text-field
-        text-center
-        v-model="filteredText"
-        label="Search product"
+        v-model="searchInput"
+        label="Search"
       ></v-text-field>
+      <div  class='category--select'>
+          <v-select
+            v-model='filteredText'
+            :items="items"
+            label="Category"
+          ></v-select>
+          </div>
         </div>
-              <v-layout justify-space-between>
-                <div row color='purple'>
-               <h3>choose category</h3>
-               <v-radio-group v-model="filteredText">
+              <v-layout>
+                <div color='purple'>
+            
+               <v-radio-group 
+               class='category--radio'
+               v-model="filteredText">
         <div slot="label">What you<strong> need?</strong></div>
         <v-radio  value="">
-          <div slot="label"><strong class="primary--text">All</strong> products</div>
+          <div slot="label"><strong class="primary--text">Show all</strong></div>
         </v-radio>
         <v-radio value="Devices">
-          <div slot="label"><strong class="primary--text">Devices</strong> category</div>
+          <div slot="label"><strong class="primary--text">Devices</strong></div>
         </v-radio>
         <v-radio value="Nature">
-          <div slot="label"><strong class="primary--text">Nature</strong> category</div>
+          <div slot="label"><strong class="primary--text">Nature</strong></div>
         </v-radio>
          <v-radio value="Plants">
-          <div slot="label"><strong class="primary--text">Plants </strong>category</div>
+          <div slot="label"><strong class="primary--text">Plants </strong></div>
+        </v-radio>
+      </v-radio-group>
+      </div>
+              </v-layout>
+            </div>
+            <div v-if='!scrolled' class="text-xs-center">
+              <div> 
+
+      <v-text-field
+        v-model="searchInput"
+        label="Search"
+      ></v-text-field>
+
+      <div  class='category--select'>
+          <v-select
+            v-model='filteredText'
+            :items="items"
+            label="Category"
+          ></v-select>
+          </div>
+        </div>
+              <v-layout>
+                <div color='purple'>
+            
+               <v-radio-group 
+               class='category--radio'
+               v-model="filteredText">
+        <div slot="label">What you<strong> need?</strong></div>
+        <v-radio  value="">
+          <div slot="label"><strong class="primary--text">Show all</strong></div>
+        </v-radio>
+        <v-radio value="Devices">
+          <div slot="label"><strong class="primary--text">Devices</strong></div>
+        </v-radio>
+        <v-radio value="Nature">
+          <div slot="label"><strong class="primary--text">Nature</strong></div>
+        </v-radio>
+         <v-radio value="Plants">
+          <div slot="label"><strong class="primary--text">Plants </strong></div>
         </v-radio>
       </v-radio-group>
       </div>
@@ -43,20 +112,14 @@
             </div>
           </v-flex>
           
-          <v-flex xs12 md8 >
+          <v-flex xs12 md8 lg8>
             <Circle2 
         v-if='posts.length === 0'
         id='spin'></Circle2>
+   
             <shop-list v-if='filteredPosts.length > 0' :filteredPosts='filteredPosts'></shop-list>
           </v-flex>
         </v-layout>
-        <div class="text-xs-center">
-      <v-pagination
-        v-model='pagination.page'
-        :length='posts.length'
-        
-      ></v-pagination>
-    </div>
       </v-container>
     </div>
 </template>
@@ -64,62 +127,71 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { Circle2 } from "vue-loading-spinner";
+import { VueTypedJs } from 'vue-typed-js'
 import ShopList from "./_postComponent/ShopList.vue";
+
 export default {
   name: "posts",
   data() {
     return {
       filteredText: "",
+      searchInput: '',
+      gradient: 'to top left, rgba(104,200,57, .7), rgba(108,32,72, .7)',
+      items: ['All', 'Devices', "Nature", "Plants"],
       searchInput: "",
-      pagination: {
-        page: 1,
-        perPage: 0,
-        visible: 7
-      }
+      scrolled: false,
     };
   },
   components: {
     Circle2,
-    ShopList
+    ShopList,
+    VueTypedJs
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   mounted() {
     this.$store.dispatch("getPosts"), this.$store.dispatch("deletePost");
   },
-  methods: {},
-  watch: {
-    setPage() {
-      this.pagination.page = this.posts.length / 3;
-      this.pagination.perPage = this.posts.length / 2;
-    }
+  methods: {
+    handleScroll () {
+    this.scrolled = window.scrollY > 300;
+    },
   },
   computed: {
     ...mapState(["posts"]),
     ...mapGetters(['admin']),
-    filteredPosts() {
-      if (this.filteredText === "") {
-        return this.posts;
-      } else if (
-        this.filteredText === "Nature" ||
-        this.filteredText === "Devices" ||
-        this.filteredText === "Plants"
-      ) {
-        return this.posts.filter(post => {
-          return post.postType === this.filteredText;
-        });
-      } else {
-        return this.posts.filter(post => {
-          return post.title
-            .toLowerCase()
-            .match(this.filteredText.toLowerCase());
-          // return post.title.toUpperCase() === this.searchInput.toUpperCase()
-        });
-      }
+     filteredPosts() {
+      const postList = this.posts.filter(item => {
+        let date = item.postType
+        let searchByName = item.title
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+        if (this.filteredText === date) {
+          return searchByName;
+        } else if (this.filteredText === '') {
+          return searchByName;
+        }
+      });
+      return postList;
     }
   }
 };
 </script>
 <style lang="scss">
 @import "../styles/global.scss";
+.category--select {
+  display: none;
+}
+  .center--typed {
+    margin: 0 auto;
+  }
+  .font-color--typed {
+    color: #FF6F00;
+  }
 #spin {
   margin: 20px auto;
   width: 200px;
@@ -131,9 +203,21 @@ export default {
   text-align: center;
 }
 #listOfProduct {
-  max-width: 1000px;
+  z-index: 10;
 }
-#center--input {
-  text-align: center;
+@media only screen and (max-width: 960px) {
+  .category--radio {
+    display: none;
+  }
+  .category--select {
+    display: block;
+  }
+
+}
+@media only screen and (min-width: 960px) {
+  .always--fixed {
+    position: fixed;
+    margin-top: -350px;
+  }
 }
 </style>

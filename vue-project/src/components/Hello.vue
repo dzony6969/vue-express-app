@@ -2,6 +2,7 @@
 <div>
 <section>
          <v-parallax
+         class='parallex--one'
     dark
     height='600'
     src="https://images.pexels.com/photos/414586/pexels-photo-414586.jpeg?cs=srgb&dl=background-image-beautiful-blur-414586.jpg&fm=jpg"
@@ -81,5 +82,11 @@ export default {
 .hover--button:hover {
   background-color: white;
   transition-duration: 0.6s;
+}
+@media only screen and (max-width: 960px) {
+  .parallex--one {
+    display: none;
+  }
+
 }
 </style>

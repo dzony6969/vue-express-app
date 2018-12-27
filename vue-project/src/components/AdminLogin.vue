@@ -8,6 +8,7 @@
               <h4>Login page for admin</h4>
             </v-card-title>
             <v-form>
+              <p>password: admin username: admin</p>
             <v-text-field prepend-icon="person" name="Username" v-model='admin.user' label="Username"></v-text-field>
             <v-text-field prepend-icon="lock" name="Password" v-model='admin.password' label="Password" type="password"></v-text-field>
             <v-card-actions>

@@ -29,8 +29,8 @@
           <v-icon  >shopping_basket</v-icon>
         </v-btn>
               <v-rating      
-                background-color="green lighten-3"
-                color="green"
+                background-color="purple lighten-3"
+                color="purple"
                 medium
                 :value='avgRating'
                 readonly
@@ -73,8 +73,8 @@
                               <p>Rating:</p>
                             <v-rating
                            v-model.number='comment.rating'
-                              background-color="green lighten-3"
-                              color="green"
+                              background-color="purple lighten-3"
+                              color="purple"
                               medium
                             ></v-rating>
                         
@@ -84,12 +84,13 @@
                             <div class="col-sm-offset-4 col-sm-10">   
                               <br>
                               <br>                 
-        <button @click='addComment(), updateRating()' 
+        <v-btn @click='addComment(), updateRating()' 
         :disabled='disabledButton'
+        color='secondary'
         v-if='!spinner'
         class="btn btn-success btn-circle text-uppercase text-center" 
         type="submit" id="submitComment">
-        <span class="glyphicon glyphicon-send"></span> Add comment</button>
+        <span class="glyphicon glyphicon-send"></span>Add comment</v-btn>
                             <div class="text-xs-center"  v-if='spinner'>
       <v-progress-circular
         :size="50"

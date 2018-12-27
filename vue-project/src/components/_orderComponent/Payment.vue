@@ -7,7 +7,7 @@
         <br>
         <br>
         <div class="alert alert-info text-center" role="alert">
-  You ordered {{cart.length}} item for {{summary}} $
+  You ordered {{cart.length}} item for {{`${summary.toFixed(2)}$`}}
 </div>
         <div 
          id='order--table'>
@@ -21,11 +21,6 @@
         <td class='text-sm'>{{props.item.title}}</td>
         <td class='text-sm'>{{props.item.price}} $</td>
         <td class='text-sm'>{{props.item.quantity}}</td>
-        <td class='text-sm'> 
-            <v-btn color="red" 
-            @click='deleteItem(props.item)'
-            dark>Delete
-        </v-btn></td>
       </template>
       
     </v-data-table>
@@ -132,8 +127,7 @@ export default {
       headers: [
         { text: "Title", value: "title" },
         { text: "Price", value: "price" },
-        { text: "Quantity", value: "quantity" },
-        { text: "Delete", value: "delete" }
+        { text: "Quantity", value: "quantity" }
       ],
       errorMessages: "",
       name: "",
