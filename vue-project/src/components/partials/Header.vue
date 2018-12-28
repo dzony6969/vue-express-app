@@ -246,4 +246,9 @@ a {
 .check--order {
   visibility: hidden;
 }
+@media only screen and (max-width: 800px) {
+#drawer--z {
+  max-width: 60%;
+}
+}
 </style>

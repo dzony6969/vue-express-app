@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-md text-xs-center>
+  <v-container class='rwd--container' grid-list-md text-xs-center>
       <v-layout row wrap>
       <v-flex v-for="arr in arrs" :key="arr" xs12 sm4 class="my-3">
         <v-hover>
@@ -65,3 +65,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  @media only screen and (max-width: 800px) {
+    .rwd--container {
+      display: none;
+    }
+  }
+</style>

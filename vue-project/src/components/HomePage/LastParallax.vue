@@ -28,12 +28,6 @@
             @click="toTop"
           >
            <v-expand-transition>
-          <div
-            v-if="hover"
-            class="d-flex transition-fast-in-fast-out indigo darken-2"
-          >
-            Go to top
-          </div>
         </v-expand-transition>
             <v-icon>keyboard_arrow_up</v-icon>
           </v-btn>

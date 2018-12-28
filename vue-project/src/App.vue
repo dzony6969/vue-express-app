@@ -2,7 +2,7 @@
   <v-content>
   <div id="app">
     <v-app>
-   <app-header></app-header>
+   <app-header class='app--header'></app-header>
        <transition 
        mode='out-in'
        appear
@@ -29,5 +29,10 @@ export default {
 <style>
 * {
   font-family: "Arvo", serif;
+}
+@media only screen and (max-width: 800px) {
+.app-header {
+  max-width: 25%;
+}
 }
 </style>

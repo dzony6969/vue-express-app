@@ -22,9 +22,9 @@
         <td class='text-sm'>{{props.item.price}} $</td>
         <td class='text-sm'>{{props.item.quantity}}</td>
       </template>
-      
     </v-data-table>
      <br>
+     {{checkForm}}
         <br>
     <v-layout justify-center>
       <v-flex xs12 sm10 md8 lg6>
@@ -33,7 +33,7 @@
             <v-text-field
               ref="name"
               v-model="name"
-              :error-messages="errorMessages"
+              :rules='nameRule'
               label="Full Name"
               placeholder=""
               required
@@ -41,6 +41,7 @@
             <v-text-field
               ref="address"
               v-model="address"
+              :rules='addressRule'
               label="Address Line"
               placeholder=""
               counter="25"
@@ -49,6 +50,7 @@
             <v-text-field
               ref="city"
               v-model="city"
+              :rules='cityRule'
               label="City"
               placeholder=""
               required
@@ -62,14 +64,15 @@
             <v-text-field
               ref="zip"
               v-model.Number="zip"
+              :rules='zipRule'
               label="ZIP / Postal Code"
               required
               placeholder=""
             ></v-text-field>
-            {{zip}}
             <v-text-field
               ref="country"
               v-model="country"
+              :rules='countryRule'
               label="Country"
               placeholder="Country"
               required
@@ -125,21 +128,36 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Title", value: "title" },
+        { text: "Title", value: "title", sortable: false},
         { text: "Price", value: "price" },
-        { text: "Quantity", value: "quantity" }
+        { text: "Quantity", value: "quantity", sortable: false}
       ],
-      errorMessages: "",
       name: "",
-      disableButton: false,
+      nameRule: [
+        (v) => !!v || 'Name is required'
+      ],
+      disableButton: true,
+      
       randomNum: 0,
       postData: [],
       address: "",
+      addressRule: [
+        (v) => !!v || 'Address is required'
+      ],
       city: "",
+      cityRule: [
+        (v) => !!v || 'City is required'
+      ],
       state: "",
       spinner: false,
       zip: "",
+      zipRule: [
+        (v) => !!v || 'ZIP code is required'
+      ],
       country: "",
+       countryRule: [
+        (v) => !!v || 'Country is required'
+      ],
       status: "New order",
       _id: "",
       formHasErrors: false,
@@ -147,16 +165,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["cart", "summary"])
+    ...mapGetters(["cart", "summary"]),
+    checkForm() {
+      if(this.name.length > 0 && this.city.length > 0 && this.zip.length > 0 && this.country.length > 0) {
+        this.disableButton = false;
+      } else {
+        this.disableButton = true;
+      }
+    }
   },
   methods: {
     ...mapActions(["deleteItem", "newOrders", "cleanCart"]),
-    async addOrder() {
-      this.disableButton = true;
+      async addOrder() {
       if (
-        this.name.length > 0 &&
-        this.address.length > 4 &&
-        this.city.length > 3
+        this.name.length > 0
       ) {
         await PostsService.addOrder({
           order: this.cart,
@@ -169,9 +191,12 @@ export default {
           status: this.status,
           randomNum: this.getRandomNum()
         });
-        await this.cleanCart();
-        await this.newOrders();
+        this.disableButton = true;
+        setTimeout(() => {
+          this.cleanCart();
+          this.newOrders();
           this.$router.push({ name: "UserOrder", params: { id: this._id } });
+        }, 3000);
       } else {
         alert("Fill the form");
       }

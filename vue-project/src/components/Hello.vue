@@ -13,7 +13,6 @@
       justify-center
     >
       <h1 class="display-2 font-weight-black font-italic">Nature shop</h1>
-      <h4 class="subheading">Build your application today!</h4>
       <div class=''>
       <v-btn class='elevation-20 hover--button' large color='transparent'
       @click="$vuetify.goTo('#first', options)"
@@ -28,10 +27,13 @@
         <after-paralex>
           <div align-center>
           <v-btn dark large
+          class='same--button'
       @click="$vuetify.goTo('#four', options)"
       >Contact Us!</v-btn>
       <router-link to='/posts'>
-      <v-btn  dark large>Visit our online shop</v-btn>
+      <v-btn  
+      class='same--button'
+      dark large>Visit our online shop</v-btn>
       </router-link>
       </div>
         </after-paralex>
@@ -83,9 +85,12 @@ export default {
   background-color: white;
   transition-duration: 0.6s;
 }
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .parallex--one {
     display: none;
+  }
+  .same--button {
+    width: 250px;
   }
 
 }
