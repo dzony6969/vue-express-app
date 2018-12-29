@@ -165,18 +165,20 @@ import { mapGetters, mapMutations, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      code: '',
-      dialog: false,
-    }
+      code: "",
+      dialog: false
+    };
   },
   computed: {
-    ...mapGetters(["cart", "summary", 'disc']),
+    ...mapGetters(["cart", "summary", "disc"])
   },
   methods: {
-    ...mapActions(["deleteItem", "priceSum", 'discSum', 'checkSumChange']),
+    ...mapActions(["deleteItem", "priceSum", "discSum", "checkSumChange"]),
     closeDialog() {
-        
-      if(this.code.toLowerCase() === 'nature' || this.code.toUpperCase() === 'nature') {
+      if (
+        this.code.toLowerCase() === "nature" ||
+        this.code.toUpperCase() === "nature"
+      ) {
         this.dialog = false;
       }
     }
@@ -192,5 +194,4 @@ export default {
 .discount--color {
   color: red;
 }
-  
 </style>

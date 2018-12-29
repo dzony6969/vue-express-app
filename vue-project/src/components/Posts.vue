@@ -127,7 +127,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { Circle2 } from "vue-loading-spinner";
-import { VueTypedJs } from 'vue-typed-js'
+import { VueTypedJs } from "vue-typed-js";
 import ShopList from "./_postComponent/ShopList.vue";
 
 export default {
@@ -135,11 +135,10 @@ export default {
   data() {
     return {
       filteredText: "",
-      searchInput: '',
-      gradient: 'to top left, rgba(104,200,57, .7), rgba(108,32,72, .7)',
-      items: ['All', 'Devices', "Nature", "Plants"],
       searchInput: "",
-      scrolled: false,
+      gradient: "to top left, rgba(104,200,57, .7), rgba(108,32,72, .7)",
+      items: ["All", "Devices", "Nature", "Plants"],
+      scrolled: false
     };
   },
   components: {
@@ -148,31 +147,31 @@ export default {
     VueTypedJs
   },
   beforeMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
     this.$store.dispatch("getPosts"), this.$store.dispatch("deletePost");
   },
   methods: {
-    handleScroll () {
-    this.scrolled = window.scrollY > 300;
-    },
+    handleScroll() {
+      this.scrolled = window.scrollY > 300;
+    }
   },
   computed: {
     ...mapState(["posts"]),
-    ...mapGetters(['admin']),
-     filteredPosts() {
+    ...mapGetters(["admin"]),
+    filteredPosts() {
       const postList = this.posts.filter(item => {
-        let date = item.postType
+        let date = item.postType;
         let searchByName = item.title
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
         if (this.filteredText === date) {
           return searchByName;
-        } else if (this.filteredText === '') {
+        } else if (this.filteredText === "") {
           return searchByName;
         }
       });
@@ -186,12 +185,12 @@ export default {
 .category--select {
   display: none;
 }
-  .center--typed {
-    margin: 0 auto;
-  }
-  .font-color--typed {
-    color: #FF6F00;
-  }
+.center--typed {
+  margin: 0 auto;
+}
+.font-color--typed {
+  color: #ff6f00;
+}
 #spin {
   margin: 20px auto;
   width: 200px;
@@ -212,7 +211,6 @@ export default {
   .category--select {
     display: block;
   }
-
 }
 @media only screen and (min-width: 960px) {
   .always--fixed {

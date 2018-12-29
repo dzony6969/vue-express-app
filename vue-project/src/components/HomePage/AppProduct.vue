@@ -66,9 +66,9 @@ export default {
 };
 </script>
 <style lang="scss">
-  @media only screen and (max-width: 800px) {
-    .rwd--container {
-      display: none;
-    }
+@media only screen and (max-width: 800px) {
+  .rwd--container {
+    display: none;
   }
+}
 </style>

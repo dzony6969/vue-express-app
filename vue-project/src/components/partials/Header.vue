@@ -169,7 +169,7 @@ export default {
     ...mapGetters(["cart", "admin", "newOrder"]),
     checkOrder() {
       if (this.cart.length > 0) {
-        return this.drawer = true
+        return (this.drawer = true);
       }
     }
   },
@@ -235,7 +235,11 @@ a {
 }
 .lightbox {
   box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px);
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.4) 0%,
+    transparent 72px
+  );
 }
 .admin--font {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -247,8 +251,8 @@ a {
   visibility: hidden;
 }
 @media only screen and (max-width: 800px) {
-#drawer--z {
-  max-width: 60%;
-}
+  #drawer--z {
+    max-width: 60%;
+  }
 }
 </style>

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "../_store/store";
 import Hello from "../components/Hello";
-
+import eachPostEdit from "../components/_Dashboard/eachPost";
 Vue.use(Router);
 
 const EachOrder = resolve => {
@@ -149,9 +149,14 @@ export default new Router({
       component: PageNotFound
     },
     {
-      path: '/charts',
+      path: "/charts",
       component: Chart,
       beforeEnter: checkAuth
+    },
+    {
+      path: "/editPost/:id",
+      name: "editPost",
+      component: eachPostEdit
     },
     {
       path: "/*/*",

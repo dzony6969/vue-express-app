@@ -32,6 +32,8 @@ export default {
   },
   updatePost(params) {
     return Api().put('/posts/update/' + params.id, params)
+  },
+  updatesRating(params) {
+    return Api().put('/posts/rating/' + params.id, params) 
   }
-  
 }

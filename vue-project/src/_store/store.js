@@ -9,7 +9,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     posts: [],
-    comments: 0,
+    comments: 0
   },
   actions: {
     async getComment({ commit }) {

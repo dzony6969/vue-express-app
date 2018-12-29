@@ -13,10 +13,7 @@
           <div class="card mt-4">
             <img class="card-img-top img-fluid" :src="product.img" alt="">
             <div class="card-body">
-              <h3 class="card-title">{{product.title}}</h3>
-              <h4>{{product.price}} $</h4>
-              <p class="card-text">{{product.text}}</p>
-               <v-btn
+              <v-btn
           absolute
           color="orange"
           class="white--text"
@@ -28,6 +25,11 @@
         >
           <v-icon  >shopping_basket</v-icon>
         </v-btn>
+              <h3 class="card-title">{{product.title}}</h3>
+              <h4>{{product.price}} $</h4>
+               
+             <span class='note--description'>{{product.text}}</span>
+              
               <v-rating      
                 background-color="purple lighten-3"
                 color="purple"
@@ -162,7 +164,7 @@ export default {
         price: "",
         id: "",
         comments: [],
-        avgRating: 0,
+        avgRating: 0
       }
     };
   },
@@ -188,7 +190,7 @@ export default {
         this.product.price = response.data.price;
         this.product.id = response.data._id;
         this.product.comments = response.data.comments;
-        this.product.avgRating = response.data.avgRating
+        this.product.avgRating = response.data.avgRating;
       } catch (err) {
         console.log(err);
       }
@@ -209,8 +211,8 @@ export default {
           (this.disabledButton = true),
           setTimeout(() => {
             this.getPost();
-              this.spinner = false 
-              this.disabledButton = false
+            this.spinner = false;
+            this.disabledButton = false;
           }, 3000),
           (this.showComment = false)
         );
@@ -229,11 +231,11 @@ export default {
       });
     },
     async updateRating() {
-      await PostsService.updatePost({
+      await PostsService.updatesRating({
         id: this.$route.params.id,
         avgRating: this.avgRating
-        })
-    },
+      });
+    }
   },
   computed: {
     ...mapState(["comments"]),
@@ -245,8 +247,8 @@ export default {
       }, 0);
       let avg = sum / this.product.comments.length;
       return Number(avg);
-      this.comments = avg 
-    },
+      this.comments = avg;
+    }
   }
 };
 </script>
@@ -254,5 +256,10 @@ export default {
 .show--comment {
   cursor: pointer;
   color: blueviolet;
+}
+.note--description {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
 }
 </style>

@@ -96,28 +96,19 @@
         <v-card color="" class="mb-5" height="700px">
       
     <br>
-    <div class="container">
+    <div class="container tex-center">
 
       <div class="row">
-
-        <div class="col-lg-3">
-          <h1 class="my-4">Nature shop</h1>
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
-        </div>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-6">
+        <div class="col-lg-offset-3 col-lg-6">
 
           <div class="card mt-4">
             <img class="card-img-top img-fluid" :src="img" alt="">
             <div class="card-body">
               <h3 class="card-title">{{title}}</h3>
               <h4>{{price}} $</h4>
-              <p class="card-text">{{text}}</p>
+              <span class='note--description'>{{text}}</span>
                <v-btn
           absolute
           color="orange"
@@ -129,8 +120,7 @@
         >
           <v-icon>shopping_basket</v-icon>
         </v-btn>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
+              
             </div>
           </div>
           <!-- /.card -->
@@ -172,69 +162,73 @@ export default {
       items: ["Nature", "Devices", "Plants"],
       title: "",
       titleRules: [
-          (v) => !!v || 'Name is required',
-          (v) => v && v.length > 1 || 'Name must be atleast more than 1 characters'
-        ],
+        v => !!v || "Name is required",
+        v =>
+          (v && v.length > 1) || "Name must be atleast more than 1 characters"
+      ],
       text: "",
       textRules: [
-          (v) => !!v || 'Description is required',
-          (v) => v && v.length > 10 || 'To short. Atleast 10 characters'
-        ],
+        v => !!v || "Description is required",
+        v => (v && v.length > 10) || "To short. Atleast 10 characters"
+      ],
       img: "",
       imageRules: [
-        (v) => v && v.match(/\.(jpeg|jpg|gif|png)$/) || 'this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png '
+        v =>
+          (v && v.match(/\.(jpeg|jpg|gif|png)$/)) ||
+          "this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png "
       ],
       price: "",
       priceRules: [
-          // (v) => !!v || 'Name is required',
-          (v) => v && v >= 1 && v <= 100 || 'You need to setup price between 1$ or 100$'
-        ],
-      postType: "",
-      postTypeRule: [
-        (v) => v && v.length > 0 || 'Choose category'
+        // (v) => !!v || 'Name is required',
+        v =>
+          (v && v >= 1 && v <= 100) ||
+          "You need to setup price between 1$ or 100$"
       ],
+      postType: "",
+      postTypeRule: [v => (v && v.length > 0) || "Choose category"],
       e6: 1,
       firstStep: true,
-      secondStep: true,
+      secondStep: true
     };
   },
   methods: {
     async addPost() {
-      if(this.postType.length > 0 &&
-      this.price > 0 && 
-      this.img.length > 0 &&
-      this.title.length > 1 &&
-      this.text.length > 10
+      if (
+        this.postType.length > 0 &&
+        this.price > 0 &&
+        this.img.length > 0 &&
+        this.title.length > 1 &&
+        this.text.length > 10
       ) {
-      await PostsService.addPost({
-        title: this.title,
-        text: this.text,
-        img: this.img,
-        price: this.price,
-        postType: this.postType
-      });
-      this.$router.push({ name: "Posts" });
+        await PostsService.addPost({
+          title: this.title,
+          text: this.text,
+          img: this.img,
+          price: this.price,
+          postType: this.postType
+        });
+        this.$router.push({ name: "Posts" });
       } else {
-        alert('Data missing, check your form')
-      }
-    }, 
-  },
-   computed: {
-      preventFirstStep() {
-        if(this.text.length > 10 && this.price > 0 && this.title.length > 1) {
-          this.firstStep = false
-        } else {
-          this.firstStep = true
-        }
-      },
-      preventSecondStep() {
-        if(this.postType.length > 1 && this.img.match(/\.(jpeg|jpg|gif|png)$/)) {
-          this.secondStep = false
-        } else {
-          this.secondStep = true
-        }
+        alert("Data missing, check your form");
       }
     }
+  },
+  computed: {
+    preventFirstStep() {
+      if (this.text.length > 10 && this.price > 0 && this.title.length > 1) {
+        this.firstStep = false;
+      } else {
+        this.firstStep = true;
+      }
+    },
+    preventSecondStep() {
+      if (this.postType.length > 1 && this.img.match(/\.(jpeg|jpg|gif|png)$/)) {
+        this.secondStep = false;
+      } else {
+        this.secondStep = true;
+      }
+    }
+  }
 };
 </script>
 <style type="scss">
@@ -247,5 +241,10 @@ export default {
 }
 #v--stepper {
   max-width: 1000px;
+}
+.note--description {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
 }
 </style>

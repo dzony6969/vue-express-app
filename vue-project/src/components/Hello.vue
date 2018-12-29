@@ -92,6 +92,5 @@ export default {
   .same--button {
     width: 250px;
   }
-
 }
 </style>

@@ -91,6 +91,24 @@ router.route('/update/:id').put(function (req, res) {
   if (!post)
     res.status(404).send("data is not found");
   else {
+      post.title = req.body.title,
+      post.text = req.body.text,
+      post.img = req.body.img,
+      post.price = req.body.price,
+      post.save().then(() => {
+        res.json('Update complete');
+    })
+    .catch(() => {
+          res.status(400).send("unable to update the database");
+    });
+  }
+});
+});
+router.route('/rating/:id').put(function (req, res) {
+  Post.findById(req.params.id, function(err, post) {
+  if (!post)
+    res.status(404).send("data is not found");
+  else {
       post.avgRating = req.body.avgRating,
       post.save().then(() => {
         res.json('Update complete');

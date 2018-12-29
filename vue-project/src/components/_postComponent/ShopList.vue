@@ -54,12 +54,12 @@
         <a v-if='admin.isAdmin' href="#" @click="deletePost(post._id)">Delete</a>
       
         <div class="">
-          <p class='title text-left'>{{post.title}}
+          <p class='title text-left '>{{post.title}}
             <span id='align-right' class='font-weight-bold'>{{post.price}}$</span></p>
             <h4 class='text-left'>Category: {{post.postType}}</h4>
             <br>
 
-            <p class='text-left'>{{`${post.text.substr(0, 50)}...`}}</p>
+            <p class='text-left note--description'>{{`${post.text.substr(0, 35)}...`}}</p>
             <div v-if='post.avgRating > 0' class='text-left'>
             <v-rating
         v-model="post.avgRating"
@@ -109,7 +109,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['admin'])
+    ...mapGetters(["admin"])
   }
 };
 </script>
@@ -133,5 +133,10 @@ export default {
   transform: scale(1.02);
   border-radius: 40px;
   transition-duration: 0.5s;
+}
+.note--description {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
 }
 </style>

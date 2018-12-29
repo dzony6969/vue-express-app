@@ -70,116 +70,118 @@
 </template>
 
 <script>
-import { Bar, Line } from 'vue-chartjs'
-import { mapGetters } from 'vuex';
+import { Bar, Line } from "vue-chartjs";
+import { mapGetters } from "vuex";
 export default {
   extends: Bar,
 
   data() {
     return {
-      chartsLib: null, 
+      chartsLib: null,
       typeDate: new Date().toISOString().substr(0, 10),
-      compareDate: '',
-      showChart: false, 
+      compareDate: "",
+      showChart: false,
       chartValueObject: [],
       chartValueArray: [],
-      lineChartValueArray: [],
+      lineChartValueArray: []
     };
   },
   async created() {
-      await this.$store.dispatch("getOrders");
-      await this.getDate(),
+    await this.$store.dispatch("getOrders");
+    await this.getDate(),
       this.convertToArray(),
       this.convertToLineArray(),
-      this.filterChart()
+      this.filterChart();
   },
   methods: {
-   async getDate() {
-      const mapDate = await this.orders.map((item) => item.createdAt.substr(0,10))
+    async getDate() {
+      const mapDate = await this.orders.map(item =>
+        item.createdAt.substr(0, 10)
+      );
       const filteredDate = mapDate.filter((value, index) => {
-         return mapDate.indexOf(value) == index });
-      const mapSum = (el) => this.orders.map((element) => {
-           if(el === element.createdAt.substr(0,10)) {
-            return element.summary
-            }
-      })
+        return mapDate.indexOf(value) == index;
+      });
+      const mapSum = el =>
+        this.orders.map(element => {
+          if (el === element.createdAt.substr(0, 10)) {
+            return element.summary;
+          }
+        });
       const eachDate = filteredDate.forEach(el => {
         this.chartValueObject.push({
           date: el,
-          sum: mapSum(el).filter((elem) => {
-            if(elem != null) {
-            return elem
-            }
-          }).reduce((prev, cur) => {
-            const suma = prev + cur
-            return suma
-          }, 0)
-        })
-      })
+          sum: mapSum(el)
+            .filter(elem => {
+              if (elem != null) {
+                return elem;
+              }
+            })
+            .reduce((prev, cur) => {
+              const suma = prev + cur;
+              return suma;
+            }, 0)
+        });
+      });
     },
     convertToArray() {
       let array = this.chartValueObject.map(obj => Object.values(obj));
-      array.unshift(['date', 'sum', 'taxes', 'profit'])
-      let tax = array.forEach((el) => {
-        const taxes = el[1] * 0.23
-        const profit = el[1] * 0.77
-        el.push(taxes, profit)
-      })
-      array[0].splice(4, 5)
-      return this.chartValueArray = array;
+      array.unshift(["date", "sum", "taxes", "profit"]);
+      let tax = array.forEach(el => {
+        const taxes = el[1] * 0.23;
+        const profit = el[1] * 0.77;
+        el.push(taxes, profit);
+      });
+      array[0].splice(4, 5);
+      return (this.chartValueArray = array);
     },
     convertToLineArray() {
       let array = this.chartValueObject.map(obj => Object.values(obj));
-      let tax = array.forEach((el) => {
-        if(el.sum > 0) {
-        const taxes = el[1] * 0.23
-        const profit = el[1] * 0.77
-        el.push(taxes, profit)
-        } 
-      })
-      return this.lineChartValueArray = array;
+      let tax = array.forEach(el => {
+        if (el.sum > 0) {
+          const taxes = el[1] * 0.23;
+          const profit = el[1] * 0.77;
+          el.push(taxes, profit);
+        }
+      });
+      return (this.lineChartValueArray = array);
     },
-    onChartReady (chart, google) {
-      this.chartsLib = google
+    onChartReady(chart, google) {
+      this.chartsLib = google;
     },
     async filterChart() {
-      await this.getDate()
+      await this.getDate();
       setTimeout(() => {
-      this.chartValueObject.filter((el) => {
-        let date = el.date
-        if(this.typeDate === date) {
-          this.chartValueObject = [
-            el,
-          ]
-          this.convertToArray()
-        }
-      })
-        }, 2000)
-    },
-
+        this.chartValueObject.filter(el => {
+          let date = el.date;
+          if (this.typeDate === date) {
+            this.chartValueObject = [el];
+            this.convertToArray();
+          }
+        });
+      }, 2000);
+    }
   },
   computed: {
-    ...mapGetters(['orders']),
-    chartOptions () {
-      if (!this.chartsLib) return null
+    ...mapGetters(["orders"]),
+    chartOptions() {
+      if (!this.chartsLib) return null;
       return this.chartsLib.charts.Bar.convertOptions({
         chart: {
-          title: 'Company Performance',
-          subtitle: 'Sale overall per day',
-          fill: '#1b9e77'
+          title: "Company Performance",
+          subtitle: "Sale overall per day",
+          fill: "#1b9e77"
         },
-        bars: 'horizontal', // Required for Material Bar Charts.
-        hAxis: { format: 'decimal' },
+        bars: "horizontal", // Required for Material Bar Charts.
+        hAxis: { format: "decimal" },
         height: 300,
         width: 1000,
         backgroundColor: {
-          fill: '#f5f5f5'
+          fill: "#f5f5f5"
         },
-        colors: ['#1b9e77', '#d95f02', '#7570b3']
-      })
+        colors: ["#1b9e77", "#d95f02", "#7570b3"]
+      });
     }
   }
-
 };
 </script>
 
@@ -187,7 +189,6 @@ export default {
 .set--width--chart {
   max-width: 1200px;
   margin: 0 auto;
-  
 }
 canvas {
   padding: 20px;

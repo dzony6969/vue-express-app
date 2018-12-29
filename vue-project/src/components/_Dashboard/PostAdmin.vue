@@ -86,9 +86,11 @@
       >
         <v-btn slot='activator'
          icon 
-         class=""
+         class="error"
+         fab medium
+
          >
-         <v-icon color="pink">delete</v-icon>
+         <v-icon>delete</v-icon>
         </v-btn>
         <v-card>
           <v-card-title
@@ -114,6 +116,13 @@
         </v-card>
       </v-dialog>
         </td>
+        <td><router-link 
+                  v-bind:to="{ name: 'editPost', params: { id: props.item._id } }">
+                    <v-btn outline fab color="indigo">
+                    <v-icon>edit</v-icon>
+                </v-btn>
+          
+                  </router-link></td>
     </template>
     </v-data-table>
 </div>
@@ -121,7 +130,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import PostsService from '../../../services/PostsService'
+import PostsService from "../../../services/PostsService";
 export default {
   data() {
     return {
@@ -130,58 +139,64 @@ export default {
       selectForm: false,
       disableButton: true,
       headers: [
-    {
-        text: 'Product name',
-        align: 'left',
-        sortable: false,
-        value: 'name'
-    },
-    { text: 'Price', value: 'price' },
-    { text: 'Category', value: 'postType' },
-    { text: 'Actions', value: 'name', sortable: false }
+        {
+          text: "Product name",
+          align: "left",
+          sortable: false,
+          value: "name"
+        },
+        { text: "Price", value: "price" },
+        { text: "Category", value: "postType" },
+        { text: "Delete", value: "name", sortable: false },
+        { text: "Edit", value: "idk", sortable: false }
       ],
       product: {
-        title: '',
+        title: "",
         titleRules: [
-          (v) => !!v || 'Name is required',
-          (v) => v && v.length > 1 || 'Name must be atleast more than 1 characters'
+          v => !!v || "Name is required",
+          v =>
+            (v && v.length > 1) || "Name must be atleast more than 1 characters"
         ],
-        text: '',
+        text: "",
         textRules: [
-          (v) => !!v || 'Description is required',
-          (v) => v && v.length > 10 || 'To short. Atleast 10 characters'
+          v => !!v || "Description is required",
+          v => (v && v.length > 10) || "To short. Atleast 10 characters"
         ],
-        img: '',
+        img: "",
         imageRules: [
-        (v) => v && v.match(/\.(jpeg|jpg|gif|png)$/) || 'this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png '
-      ],
-        price: '',
+          v =>
+            (v && v.match(/\.(jpeg|jpg|gif|png)$/)) ||
+            "this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png "
+        ],
+        price: "",
         priceRules: [
           // (v) => !!v || 'Name is required',
-          (v) => v && v >= 1 && v <= 100 || 'You need to setup price between 1$ or 100$'
+          v =>
+            (v && v >= 1 && v <= 100) ||
+            "You need to setup price between 1$ or 100$"
         ],
-        postType: '',
-        postTypeRule: [
-        (v) => v && v.length > 0 || 'Choose category'
-        ],
+        postType: "",
+        postTypeRule: [v => (v && v.length > 0) || "Choose category"]
       },
-      items: ["Nature", "Devices", "Plants"],
+      items: ["Nature", "Devices", "Plants"]
     };
   },
   mounted() {
-    this.$store.dispatch("getPosts")
+    this.$store.dispatch("getPosts");
   },
   computed: {
     ...mapState(["posts"]),
     checkForm() {
-      if(this.product.title.length > 1 
-      && this.product.text.length > 10 
-      && this.product.img.match(/\.(jpeg|jpg|gif|png)$/)
-      && this.product.price > 0
-      && this.product.postType.length > 0) {
-        this.disableButton = false
+      if (
+        this.product.title.length > 1 &&
+        this.product.text.length > 10 &&
+        this.product.img.match(/\.(jpeg|jpg|gif|png)$/) &&
+        this.product.price > 0 &&
+        this.product.postType.length > 0
+      ) {
+        this.disableButton = false;
       } else {
-        this.disableButton = true
+        this.disableButton = true;
       }
     }
   },
@@ -191,7 +206,7 @@ export default {
       this.dialog = false;
       this.dialogs = false;
     },
-     async addPost() {
+    async addPost() {
       await PostsService.addPost({
         title: this.product.title,
         text: this.product.text,
@@ -199,17 +214,16 @@ export default {
         price: this.product.price,
         postType: this.product.postType
       });
-     setTimeout(() => {
-       this.$store.dispatch("getPosts")
-       this.dialogs = false;
-     }, 2000)
+      setTimeout(() => {
+        this.$store.dispatch("getPosts");
+        this.dialogs = false;
+      }, 2000);
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss">
-
 .data--table {
   max-width: 1100px;
   margin: 0 auto;

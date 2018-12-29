@@ -128,36 +128,26 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Title", value: "title", sortable: false},
+        { text: "Title", value: "title", sortable: false },
         { text: "Price", value: "price" },
-        { text: "Quantity", value: "quantity", sortable: false}
+        { text: "Quantity", value: "quantity", sortable: false }
       ],
       name: "",
-      nameRule: [
-        (v) => !!v || 'Name is required'
-      ],
+      nameRule: [v => !!v || "Name is required"],
       disableButton: true,
-      
+
       randomNum: 0,
       postData: [],
       address: "",
-      addressRule: [
-        (v) => !!v || 'Address is required'
-      ],
+      addressRule: [v => !!v || "Address is required"],
       city: "",
-      cityRule: [
-        (v) => !!v || 'City is required'
-      ],
+      cityRule: [v => !!v || "City is required"],
       state: "",
       spinner: false,
       zip: "",
-      zipRule: [
-        (v) => !!v || 'ZIP code is required'
-      ],
+      zipRule: [v => !!v || "ZIP code is required"],
       country: "",
-       countryRule: [
-        (v) => !!v || 'Country is required'
-      ],
+      countryRule: [v => !!v || "Country is required"],
       status: "New order",
       _id: "",
       formHasErrors: false,
@@ -167,7 +157,12 @@ export default {
   computed: {
     ...mapGetters(["cart", "summary"]),
     checkForm() {
-      if(this.name.length > 0 && this.city.length > 0 && this.zip.length > 0 && this.country.length > 0) {
+      if (
+        this.name.length > 0 &&
+        this.city.length > 0 &&
+        this.zip.length > 0 &&
+        this.country.length > 0
+      ) {
         this.disableButton = false;
       } else {
         this.disableButton = true;
@@ -176,10 +171,8 @@ export default {
   },
   methods: {
     ...mapActions(["deleteItem", "newOrders", "cleanCart"]),
-      async addOrder() {
-      if (
-        this.name.length > 0
-      ) {
+    async addOrder() {
+      if (this.name.length > 0) {
         await PostsService.addOrder({
           order: this.cart,
           name: this.name,
