@@ -11,7 +11,7 @@
         <v-flex lg6 offset-lg3>
 
           <v-card class="card mt-4">
-            <img class="card-img-top card--img img-fluid" :src="product.img" alt="">
+            <img class="card-img-top img-fluid" :src="product.img" alt="">
             <div class="card-body">
               <v-btn
           absolute

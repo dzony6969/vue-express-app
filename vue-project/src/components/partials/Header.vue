@@ -27,8 +27,9 @@
         </v-img>
         <div v-if='!admin.isAdmin'>
           <br>
-          <br>
-          <br>
+          <div class='text-center'>
+          <v-icon color='green darken-2 ' x-large>nature_people</v-icon>
+          </div>
           
         </div>
         <v-list-tile to='/'>
