@@ -1,8 +1,8 @@
 <template>
       
-    <v-container id='listOfProduct' grid-list-md
-
-    class='elevation-5 green lighten-5'
+    <v-container id='listOfProduct' grid-list-md  
+    
+    class='elevation-5'
     >
     <h1>OUR PRODUCTS</h1>
       <v-layout row wrap>
@@ -13,7 +13,7 @@
     <v-card
       slot-scope="{ hover }"
       class="mx-auto"
-      color="grey lighten-4"
+      
       max-width="500"
     >
     <router-link 

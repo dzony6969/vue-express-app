@@ -50,7 +50,7 @@
               v-model='text'></quill-editor>
         </div>
         <br>
-        <div v-if='text.length < 10' class='alert alert-info'>Description must have atleast 10 characters</div>
+        <div v-if='text.length < 10' class='alert alert-info'>Description must have atleast 3 characters</div>
           
         </v-card>
         {{preventFirstStep}}

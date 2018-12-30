@@ -1,8 +1,11 @@
 <template>
   <v-content>
   <div id="app">
-    <v-app>
-   <app-header></app-header>
+    <v-app :dark='vampire'
+          :light='!vampire'
+    > 
+   <app-header>
+   </app-header>
        <transition 
        mode='out-in'
        appear
@@ -18,10 +21,17 @@
 
 <script>
 import appHeader from "./components/partials/Header";
+import { mapState, mapActions } from 'vuex';
 export default {
   name: "App",
   components: {
     appHeader
+  },
+  computed: {
+    ...mapState(['vampire'])
+  },
+  methods: {
+    ...mapActions(['vampireStateTrue', 'vampireStateFalse'])
   }
 };
 </script>

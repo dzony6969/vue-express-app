@@ -1,7 +1,7 @@
 <template>
     <v-container>
-    <v-layout row class="text-xs-center">
-      <v-flex xs12 md4 lg4 class="grey lighten-4 center--login">
+    <v-layout row>
+      <v-flex xs12 md4 lg4 class="center--login">
         <v-container class="text-xs-center">
           <v-card flat>
             <v-card-title primary-title>
@@ -12,7 +12,7 @@
             <v-text-field prepend-icon="person" name="Username" v-model='admin.user' label="Username"></v-text-field>
             <v-text-field prepend-icon="lock" name="Password" v-model='admin.password' label="Password" type="password"></v-text-field>
             <v-card-actions>
-              <v-btn primary large block @click='checkAdmin(), newOrders()'>Login</v-btn>
+              <v-btn primary large block @click='checkAdmin(), newOrders(), vampireStateFalse()'>Login</v-btn>
             </v-card-actions>
             </v-form>
           </v-card>
@@ -27,10 +27,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "admin",
   computed: {
-    ...mapGetters(["admin"])
+    ...mapGetters(["admin", 'vampire'])
   },
   methods: {
-    ...mapActions(["newOrders"]),
+    ...mapActions(["newOrders", 'vampireStateFalse']),
     checkAdmin() {
       if (this.admin.password === "admin" && this.admin.user === "admin") {
         this.admin.isAdmin = true;

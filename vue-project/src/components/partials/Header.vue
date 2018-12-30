@@ -25,6 +25,12 @@
             </v-flex>
           </v-layout>
         </v-img>
+        <div v-if='!admin.isAdmin'>
+          <br>
+          <br>
+          <br>
+          
+        </div>
         <v-list-tile to='/'>
           <v-list-tile-action>
             <v-icon>home</v-icon>
@@ -81,6 +87,31 @@
            <strong>LOGIN</strong>
           </v-list-tile-content>
         </v-list-tile>
+        <div v-if='admin.isAdmin == false'>
+        <v-list-tile v-if='!vampire'> 
+          <v-list-tile-action>
+            <v-switch
+                @click='vampireStateTrue()'
+                label="IM VAMPIRE"
+                :value='vampire'
+                hide-details
+              ></v-switch>
+              
+          </v-list-tile-action>
+        </v-list-tile>
+        <v-list-tile v-if='vampire'>
+          <v-list-tile-action>
+            <v-switch
+                @click='vampireStateFalse()'
+                label="IM NOT VAMPIRE"
+                :value='vampire'
+                hide-details
+              ></v-switch>
+              
+          </v-list-tile-action>
+        </v-list-tile>
+        </div>
+        <p v-if='admin.isAdmin'>sorry admin :( vampire doesnt work</p>
         <div v-if='admin.isAdmin'>
         <br>
         <h3>Admin dashboard</h3>
@@ -105,7 +136,7 @@
             <v-icon>bar_chart</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <strong>Charts</strong>
+            <strong>CHARTS</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' to='/new'>
@@ -118,10 +149,10 @@
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' to='/adminpost'>
           <v-list-tile-action>
-            <v-icon>create_new_folder</v-icon>
+            <v-icon>view_list</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <strong>Product list</strong>
+            <strong>PRODUCT LIST</strong>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if='admin.isAdmin' @click='logout'>
@@ -155,7 +186,7 @@
 
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -166,7 +197,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["cart", "admin", "newOrder"]),
+    ...mapGetters(["cart", "admin", "newOrder", 'vampire']),
     checkOrder() {
       if (this.cart.length > 0) {
         return (this.drawer = true);
@@ -174,7 +205,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["newOrders"]),
+    ...mapActions(["newOrders", 'vampireStateFalse', 'vampireStateTrue']),
     logout() {
       (this.admin.password = ""),
         (this.admin.user = ""),

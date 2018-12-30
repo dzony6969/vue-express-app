@@ -1,15 +1,13 @@
 <template>
-    <div  class='comment'>
+    <div>
               <v-rating
-                              :value='comment.rating'
-                              background-color="green lighten-3"
-                              color="purple"
-                              medium
-                              readonly
-                            ></v-rating>
-
-                          
-                            <p>{{comment.text}}</p>
+          :value='comment.rating'
+       background-color="purple lighten-3"
+         color="purple"
+        medium
+          readonly
+          ></v-rating>
+<p>{{comment.text}}</p>
               <small class="text-muted">Posted by {{comment.author}} on 3/1/17</small>
               <hr>
               </div>

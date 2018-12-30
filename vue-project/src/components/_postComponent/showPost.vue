@@ -3,15 +3,15 @@
     <br>
     <br>
     <br>
-    <div v-if='product.id.length > 3' class="container">
+    <v-container v-if='product.id.length > 3'>
 
-      <div class="row">
+      <v-layout row>
         <!-- /.col-lg-3 -->
 
-        <div class=" offset-lg-3 col-lg-6">
+        <v-flex lg6 offset-lg3>
 
-          <div class="card mt-4">
-            <img class="card-img-top img-fluid" :src="product.img" alt="">
+          <v-card class="card mt-4">
+            <img class="card-img-top card--img img-fluid" :src="product.img" alt="">
             <div class="card-body">
               <v-btn
           absolute
@@ -28,7 +28,9 @@
               <h3 class="card-title">{{product.title}}</h3>
               <h4>{{product.price}} $</h4>
                <hr>
-             <span class='note--description' v-html='product.text'>{{product.text}}</span>
+             <div v-if='vampire' class='grey lighten-4 vampire--color' v-html='product.text'>{{product.text}}</div>
+              <div v-if='!vampire' v-html='product.text'>{{product.text}}</div>
+
               <hr>
               <v-rating      
                 background-color="purple lighten-3"
@@ -40,7 +42,7 @@
               <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
               <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
             </div>
-          </div>
+          </v-card>
             <h3>Add review of our product</h3>
           <!-- <add-comment :showComment='showComment'></add-comment> -->
           <div>
@@ -107,7 +109,7 @@
           <br>
           <br>
           <br>
-          <div class="card card-outline-secondary my-4 col-sm-12">
+          <v-flex class="my-4 col-sm-12">
             <div class="card-header">
             Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
             </div>
@@ -121,14 +123,14 @@
                 <all-comment v-if='!showComment' v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
                 </transition-group>  
             </div>
-          </div>
+          </v-flex>
           <!-- /.card -->
-        </div>
+        </v-flex>
         <!-- /.col-lg-9 -->
 
-      </div>
-
-    </div>
+      </v-layout>
+      
+    </v-container>
     </div>
 </template>
 
@@ -143,6 +145,7 @@ export default {
     return {
       showComment: true,
       spinner: false,
+      darkColor: '#F5F5F5',
       disabledButton: false,
       comment: [
         {
@@ -232,7 +235,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["comments"]),
+    ...mapState(["comments", 'vampire']),
     avgRating() {
       const rate = this.product.comments.map(item => item.rating);
       const rateArray = Array.from(rate);
@@ -246,7 +249,7 @@ export default {
   }
 };
 </script>
-<style type="text/css">
+<style type="text/css" scoped>
 .show--comment {
   cursor: pointer;
   color: blueviolet;
@@ -255,5 +258,13 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
   font-family: inherit;
+}
+.card--img {
+  height: 600px;
+}
+.vampire--color {
+  padding: 10px;
+  border-radius: 7%;
+  color: #212121;
 }
 </style>

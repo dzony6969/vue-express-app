@@ -25,11 +25,8 @@
              <v-icon class='icon--order' color="yellow darken-2">check_circle</v-icon> - <strong>Sending</strong>
              <v-icon class='icon--order' color="green darken-2">send</v-icon> - <strong>On the way</strong>
              <v-icon class='icon--order' color="red darken-2">error</v-icon> - <strong>Package lost</strong>
-      
-            
             </p>
             </v-flex>
-            
             <v-flex>
  <v-data-table  :headers="mainHeaders"
                :items="datePicker"
