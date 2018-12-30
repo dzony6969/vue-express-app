@@ -17,10 +17,12 @@
         <v-card-text>
         <v-container grid-list-md>
           <p v-if='!selectForm' class='alert alert-info'>You can add product with this form or move to product creator</p>
+          <div v-if='selectForm' class='alert alert-info'>You dont have access to Quill Editor in local form</div>
             <router-link to='/new'> <v-btn color='primary'>Move to creator</v-btn> </router-link>
             <v-btn @click='selectForm = true' class='primary'>Use local form</v-btn>
             <v-layout v-if='selectForm' wrap>
             <v-flex xs12>
+              
                 <v-text-field 
                 v-model='product.title' 
                 :rules='product.titleRules'

@@ -8,7 +8,7 @@
       <div class="row">
         <!-- /.col-lg-3 -->
 
-        <div class=" offset-lg-3 col-lg-5">
+        <div class=" offset-lg-3 col-lg-6">
 
           <div class="card mt-4">
             <img class="card-img-top img-fluid" :src="product.img" alt="">
@@ -27,9 +27,9 @@
         </v-btn>
               <h3 class="card-title">{{product.title}}</h3>
               <h4>{{product.price}} $</h4>
-               
-             <span class='note--description'>{{product.text}}</span>
-              
+               <hr>
+             <span class='note--description' v-html='product.text'>{{product.text}}</span>
+              <hr>
               <v-rating      
                 background-color="purple lighten-3"
                 color="purple"
@@ -45,8 +45,7 @@
           <!-- <add-comment :showComment='showComment'></add-comment> -->
           <div>
     <div>
-
-                                <div class="col-sm-12">
+                          <div class="col-sm-12">
                               <v-textarea
                                     v-model='comment.text'
                                     auto-grow
@@ -57,7 +56,6 @@
                                     rows="1"
                                   ></v-textarea>
                             </div>
-                      
                         <div class="form-group">
                           
                             <div class="col-sm-12 col-md-6 col-lg-5">                    
@@ -100,17 +98,15 @@
         indeterminate
       ></v-progress-circular>
             </div>
-                            <br>
-                            <br>
-                            </div>
-                        </div>  
-                            </div>
-                        </div>
-          
+              <br>
+                <br>
+              </div>
+            </div>  
+        </div>
+        </div>
           <br>
           <br>
           <br>
-
           <div class="card card-outline-secondary my-4 col-sm-12">
             <div class="card-header">
             Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
@@ -123,9 +119,7 @@
        leave-active-class="animated slideOutDown"
        >
                 <all-comment v-if='!showComment' v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
-                </transition-group>
-                    
-                            
+                </transition-group>  
             </div>
           </div>
           <!-- /.card -->

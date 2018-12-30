@@ -11,6 +11,7 @@
             <v-text-field
         v-model="product.img"
         :rules='imageRules'
+
         color="purple darken-2"
         label='Image link'
         required
@@ -32,16 +33,16 @@
                 max="100" 
                 thumb-label
               ></v-slider>
-              <span class='note--description' style="">{{product.text}}</span>
-               <v-textarea
-          v-model="product.text"
-          auto-grow
-          :rules='textRules'
-          box
-          color="deep-purple"
-          label="Description"
-          rows="1"
-        ></v-textarea>
+              <span class='note--description' v-html='product.text'>{{product.text}}</span>
+              
+              
+              
+              <quill-editor 
+              :options='editorOptions'
+              v-model='product.text'></quill-editor>
+              <br>
+              <br>
+              
                <v-btn
           v-if='checkValidation'
           :disabled='disableButton' 
@@ -122,9 +123,28 @@
 
 <script>
 import PostsService from "../../../services/PostsService";
+
+import { quillEditor } from 'vue-quill-editor'
+// require styles
 export default {
+  components: {
+    quillEditor,
+  },
   data() {
     return {
+      editorOptions: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{'list': 'ordered'}, {'list': 'bullet'}],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['link', 'video'],
+          ]
+        }
+      },
       titleRules: [
         v => !!v || "Name is required",
         v =>
@@ -221,13 +241,17 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.note--description {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: inherit;
-}
+<style>
 s {
   color: red;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-justify {
+  text-align: justify;
 }
 </style>

@@ -58,8 +58,6 @@
             <span id='align-right' class='font-weight-bold'>{{post.price}}$</span></p>
             <h4 class='text-left'>Category: {{post.postType}}</h4>
             <br>
-
-            <p class='text-left note--description'>{{`${post.text.substr(0, 35)}...`}}</p>
             <div v-if='post.avgRating > 0' class='text-left'>
             <v-rating
         v-model="post.avgRating"

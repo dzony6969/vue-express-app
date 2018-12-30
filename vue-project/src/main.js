@@ -8,6 +8,9 @@ import VueGoogleCharts from "vue-google-charts";
 import VueChartkick from "vue-chartkick";
 import Chart from "chart.js";
 import "vuetify/dist/vuetify.min.css";
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 Vue.use(VueGoogleCharts);
 Vue.use(Vuex);
 Vue.use(Vuetify);

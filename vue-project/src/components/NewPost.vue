@@ -36,7 +36,7 @@
                 thumb-label
               ></v-slider>
     <br>
-     <v-textarea
+     <!-- <v-textarea
           v-model="text"
           auto-grow
           :rules='textRules'
@@ -44,8 +44,13 @@
           color="deep-purple"
           label="Description"
           rows="1"
-        ></v-textarea>
+        ></v-textarea> -->
+        <quill-editor
+              :options='editorOptions'
+              v-model='text'></quill-editor>
         </div>
+        <br>
+        <div v-if='text.length < 10' class='alert alert-info'>Description must have atleast 10 characters</div>
           
         </v-card>
         {{preventFirstStep}}
@@ -108,7 +113,7 @@
             <div class="card-body">
               <h3 class="card-title">{{title}}</h3>
               <h4>{{price}} $</h4>
-              <span class='note--description'>{{text}}</span>
+              <span class='note--description' v-html='text'>{{text}}</span>
                <v-btn
           absolute
           color="orange"
@@ -153,12 +158,27 @@
 
 <script>
 import PostsService from "../../services/PostsService";
-
+import { quillEditor } from 'vue-quill-editor'
 export default {
   name: "NewPost",
-
+  components: {
+    quillEditor,
+  },
   data() {
     return {
+      editorOptions: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{'list': 'ordered'}, {'list': 'bullet'}],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['link', 'video'],
+          ]
+        }
+      },
       items: ["Nature", "Devices", "Plants"],
       title: "",
       titleRules: [

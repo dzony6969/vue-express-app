@@ -3,7 +3,7 @@
               <v-rating
                               :value='comment.rating'
                               background-color="green lighten-3"
-                              color="green"
+                              color="purple"
                               medium
                               readonly
                             ></v-rating>
