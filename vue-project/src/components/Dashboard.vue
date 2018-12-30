@@ -3,22 +3,39 @@
       <br>
       <br> 
       <br>
-      <h1 class='text-center'>Admin dashboard</h1>
+      <div class='text-center'>
+      <h1>Admin dashboard</h1>
      <v-btn color='success' @click='toggle'>Filter by date</v-btn>
+     </div>
         <v-card class='text-center' v-if='!datePopup'>
                 <v-date-picker v-model="picker" color="green lighten-1 text-center"></v-date-picker>
             </v-card>
+          <v-container row>
+
+              <v-flex pa-4 sm12 md4 lg4 >
             <v-text-field
               label="Search by name"
               v-model='searchByName'
               single-line
             ></v-text-field>
-    
-    <!-- {{datePicker}} --> 
+            </v-flex>
+            <v-flex pa-2 sm12 md8 lg8>
+            <h3>Icons legend:</h3>    
+            <p><v-icon class='icon--order' color="blue darken-2">info</v-icon> - <strong>New order</strong> 
+             <v-icon class='icon--order' color="yellow darken-2">check_circle</v-icon> - <strong>Sending</strong>
+             <v-icon class='icon--order' color="green darken-2">send</v-icon> - <strong>On the way</strong>
+             <v-icon class='icon--order' color="red darken-2">error</v-icon> - <strong>Package lost</strong>
+      
+            
+            </p>
+            </v-flex>
+            
+            <v-flex>
  <v-data-table  :headers="mainHeaders"
                :items="datePicker"
                item-key="name"
                hide-actions
+               
                class="elevation-1">
   <template slot="items" scope="props">
     <tr >
@@ -28,28 +45,25 @@
       <td class="text-xs">{{ props.item.summary }} $</td>
       <td class="text-xs">{{ `${props.item.createdAt.substring(0, 10)}` }}</td>
       <td dark class="text-xs">
-          <span v-if='props.item.status === "New order"' >{{ props.item.status }} <v-icon color="blue darken-2">info</v-icon></span>
-          <span v-if='props.item.status === "Sending"' > {{ props.item.status }} <v-icon color="yellow darken-2">check_circle</v-icon></span>
-          <span v-if='props.item.status === "package lost"' > {{ props.item.status }} <v-icon color="red darken-2">error</v-icon></span>
-          <span v-if='props.item.status === "on the way"' > {{ props.item.status }} <v-icon color="green darken-2">send</v-icon></span>
-      </td>
-      
-      <td class="text-xs"> 
-          <router-link 
+          <span v-if='props.item.status === "New order"' ><v-icon color="blue darken-2">info</v-icon></span>
+          <span v-if='props.item.status === "Sending"' ><v-icon color="yellow darken-2">check_circle</v-icon></span>
+          <span v-if='props.item.status === "package lost"' > <v-icon color="red darken-2">error</v-icon></span>
+          <span v-if='props.item.status === "on the way"' >  <v-icon color="green darken-2">send</v-icon></span>
+          </td> 
+          <td class="text-xs"> 
+            <router-link 
                   v-bind:to="{ name: 'EachOrder', params: { id: props.item._id} }">
                     <v-btn outline fab color="indigo">
                     <v-icon>edit</v-icon>
                 </v-btn>
-          
-                  </router-link>
-          <!-- <v-switch value input-value="true" color="orange" label="New order"></v-switch>
-      <v-switch color='blue' label="Sending" value="Sending"></v-switch>
-      <v-switch color="green" label="Arrived" value="Arrive"></v-switch>
-      <v-switch color="red" label="Lost" value="Lost"></v-switch> -->
+            </router-link>
           </td>
     </tr>
   </template>
  </v-data-table>
+ 
+ </v-flex>
+ </v-container>
 
 </div>
 </template>
@@ -125,5 +139,8 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.icon--order {
+  margin: 0px 3px 0 3px;
 }
 </style>

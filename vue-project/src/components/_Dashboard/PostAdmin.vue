@@ -2,10 +2,13 @@
 <div>
     <br>
     <br>
+    <div class='text-center'>
     <h1 class='text-center'>Products in store</h1>
+    <v-btn color="primary" @click='dialogs = true' dark class="m-auto">New Item</v-btn>
+    </div>
     <v-dialog v-model="dialogs" max-width="500px">
       <v-card slot='activator' class='elevation-20' id='ustawTenJebanyMargin'>
-    <v-btn color="primary" dark class="m-auto">New Item</v-btn>
+    
     </v-card>
     <v-card>
         <v-card-title>

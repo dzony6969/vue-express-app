@@ -3,7 +3,7 @@
   <br>
   <br>
   <br>
-  <div class='set--width--chart elevation-10 grey lighten-4' >
+  <v-container sm12 class='set--width--chart elevation-10 grey lighten-4' >
     <br>
     <h1 class='text-center'>Charts overview</h1>
     <br>
@@ -35,8 +35,9 @@
           
         </ul>
       </v-flex>
-    </v-layout>
+    
     <br>
+    <v-flex>
     <h1 class='text-center'>Daily chart</h1>
      <GChart
      class='elevation-15 pa-5'
@@ -55,17 +56,21 @@
     <h1>Overall amount per day</h1>
     <br>
  <line-chart 
- class='elevation-15 set--width--chart'
+ class='elevation-15 line--chart'
  height='300px'
- width='1000px'
  :data="lineChartValueArray"></line-chart>
-
+ <br>
+ <br>
+  <h1>Overall:</h1>
  <pie-chart :data="lineChartValueArray"></pie-chart>
- <br>
- <br>
- <br> 
+
+  <h3 class='alert alert-info'>Amount: {{sumAllAmount.sum}}$</h3>
+  <h3 class='alert alert-danger'>Tax due: {{sumAllAmount.tax}}$</h3>
+  <h3 class='alert success'>Profit: {{sumAllAmount.profit}}$</h3>
  </div>
- </div>
+ </v-flex>
+ </v-layout>
+  </v-container>
   </div>
 </template>
 
@@ -173,13 +178,30 @@ export default {
         },
         bars: "horizontal", // Required for Material Bar Charts.
         hAxis: { format: "decimal" },
-        height: 300,
-        width: 1000,
         backgroundColor: {
           fill: "#f5f5f5"
         },
         colors: ["#1b9e77", "#d95f02", "#7570b3"]
       });
+    },
+    sumAllAmount() {
+      let filterOrders = this.orders.map(item => item.summary)
+      let sum = filterOrders.reduce((prev, cur) => {
+        return prev + cur 
+
+      }, 20)
+      sum = sum.toFixed(2)
+      const tax = (sum * 0.23).toFixed(2)
+      const profit = (sum * 0.77).toFixed(2)
+      const overall = {
+        sum,
+        tax,
+        profit
+      }
+      return overall
+      // let array = this.orders.map(obj => Object.values(obj.summary));
+      // console.log(array)
+      
     }
   }
 };
@@ -192,5 +214,8 @@ export default {
 }
 canvas {
   padding: 20px;
+}
+.line--chart {
+  width: 100%;
 }
 </style>
