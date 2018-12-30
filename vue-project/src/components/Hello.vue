@@ -5,18 +5,22 @@
          class='parallex--one'
     dark
     height='600'
-    src="https://images.pexels.com/photos/414586/pexels-photo-414586.jpeg?cs=srgb&dl=background-image-beautiful-blur-414586.jpg&fm=jpg"
+    :src="changeImage"
   >
     <v-layout
       align-center
       column
       justify-center
     >
-      <h1 class="display-2 font-weight-black font-italic">Nature shop</h1>
+      <h1 v-if='vampire' class="display-2 font-weight-black font-italic">Nature shop
+      </h1>
+       <h1 v-if='!vampire' class="display-2 font-weight-black font-italic green--text">Nature shop
+      </h1>
       <div class=''>
-      <v-btn class='elevation-20 hover--button' large color='transparent'
+      <v-btn class='elevation-20' large
       @click="$vuetify.goTo('#first', options)"
       >Our product</v-btn>
+
       </div>
       
     </v-layout>
@@ -58,6 +62,7 @@ import AppProduct from "./HomePage/AppProduct.vue";
 import AppParallax from "./HomePage/LastParallax.vue";
 import AppFooter from "./partials/Footer.vue";
 import CompanyInfo from "./HomePage/CompanyInfo.vue";
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: "posts",
@@ -69,13 +74,24 @@ export default {
     CompanyInfo
   },
   data() {
-    return {};
+    return {
+      image: '',
+    };
   },
   computed: {
+   ...mapGetters(['vampire']),
     options() {
       return {
         duration: 500
       };
+    },
+    changeImage() {
+      let url = ''
+      if(!this.vampire) {
+        return url = 'http://www.9skips.com/wp-content/uploads/2017/10/forests.jpg'
+      } else if (this.vampire) {
+          return url = 'https://www.artinnaturephotography.com/images/xl/20080811_002.jpg'
+      }
     }
   }
 };
@@ -92,5 +108,9 @@ export default {
   .same--button {
     width: 250px;
   }
+}
+.green--text {
+  color: #1B5E20;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 </style>
