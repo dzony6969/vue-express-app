@@ -8,9 +8,6 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-                <v-icon v-for='item in items' :key='item' x-large 
-                class="green--text text--lighten-2">local_florist</v-icon>
-              <h1 class="headline font-weight-black">Nature shop</h1>
               <span class="subheading">
                 <slot></slot>
               </span>

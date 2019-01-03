@@ -22,7 +22,7 @@
         <div></div>
         <ul>
           <div v-if='chartValueObject.length === 1'>
-          <strong><li>Overall amount: {{chartValueArray[1][1]}}$</li></strong>
+          <strong><li>Overall amount: {{`${chartValueArray[1][1].toFixed(2)}`}}$</li></strong>
           <strong><li>Tax due: {{`${chartValueArray[1][2].toFixed(2)}`}}$</li></strong>
           <strong><li>Profit: {{`${chartValueArray[1][3].toFixed(2)}`}}$</li></strong>
           </div>
@@ -77,16 +77,20 @@
 <script>
 import { Bar, Line } from "vue-chartjs";
 import { mapGetters } from "vuex";
+import { chartSetup } from '../../_mixin/chartMixin/chartSetup.js';
+import { sumAll } from '../../_mixin/chartMixin/sumAllData.js';
+import {converts} from '../../_mixin/chartMixin/convertToArray.js';
 export default {
+  mixins: [chartSetup, sumAll, converts],
   extends: Bar,
-
   data() {
     return {
-      chartsLib: null,
       typeDate: new Date().toISOString().substr(0, 10),
       compareDate: "",
       showChart: false,
+
       chartValueObject: [],
+      //mixin - convertToArray 
       chartValueArray: [],
       lineChartValueArray: []
     };
@@ -128,31 +132,6 @@ export default {
         });
       });
     },
-    convertToArray() {
-      let array = this.chartValueObject.map(obj => Object.values(obj));
-      array.unshift(["date", "sum", "taxes", "profit"]);
-      let tax = array.forEach(el => {
-        const taxes = el[1] * 0.23;
-        const profit = el[1] * 0.77;
-        el.push(taxes, profit);
-      });
-      array[0].splice(4, 5);
-      return (this.chartValueArray = array);
-    },
-    convertToLineArray() {
-      let array = this.chartValueObject.map(obj => Object.values(obj));
-      let tax = array.forEach(el => {
-        if (el.sum > 0) {
-          const taxes = el[1] * 0.23;
-          const profit = el[1] * 0.77;
-          el.push(taxes, profit);
-        }
-      });
-      return (this.lineChartValueArray = array);
-    },
-    onChartReady(chart, google) {
-      this.chartsLib = google;
-    },
     async filterChart() {
       await this.getDate();
       setTimeout(() => {
@@ -168,41 +147,6 @@ export default {
   },
   computed: {
     ...mapGetters(["orders"]),
-    chartOptions() {
-      if (!this.chartsLib) return null;
-      return this.chartsLib.charts.Bar.convertOptions({
-        chart: {
-          title: "Company Performance",
-          subtitle: "Sale overall per day",
-          fill: "#1b9e77"
-        },
-        bars: "horizontal", // Required for Material Bar Charts.
-        hAxis: { format: "decimal" },
-        backgroundColor: {
-          fill: "#f5f5f5"
-        },
-        colors: ["#1b9e77", "#d95f02", "#7570b3"]
-      });
-    },
-    sumAllAmount() {
-      let filterOrders = this.orders.map(item => item.summary)
-      let sum = filterOrders.reduce((prev, cur) => {
-        return prev + cur 
-
-      }, 20)
-      sum = sum.toFixed(2)
-      const tax = (sum * 0.23).toFixed(2)
-      const profit = (sum * 0.77).toFixed(2)
-      const overall = {
-        sum,
-        tax,
-        profit
-      }
-      return overall
-      // let array = this.orders.map(obj => Object.values(obj.summary));
-      // console.log(array)
-      
-    }
   }
 };
 </script>

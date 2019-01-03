@@ -67,12 +67,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Chart from "./_Dashboard/Chart.vue";
 export default {
   name: "dashboard",
-  components: {
-    Chart
-  },
   data() {
     return {
       picker: new Date().toISOString().substr(0, 10),

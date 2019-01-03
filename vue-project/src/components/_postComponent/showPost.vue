@@ -244,7 +244,6 @@ export default {
       }, 0);
       let avg = sum / this.product.comments.length;
       return Number(avg);
-      this.comments = avg;
     }
   }
 };

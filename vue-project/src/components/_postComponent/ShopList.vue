@@ -4,6 +4,21 @@
     
     class='elevation-5'
     >
+     <v-snackbar
+        v-model="snackbar"
+        :bottom="y === 'bottom'"
+        :left="x === 'left'"
+        :multi-line="mode === 'multi-line'"
+        :right="x === 'right'"
+        color='warning'
+        :top="y === 'top'"
+        :vertical="mode === 'vertical'"
+      >
+        <p> Already in casket. Check your
+        <router-link to='/shop'>order</router-link>, please. 
+        </p>
+
+      </v-snackbar>
     <h1>OUR PRODUCTS</h1>
       <v-layout row wrap>
         
@@ -60,21 +75,20 @@
             <br>
             <div v-if='post.avgRating > 0' class='text-left'>
             <v-rating
-        v-model="post.avgRating"
-        background-color="pink lighten-3"
-        color="pink"
-      ></v-rating> <span class='align-right'>Average user rating: <strong>{{` ${post.avgRating.toFixed(2)}`}}</strong></span> 
+            v-model="post.avgRating"
+            background-color="pink lighten-3"
+            color="pink"
+          ></v-rating> <span class='align-right'>Average user rating: <strong>{{` ${post.avgRating.toFixed(2)}`}}</strong></span> 
       </div>
       <div class='text-left' v-if='post.avgRating === 0'>
         <v-rating
-        v-model="post.avgRating"
-        background-color="pink lighten-3"
-        color="pink"
-      ></v-rating> <span class='align-right'>No rating available</span>
-      </div>
+            v-model="post.avgRating"
+            background-color="pink lighten-3"
+            color="pink"
+          ></v-rating> <span class='align-right'>No rating available</span>
           </div>
-        
-                  <div class="font-weight-light title mb-2">
+          </div>
+      <div class="font-weight-light title mb-2">
         </div>
       </v-card-text>
     </v-card>
@@ -87,9 +101,16 @@
 
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   props: ["filteredPosts"],
+  data() {
+    return {
+      y: 'top',
+      x: null,
+      mode: '',
+    }
+  },
   mounted() {
     this.$store.dispatch("getPosts"), this.$store.dispatch("deletePost");
   },
@@ -107,7 +128,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["admin"])
+    ...mapGetters(["admin", 'snackbar'])
   }
 };
 </script>

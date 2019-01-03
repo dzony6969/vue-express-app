@@ -40,4 +40,7 @@ export default {
 * {
   font-family: "Arvo", serif;
 }
+ li a {
+    text-decoration: none;
+    }
 </style>

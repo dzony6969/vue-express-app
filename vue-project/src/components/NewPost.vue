@@ -158,54 +158,23 @@
 
 <script>
 import PostsService from "../../services/PostsService";
-import { quillEditor } from 'vue-quill-editor'
+import { quillEditor } from 'vue-quill-editor';
+import { quillOptions } from '../_mixin/quillMixin.js';
+import { rules } from '../_mixin/newProductRules.js';
 export default {
   name: "NewPost",
+  mixins: [quillOptions, rules],
   components: {
     quillEditor,
   },
   data() {
     return {
-      editorOptions: {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{'list': 'ordered'}, {'list': 'bullet'}],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['link', 'video'],
-          ]
-        }
-      },
       items: ["Nature", "Devices", "Plants"],
       title: "",
-      titleRules: [
-        v => !!v || "Name is required",
-        v =>
-          (v && v.length > 1) || "Name must be atleast more than 1 characters"
-      ],
       text: "",
-      textRules: [
-        v => !!v || "Description is required",
-        v => (v && v.length > 10) || "To short. Atleast 10 characters"
-      ],
       img: "",
-      imageRules: [
-        v =>
-          (v && v.match(/\.(jpeg|jpg|gif|png)$/)) ||
-          "this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png "
-      ],
       price: "",
-      priceRules: [
-        // (v) => !!v || 'Name is required',
-        v =>
-          (v && v >= 1 && v <= 100) ||
-          "You need to setup price between 1$ or 100$"
-      ],
       postType: "",
-      postTypeRule: [v => (v && v.length > 0) || "Choose category"],
       e6: 1,
       firstStep: true,
       secondStep: true

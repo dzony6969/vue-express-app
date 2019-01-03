@@ -25,13 +25,13 @@
               
                 <v-text-field 
                 v-model='product.title' 
-                :rules='product.titleRules'
+                :rules='titleRules'
                 label="Product name"></v-text-field>
             </v-flex>
             <v-flex xs12>
                 <v-textarea
           v-model="product.text"
-          :rules='product.textRules'
+          :rules='textRules'
           auto-grow
           box
           label="Description"
@@ -41,13 +41,13 @@
             <v-flex xs12>
                 <v-text-field 
                 v-model='product.img' 
-                :rules='product.imageRules'
+                :rules='imageRules'
                 label="Image link"></v-text-field>
             </v-flex>
             <v-flex xs12>
                  <v-slider
                 v-model="product.price"
-                :rules='product.priceRules'
+                :rules='priceRules'
                 :label="`price: ${product.price}$`"
                 hint="Nie przesadzaj"
                 min="1"
@@ -57,7 +57,7 @@
             </v-flex>
             <v-flex xs12>
                 <v-radio-group class='text-center' 
-                :rules='product.postTypeRule'
+                :rules='postTypeRule'
                 v-model="product.postType" row>
                 <v-radio
                   v-for='item in items'
@@ -136,7 +136,9 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import PostsService from "../../../services/PostsService";
+import {rules} from '../../_mixin/newProductRules';
 export default {
+  mixins: [rules],
   data() {
     return {
       dialog: false,
@@ -157,31 +159,10 @@ export default {
       ],
       product: {
         title: "",
-        titleRules: [
-          v => !!v || "Name is required",
-          v =>
-            (v && v.length > 1) || "Name must be atleast more than 1 characters"
-        ],
         text: "",
-        textRules: [
-          v => !!v || "Description is required",
-          v => (v && v.length > 10) || "To short. Atleast 10 characters"
-        ],
         img: "",
-        imageRules: [
-          v =>
-            (v && v.match(/\.(jpeg|jpg|gif|png)$/)) ||
-            "this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png "
-        ],
         price: "",
-        priceRules: [
-          // (v) => !!v || 'Name is required',
-          v =>
-            (v && v >= 1 && v <= 100) ||
-            "You need to setup price between 1$ or 100$"
-        ],
         postType: "",
-        postTypeRule: [v => (v && v.length > 0) || "Choose category"]
       },
       items: ["Nature", "Devices", "Plants"]
     };

@@ -12,12 +12,14 @@
       column
       justify-center
     >
+    <a href="https://imgbb.com/"><img src="https://i.ibb.co/6HZbVNH/ecology.png" alt="ecology" border="0"></a>
       <h1 v-if='vampire' class="display-2 font-weight-black font-italic">Nature shop
       </h1>
        <h1 v-if='!vampire' class="display-2 font-weight-black font-italic green--text">Nature shop
       </h1>
       <div class=''>
       <v-btn class='elevation-20' large
+      round
       @click="$vuetify.goTo('#first', options)"
       >Our product</v-btn>
 
@@ -30,14 +32,17 @@
          <div id='first'>
         <after-paralex>
           <div align-center>
-          <v-btn dark large
+          <v-btn large
+          round
+          dark
           class='same--button'
       @click="$vuetify.goTo('#four', options)"
-      >Contact Us!</v-btn>
+      ><v-icon class='mr-2'>contact_phone</v-icon> Contact Us!</v-btn>
       <router-link to='/posts'>
       <v-btn  
+      round
       class='same--button'
-      dark large>Visit our online shop</v-btn>
+      dark large><v-icon class='mr-2'>shop</v-icon>Visit our online shop</v-btn>
       </router-link>
       </div>
         </after-paralex>
@@ -101,6 +106,9 @@ export default {
   background-color: white;
   transition-duration: 0.6s;
 }
+.same--button {
+    width: 250px;
+  }
 @media only screen and (max-width: 720px) {
   .parallex--one {
     display: none;

@@ -124,7 +124,9 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import PostsService from "../../../services/PostsService.js";
+import { rules } from '../../_mixin/newProductRules.js';
 export default {
+  mixins: [rules],
   data() {
     return {
       headers: [
@@ -139,15 +141,11 @@ export default {
       randomNum: 0,
       postData: [],
       address: "",
-      addressRule: [v => !!v || "Address is required"],
       city: "",
-      cityRule: [v => !!v || "City is required"],
       state: "",
       spinner: false,
       zip: "",
-      zipRule: [v => !!v || "ZIP code is required"],
       country: "",
-      countryRule: [v => !!v || "Country is required"],
       status: "New order",
       _id: "",
       formHasErrors: false,

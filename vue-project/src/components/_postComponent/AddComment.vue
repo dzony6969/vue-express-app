@@ -2,7 +2,6 @@
 
 <div>
     <div>
-
                                 <div class="col-sm-12">
                               <v-textarea
                                     v-model='comment.text'
@@ -41,9 +40,8 @@
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-10">                    
                                 <button @click='addComment()' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
-                            </div>
-                        </div>  
-                            
+                                </div>
+                              </div>  
                             </div>
                             <br>
                             <br>
@@ -79,7 +77,7 @@ export default {
         this.comment.text = "";
         this.comment.rating = "";
       } else {
-        alert("add rating before");
+        alert("Rate this product, please");
       }
     }
   }

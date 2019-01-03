@@ -1,6 +1,7 @@
 const state = {
   cart: [],
   summary: 0,
+  snackbar: false,
   disc: {
     discCode: "nature",
     onlyOneCode: true,
@@ -31,7 +32,10 @@ const mutations = {
     if (!record) {
       return state.cart.push(payload);
     } else {
-      alert("Already in the basket");
+      state.snackbar = true;
+      setTimeout(() => {
+        state.snackbar = false;
+      }, 6000)
     }
   },
   DELETE_CART(state, payload) {
@@ -69,7 +73,8 @@ const mutations = {
 const getters = {
   cart: state => state.cart,
   summary: state => state.summary,
-  disc: state => state.disc
+  disc: state => state.disc,
+  snackbar: state => state.snackbar,
 };
 
 export default {

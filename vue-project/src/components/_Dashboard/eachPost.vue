@@ -125,46 +125,15 @@
 import PostsService from "../../../services/PostsService";
 
 import { quillEditor } from 'vue-quill-editor'
-// require styles
+import { quillOptions } from '../../_mixin/quillMixin.js'
+import { rules } from '../../_mixin/newProductRules.js'
 export default {
+  mixins: [quillOptions, rules],
   components: {
     quillEditor,
   },
   data() {
     return {
-      editorOptions: {
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{'list': 'ordered'}, {'list': 'bullet'}],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['link', 'video'],
-          ]
-        }
-      },
-      titleRules: [
-        v => !!v || "Name is required",
-        v =>
-          (v && v.length > 1) || "Name must be atleast more than 1 characters"
-      ],
-      priceRules: [
-        // (v) => !!v || 'Name is required',
-        v =>
-          (v && v >= 1 && v <= 100) ||
-          "You need to setup price between 1$ or 100$"
-      ],
-      imageRules: [
-        v =>
-          (v && v.match(/\.(jpeg|jpg|gif|png)$/)) ||
-          "this is not correct URL. Make sure URL ends with .jpeg .jpg .gif or .png "
-      ],
-      textRules: [
-        v => !!v || "Description is required",
-        v => (v && v.length > 10) || "To short. Atleast 10 characters"
-      ],
       disableButton: true,
       checkValidation: true,
       dialog: false,

@@ -11,8 +11,9 @@
         column
         justify-center
       >
-        <h1 class="display-2 font-weight-thin mb-3">Vuetify.js</h1>
-        <h4 class="subheading">Build your application today!</h4>
+        <h1 class="display-2 font-weight-thin mb-3 h1--opacity">GET OUR MOBILE APP</h1>
+        <img class='google--iphone' src="https://i.ibb.co/d6V91HD/google-play-badge-1.png" alt="google-play-badge-1" border="0">
+        <img class='iphone--' src="https://honkbarkstudios.com/wp-content/uploads/2016/03/app-store-badge.png" alt="">
       </v-layout>
       <v-hover>
       <v-btn
@@ -54,7 +55,19 @@ export default {
 };
 </script>
 
-<style lang="text/css">
-
+<style lang="scss">
+.h1--opacity {
+  background: rgba(black, 0.9);
+  padding: 20px;
+  opacity: 0.6
+}
+.google--iphone {
+  width: 230px;
+}
+.iphone-- {
+  width: 200px;
+  float: right;
+  overflow: auto;
+}
   
 </style>
