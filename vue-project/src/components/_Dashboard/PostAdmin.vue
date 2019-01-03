@@ -3,8 +3,7 @@
     <br>
     <br>
     <div class='text-center'>
-    <h1 class='text-center'>Products in store</h1>
-    <v-btn color="primary" @click='dialogs = true' dark class="m-auto">New Item</v-btn>
+    <v-btn round large color="primary" @click='dialogs = true' dark class="m-auto">New Item</v-btn>
     </div>
     <v-dialog v-model="dialogs" max-width="500px">
       <v-card slot='activator' class='elevation-20' id='ustawTenJebanyMargin'>
@@ -79,6 +78,9 @@
         </v-card-actions>
     </v-card>
     </v-dialog>
+     <div class='alert alert-success text-center alert--connect elevation-5 set--width--2'>
+                <h4>Products in store</h4>
+              </div>
     <v-data-table :headers="headers" :items="posts" hide-actions class="elevation-3 data--table">
     <template slot="items" slot-scope="props">
         <td>{{ props.item.title }}</td>
@@ -217,7 +219,9 @@ export default {
 .data--button {
   margin: 0 auto;
 }
-#ustawTenJebanyMargin {
-  margin: 0px auto;
-}
+ .set--width--2 {
+    width: 65%;
+    margin-bottom: 0px;
+
+  }
 </style>

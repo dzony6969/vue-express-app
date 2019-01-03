@@ -5,8 +5,6 @@
   <br>
   <v-container sm12 class='set--width--chart elevation-10 grey lighten-4' >
     <br>
-    <h1 class='text-center'>Charts overview</h1>
-    <br>
     <strong><hr></strong>
 <v-layout row wrap >
       <v-flex xs12 offset-sm1 sm5 pl-1>
@@ -38,7 +36,13 @@
     
     <br>
     <v-flex>
-    <h1 class='text-center'>Daily chart</h1>
+      <br>
+      <br>
+      <br>
+
+    <div class='alert alert-success text-center alert--connect elevation-5'>
+                <h4>DAILY CHART</h4>
+              </div>
      <GChart
      class='elevation-15 pa-5'
     type="ColumnChart"
@@ -53,7 +57,10 @@
     <br>
     <br>
     <hr>
-    <h1>Overall amount per day</h1>
+    <div class='alert alert-success text-center alert--connect elevation-5 alert--conect-margin'>
+                <h4>LINE CHART FOR ALL DAYS</h4>
+                <p>(soon for month)</p>
+              </div>
     <br>
  <line-chart 
  class='elevation-15 line--chart'
@@ -61,12 +68,13 @@
  :data="lineChartValueArray"></line-chart>
  <br>
  <br>
-  <h1>Overall:</h1>
+      <div class='alert alert-success text-center alert--connect elevation-5'>
+                <h4>OVERALL</h4>
+              </div>
  <pie-chart :data="lineChartValueArray"></pie-chart>
+  <app-overall :sumAllAmount='sumAllAmount'></app-overall>
 
-  <h3 class='alert alert-info'>Amount: {{sumAllAmount.sum}}$</h3>
-  <h3 class='alert alert-danger'>Tax due: {{sumAllAmount.tax}}$</h3>
-  <h3 class='alert success'>Profit: {{sumAllAmount.profit}}$</h3>
+
  </div>
  </v-flex>
  </v-layout>
@@ -80,9 +88,13 @@ import { mapGetters } from "vuex";
 import { chartSetup } from '../../_mixin/chartMixin/chartSetup.js';
 import { sumAll } from '../../_mixin/chartMixin/sumAllData.js';
 import {converts} from '../../_mixin/chartMixin/convertToArray.js';
+import AppOverall from './Overall.vue'
 export default {
   mixins: [chartSetup, sumAll, converts],
   extends: Bar,
+  components: { 
+    AppOverall
+  },
   data() {
     return {
       typeDate: new Date().toISOString().substr(0, 10),
@@ -161,5 +173,8 @@ canvas {
 }
 .line--chart {
   width: 100%;
+}
+.alert--conect-margin {
+  margin-bottom: -25px;
 }
 </style>

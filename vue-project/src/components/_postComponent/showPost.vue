@@ -117,10 +117,11 @@
             <div class="card-body">
                 <transition-group 
        mode='in-out'
+       v-if='!showComment'
        enter-active-class="animated slideInDown" 
        leave-active-class="animated slideOutDown"
        >
-                <all-comment v-if='!showComment' v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
+                <all-comment  v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
                 </transition-group>  
             </div>
           </v-flex>

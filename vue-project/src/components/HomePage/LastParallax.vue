@@ -17,7 +17,6 @@
       </v-layout>
       <v-hover>
       <v-btn
-            slot-scope="{hover}"
             v-scroll="onScroll"
             v-show="fab"
             fab

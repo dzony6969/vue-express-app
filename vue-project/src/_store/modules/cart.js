@@ -2,6 +2,7 @@ const state = {
   cart: [],
   summary: 0,
   snackbar: false,
+  snackbarAdd: false, 
   disc: {
     discCode: "nature",
     onlyOneCode: true,
@@ -30,12 +31,18 @@ const mutations = {
   addToCart(state, payload) {
     const record = state.cart.find(element => element.id == payload.id);
     if (!record) {
-      return state.cart.push(payload);
+      state.snackbar = false;
+      state.snackbarAdd = true; 
+      setTimeout(() => {
+        state.snackbarAdd = false;
+      }, 3000) 
+      state.cart.push(payload);
     } else {
       state.snackbar = true;
+      state.snackbarAdd = false; 
       setTimeout(() => {
         state.snackbar = false;
-      }, 6000)
+      }, 3000)
     }
   },
   DELETE_CART(state, payload) {
@@ -75,6 +82,7 @@ const getters = {
   summary: state => state.summary,
   disc: state => state.disc,
   snackbar: state => state.snackbar,
+  snackbarAdd: state => state.snackbarAdd,
 };
 
 export default {

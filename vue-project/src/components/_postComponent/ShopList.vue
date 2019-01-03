@@ -12,14 +12,34 @@
         :right="x === 'right'"
         color='warning'
         :top="y === 'top'"
-        :vertical="mode === 'vertical'"
+
       >
-        <p> Already in casket. Check your
+      <v-icon x-large>
+notification_important</v-icon>
+        <h4> Already in casket. Check your
         <router-link to='/shop'>order</router-link>, please. 
-        </p>
+        </h4>
 
       </v-snackbar>
-    <h1>OUR PRODUCTS</h1>
+      <v-snackbar
+        v-model="snackbarAdd"
+        :bottom="y === 'bottom'"
+        :left="x === 'left'"
+        :multi-line="mode === 'multi-line'"
+        :right="x === 'right'"
+        color='success'
+        :top="y === 'top'"
+      >
+      <v-icon x-large>
+notification_important</v-icon>
+        <h4> Added to casket. Check your
+        <router-link to='/shop'>order</router-link> 
+        </h4>
+
+      </v-snackbar>
+      <div class='alert text-center alert--connect--indigo elevation-5'>
+                <h1>Products in store</h1>
+              </div>
       <v-layout row wrap>
         
       <v-flex v-for="post in filteredPosts" :key="post._id" xs12 sm6 lg4 class="my-3">
@@ -59,11 +79,12 @@
           color="orange"
           class="white--text"
           fab
+          @click='addToCart(post), priceSum()'
           medium
           right
           top
         >
-          <v-icon @click='addToCart(post), priceSum()' >shopping_basket</v-icon>
+          <v-icon >shopping_basket</v-icon>
         </v-btn>
         <br>
         <a v-if='admin.isAdmin' href="#" @click="deletePost(post._id)">Delete</a>
@@ -128,7 +149,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["admin", 'snackbar'])
+    ...mapGetters(["admin", 'snackbar', 'snackbarAdd'])
   }
 };
 </script>
@@ -157,5 +178,10 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
   font-family: inherit;
+}
+.alert--connect--indigo {
+  border: transparent;
+  opacity: 0.9;
+  background: -webkit-linear-gradient(45deg, rgba(23,255,197,1) 0%, rgba(0,128,128,1) 100%); /* safari5.1+,chrome10+ */
 }
 </style>

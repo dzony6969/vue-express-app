@@ -4,7 +4,6 @@
       <br> 
       <br>
       <div class='text-center'>
-      <h1>Admin dashboard</h1>
      <v-btn color='success' @click='toggle'>Filter by date</v-btn>
      </div>
         <v-card class='text-center' v-if='!datePopup'>
@@ -28,11 +27,15 @@
             </p>
             </v-flex>
             <v-flex>
+              <div class='alert alert-success text-center alert--connect elevation-5'>
+                <h4>ALL ORDERS</h4>
+              </div>
  <v-data-table  :headers="mainHeaders"
                :items="datePicker"
                item-key="name"
-               hide-actions
-               
+               :pagination.sync="pagination"
+               :rows-per-page-items="pagination.rowsPerPageItems"
+               :total-items="pagination.totalItems"
                class="elevation-1">
   <template slot="items" scope="props">
     <tr >
@@ -74,6 +77,13 @@ export default {
       picker: new Date().toISOString().substr(0, 10),
       datePopup: true,
       searchByName: "",
+      pagination: {
+          descending: true,
+          page: 1,
+          rowsPerPage: 4,
+          totalItems: 0,
+          rowsPerPageItems: [1, 2, 4, 8, 16]
+    },
       mainHeaders: [
         { text: "NAME", value: "name", sortable: false },
         { text: "ORDER", value: "order" },
@@ -99,9 +109,6 @@ export default {
   },
   computed: {
     ...mapGetters(["orders"]),
-    // filterDate() {
-    //   let dataFormat = this.orders.map(date => date.createdAt.substring(0, 10));
-    // },
     datePicker() {
       const orderList = this.orders.filter(item => {
         let date = item.createdAt.substring(0, 10);
@@ -135,5 +142,12 @@ a {
 }
 .icon--order {
   margin: 0px 3px 0 3px;
+}
+.alert--connect {
+  margin: 0 auto -10px auto;
+  width: 90%;
+  color: #F5F5F5;
+  border-color: transparent;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(40,140,0,1)), color-stop(11%, rgba(40,140,0,1)), color-stop(100%, rgba(0,128,128,1)));
 }
 </style>
