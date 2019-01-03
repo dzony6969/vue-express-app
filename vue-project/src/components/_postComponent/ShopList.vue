@@ -96,6 +96,7 @@ notification_important</v-icon>
             <br>
             <div v-if='post.avgRating > 0' class='text-left'>
             <v-rating
+            half-increments
             v-model="post.avgRating"
             background-color="pink lighten-3"
             color="pink"

@@ -2,7 +2,7 @@
 <div>
   <v-container class='rwd--container' grid-list-md text-xs-center>
       <v-layout row wrap>
-      <v-flex v-for="arr in arrs" :key="arr" xs12 sm4 class="my-3">
+      <v-flex v-for="arr in arrs" :key="arr" xs4 sm4 class="my-3">
         <v-hover>
     <v-card
       slot-scope="{ hover }"

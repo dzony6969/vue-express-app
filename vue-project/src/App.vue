@@ -12,7 +12,9 @@
        enter-active-class="animated fadeInDown" 
        leave-active-class="animated fadeOutDown"
        >
-         <router-view/>
+         <router-view
+         :key="$route.fullPath"
+         ></router-view>
        </transition>
        </v-app>
   </div>

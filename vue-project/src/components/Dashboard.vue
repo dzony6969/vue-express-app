@@ -4,7 +4,7 @@
       <br> 
       <br>
       <div class='text-center'>
-     <v-btn color='success' @click='toggle'>Filter by date</v-btn>
+     <v-btn x-large round color='success' @click='toggle'>Filter by date</v-btn>
      </div>
         <v-card class='text-center' v-if='!datePopup'>
                 <v-date-picker v-model="picker" color="green lighten-1 text-center"></v-date-picker>

@@ -1,15 +1,14 @@
 <template>
  <div>
-    <br>
-    <br>
-    <br>
+   <!-- sooon repiar :> -->
+    <!-- <v-container>
+      <v-layout row wrap>
+          <recommend :cutId='product.id' :productType='product.type'></recommend>
+          </v-layout>
+    </v-container> -->
     <v-container v-if='product.id.length > 3'>
-
       <v-layout row>
-        <!-- /.col-lg-3 -->
-
-        <v-flex lg6 offset-lg3>
-
+        <v-flex lg6 md12 offset-lg1>
           <v-card class="card mt-4">
             <img class="card-img-top img-fluid" :src="product.img" alt="">
             <div class="card-body">
@@ -36,6 +35,7 @@
                 background-color="purple lighten-3"
                 color="purple"
                 medium
+                half-increments
                 :value='avgRating'
                 readonly
               ></v-rating>
@@ -43,10 +43,10 @@
               <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
             </div>
           </v-card>
-            <h3>Add review of our product</h3>
-          <!-- <add-comment :showComment='showComment'></add-comment> -->
-          <div>
-    <div>
+          <v-card class='elevation-10'>
+                      <div>
+                      <div>
+    
                           <div class="col-sm-12">
                               <v-textarea
                                     v-model='comment.text'
@@ -100,15 +100,11 @@
         indeterminate
       ></v-progress-circular>
             </div>
-              <br>
-                <br>
               </div>
             </div>  
         </div>
         </div>
-          <br>
-          <br>
-          <br>
+          </v-card>
           <v-flex class="my-4 col-sm-12">
             <div class="card-header">
             Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
@@ -127,7 +123,9 @@
           </v-flex>
           <!-- /.card -->
         </v-flex>
-        <!-- /.col-lg-9 -->
+        <v-flex class='recommend--media' lg3 md3>
+            <recommend :cutId='product.id' :productType='product.type'></recommend>
+        </v-flex>
 
       </v-layout>
       
@@ -139,6 +137,7 @@
 import PostsService from "../../../services/PostsService";
 import AddComment from "./AddComment.vue";
 import AllComment from "./AllComment";
+import Recommend from './Recommend';
 import { mapState } from "vuex";
 export default {
   name: "showPost",
@@ -158,6 +157,7 @@ export default {
       product: {
         title: "",
         text: "",
+        type: '',
         img: "",
         price: "",
         id: "",
@@ -168,7 +168,8 @@ export default {
   },
   components: {
     AllComment,
-    AddComment
+    AddComment,
+    Recommend,
   },
   mounted() {
     this.getPost();
@@ -187,6 +188,7 @@ export default {
         this.product.img = response.data.img;
         this.product.price = response.data.price;
         this.product.id = response.data._id;
+        this.product.type = response.data.postType
         this.product.comments = response.data.comments;
         this.product.avgRating = response.data.avgRating;
       } catch (err) {
@@ -266,5 +268,10 @@ export default {
   padding: 10px;
   border-radius: 7%;
   color: #212121;
+}
+@media only screen and (max-width: 1000px) {
+  .recommend--media {
+    display: none;
+  }
 }
 </style>
