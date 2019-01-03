@@ -211,6 +211,9 @@ export default {
   .category--select {
     display: block;
   }
+  .alert--connect--indigo {
+    display: none;
+  }
 }
 @media only screen and (min-width: 960px) {
   .always--fixed {
