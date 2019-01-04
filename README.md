@@ -1,5 +1,5 @@
 # vue-express-app
-preview: https://quiet-anchorage-75107.herokuapp.com/
+preview: http://quiet-anchorage-75107.herokuapp.com/
 
 or 
 git clone https://github.com/dzony6969/vue-express-app
