@@ -35,6 +35,7 @@
               v-model="name"
               :rules='nameRule'
               label="Full Name"
+              :disabled="spinner"  
               placeholder=""
               required
             ></v-text-field>
@@ -42,15 +43,16 @@
               ref="address"
               v-model="address"
               :rules='addressRule'
+              :disabled="spinner"  
               label="Address Line"
               placeholder=""
-              counter="25"
               required
             ></v-text-field>
             <v-text-field
               ref="city"
               v-model="city"
               :rules='cityRule'
+              :disabled="spinner"  
               label="City"
               placeholder=""
               required
@@ -58,6 +60,7 @@
             <v-text-field
               ref="state"
               v-model="state"
+              :disabled="spinner"  
               label="State/Province/Region*"
               placeholder=""
             ></v-text-field>
@@ -65,6 +68,7 @@
               ref="zip"
               v-model.Number="zip"
               :rules='zipRule'
+              :disabled="spinner"  
               label="ZIP / Postal Code"
               required
               placeholder=""
@@ -73,6 +77,7 @@
               ref="country"
               v-model="country"
               :rules='countryRule'
+              :disabled="spinner"  
               label="Country"
               placeholder="Country"
               required
@@ -86,20 +91,6 @@
             </router-link>
             <v-spacer></v-spacer>
             <v-slide-x-reverse-transition>
-              <v-tooltip
-                v-if="formHasErrors"
-                left
-              >
-                <v-btn
-                  slot="activator"
-                  icon
-                  class="my-0"
-                  @click="resetForm"
-                >
-                  <v-icon>refresh</v-icon>
-                </v-btn>
-                <span>Refresh form</span>
-              </v-tooltip>
             </v-slide-x-reverse-transition>
             <div class="text-xs-center" v-if='spinner'>
       <v-progress-circular
@@ -108,7 +99,10 @@
         indeterminate
       ></v-progress-circular>
             </div>
-            <v-btn v-if='!spinner' color="primary" :disabled="disableButton"  flat @click="addOrder(), getId()">Submit</v-btn>
+            <v-btn v-if='!spinner' color="primary" 
+            :disabled="disableButton"  
+            flat 
+            @click="addOrder()">Submit</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -183,6 +177,7 @@ export default {
           randomNum: this.getRandomNum()
         });
         this.disableButton = true;
+        this.getId();
         setTimeout(() => {
           this.cleanCart();
           this.newOrders();
