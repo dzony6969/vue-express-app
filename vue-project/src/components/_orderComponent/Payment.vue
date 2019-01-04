@@ -177,12 +177,12 @@ export default {
           randomNum: this.getRandomNum()
         });
         this.disableButton = true;
-        this.getId();
+        await this.getId();
         setTimeout(() => {
           this.cleanCart();
           this.newOrders();
           this.$router.push({ name: "UserOrder", params: { id: this._id } });
-        }, 3000);
+        }, 7000);
       } else {
         alert("Fill the form");
       }
