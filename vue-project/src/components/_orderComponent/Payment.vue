@@ -1,32 +1,25 @@
 <template>
 <div>
 <div>
+  <br>
     <div v-if='cart.length > 0'>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="alert alert-info text-center" role="alert">
-  You ordered {{cart.length}} item for {{`${summary.toFixed(2)}$`}}
+<v-alert
+        :value="true"
+        color="info"
+        icon="info"
+        class='set--width'
+        outline
+      >
+      <div>
+       <p>You ordered {{cart.length}} item for {{`${summary.toFixed(2)}$`}}</p> 
+        
+        <p><strong>
+Please fill in the form correctly!</strong></p>
 </div>
+      </v-alert>
         <div 
          id='order--table'>
-        <v-data-table
-        :headers='headers'
-        :items="cart"
-        class="elevation-10"
-        color='indigo'
-    >
-      <template slot="items" scope="props">
-        <td class='text-sm'>{{props.item.title}}</td>
-        <td class='text-sm'>{{props.item.price}} $</td>
-        <td class='text-sm'>{{props.item.quantity}}</td>
-      </template>
-    </v-data-table>
-     <br>
-     {{checkForm}}
-        <br>
-    <v-layout justify-center>
+         <v-layout justify-center>
       <v-flex xs12 sm10 md8 lg6>
         <v-card ref="form">
           <v-card-text>
@@ -45,7 +38,6 @@
               :rules='addressRule'
               :disabled="spinner"  
               label="Address Line"
-              placeholder=""
               required
             ></v-text-field>
             <v-text-field
@@ -54,7 +46,6 @@
               :rules='cityRule'
               :disabled="spinner"  
               label="City"
-              placeholder=""
               required
             ></v-text-field>
             <v-text-field
@@ -62,7 +53,6 @@
               v-model="state"
               :disabled="spinner"  
               label="State/Province/Region*"
-              placeholder=""
             ></v-text-field>
             <v-text-field
               ref="zip"
@@ -71,7 +61,6 @@
               :disabled="spinner"  
               label="ZIP / Postal Code"
               required
-              placeholder=""
             ></v-text-field>
             <v-text-field
               ref="country"
@@ -79,7 +68,6 @@
               :rules='countryRule'
               :disabled="spinner"  
               label="Country"
-              placeholder="Country"
               required
             ></v-text-field>
           </v-card-text>
@@ -107,7 +95,24 @@
         </v-card>
       </v-flex>
     </v-layout>
-
+      <br>
+      <br>
+      <br>
+        <v-data-table
+        :headers='headers'
+        :items="cart"
+        class="elevation-10"
+        color='indigo'
+    >
+      <template slot="items" scope="props">
+        <td class='text-sm'>{{props.item.title}}</td>
+        <td class='text-sm'>{{props.item.price}} $</td>
+        <td class='text-sm'>{{props.item.quantity}}</td>
+      </template>
+    </v-data-table>
+     <br>
+     {{checkForm}}
+        <br>
     </div>
     </div>
   </div>
@@ -204,7 +209,11 @@ export default {
 </script>
 <style lang="scss">
 #order--table {
-  max-width: 1000px;
+  max-width: 80vh;
   margin: 0 auto;
+}
+.set--width {
+  max-width: 60vh;
+  margin: 1vh auto;
 }
 </style>

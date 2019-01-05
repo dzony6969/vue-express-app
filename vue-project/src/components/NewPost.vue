@@ -36,15 +36,6 @@
                 thumb-label
               ></v-slider>
     <br>
-     <!-- <v-textarea
-          v-model="text"
-          auto-grow
-          :rules='textRules'
-          box
-          color="deep-purple"
-          label="Description"
-          rows="1"
-        ></v-textarea> -->
         <quill-editor
               :options='editorOptions'
               v-model='text'></quill-editor>
@@ -104,7 +95,6 @@
     <div class="container tex-center">
 
       <div class="row">
-        <!-- /.col-lg-3 -->
 
         <div class="col-lg-offset-3 col-lg-6">
 
@@ -128,10 +118,8 @@
               
             </div>
           </div>
-          <!-- /.card -->
-          <!-- /.card -->
         </div>
-        <!-- /.col-lg-9 -->
+
       </div>
     </div>
         </v-card>

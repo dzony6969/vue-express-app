@@ -15,7 +15,9 @@
         ></v-date-picker>
       </v-flex>
       <v-flex xs12 sm5 pl-3>
-        <div class="title">Daily news({{ typeDate || 'change month...' }})<v-btn large round class='info' @click='filterChart()'>Pick date</v-btn></div>
+        <div class="title">Daily news({{ typeDate || 'change month...' }})
+          <v-btn large round class='info' @click='filterChart()'>Pick date</v-btn>
+          </div>
         <div class="subheading">wrap up for selected date</div>
         <div></div>
         <ul>
