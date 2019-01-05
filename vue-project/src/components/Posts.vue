@@ -10,12 +10,10 @@
           <v-flex text-xs-center>
             
           <vue-typed-js :strings="['Welcome in Nature shop']">
-  <h1 class='center--typed'> <v-icon large>nature</v-icon> <span class="typing"></span></h1>
+  <h1 class='center--typed'><span class="typing"></span></h1>
 </vue-typed-js>
 <br>
-<br>
-<br>
-<br>
+
 <vue-typed-js :strings="['<p>^2000  -20% WITH CODE NATURE </p>']" :contentType="'html'">
   <h2 class="typing center--typed font-color--typed"></h2>
 </vue-typed-js>
@@ -218,7 +216,7 @@ export default {
 @media only screen and (min-width: 960px) {
   .always--fixed {
     position: fixed;
-    margin-top: -350px;
+    margin-top: -35vh;
   }
 }
 </style>

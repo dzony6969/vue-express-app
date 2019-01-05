@@ -4,7 +4,7 @@
       id='parallax'
       dark
       height='450'
-      src="https://images.pexels.com/photos/707915/pexels-photo-707915.jpeg?cs=srgb&dl=background-background-image-creek-707915.jpg&fm=jpg"
+      src="https://i.ibb.co/xJkDxT0/para.jpg"
     >
       <v-layout
         align-center

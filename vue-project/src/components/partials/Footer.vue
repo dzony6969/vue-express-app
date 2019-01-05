@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      links: ["Credits", "About Us", "Contact Us"],
+      links: ["About Us", "Contact Us"],
       credits: true,
       };
   },
