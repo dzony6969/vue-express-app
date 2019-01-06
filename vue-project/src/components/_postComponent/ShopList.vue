@@ -37,7 +37,7 @@ notification_important</v-icon>
         </h4>
 
       </v-snackbar>
-      <div class='alert text-center alert--connect--indigo elevation-5'>
+      <div class='alert text-center alert--connect--indigo elevation-5 set--vh'>
                 <h1>Products in store</h1>
               </div>
       <v-layout row wrap>
@@ -179,10 +179,5 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word;
   font-family: inherit;
-}
-.alert--connect--indigo {
-  border: transparent;
-  opacity: 0.9;
-  background: -webkit-linear-gradient(45deg, rgba(23,255,197,1) 0%, rgba(0,128,128,1) 100%); /* safari5.1+,chrome10+ */
 }
 </style>

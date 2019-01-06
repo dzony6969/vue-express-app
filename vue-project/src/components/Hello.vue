@@ -20,7 +20,6 @@
       
         </header>
         <div id='first'>
-          <br>
         </div>
          <div>
         <after-paralex>
@@ -93,9 +92,6 @@ export default {
 @media only screen and (max-width: 720px) {
   .parallex--one {
     display: none;
-  }
-  .same--button {
-    width: 250px;
   }
 }
 .green--text {

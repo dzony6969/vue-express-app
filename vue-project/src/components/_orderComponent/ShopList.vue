@@ -2,11 +2,11 @@
  <div>
    <v-jumbotron
    v-if='cart.length >0'
-   class='elevation-10 text-center'
+   class='text-center'
    >
     <v-container fill-height>
       <v-layout align-center>
-        <v-flex>
+        <v-flex mx-auto lg6>
           <h3 class="display-3">Nature shop</h3>
 
           <span class="subheading">If you want to finish your order click below button</span>
@@ -20,11 +20,17 @@
           <router-link 
           to="/payment">
          <v-btn
+         round
+         class='same--button'
         color='success'
         large><span>Finish your order</span>
       </v-btn>
         </router-link>
-      <v-btn :disabled='!disc.onlyOneCode' large @click="dialog = true">I have a discount code</v-btn>
+      <v-btn 
+      round
+      class='same--button' 
+      :disabled='!disc.onlyOneCode' 
+      large @click="dialog = true">discount code</v-btn>
       <v-dialog
         v-model="dialog"
         max-width="400"
@@ -103,12 +109,9 @@
     </v-container>
   </v-jumbotron>
 <v-container v-if='cart.length > 0' id='listOfProduct' grid-list-md text-xs-center>
-    <br>
-    <br>
-    <br>
-    <br>
-      <v-layout row wrap>
-      <v-flex v-for="post in cart" :key="post._id" xs12 sm6 lg4 class="my-3">
+      <v-layout class='elevation-20' row wrap>
+       
+      <v-flex v-for="post in cart" :key="post._id" xs12 sm4 lg3 class="my-3">
         <v-hover>
     <v-card
       slot-scope="{ hover }"
@@ -193,5 +196,8 @@ export default {
 }
 .discount--color {
   color: red;
+}
+.same--button {
+  width: 250px;
 }
 </style>

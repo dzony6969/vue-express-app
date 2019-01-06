@@ -1,9 +1,5 @@
 <template>
    <div>
-        <br>
-        <br>
-        <br>
-        <br>
         <v-container>
             <v-flex align-center>
                 <v-card class='notFound text-center'>

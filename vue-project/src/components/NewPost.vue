@@ -1,10 +1,7 @@
 <template>
 <div>
   <div class="">
-    <br>
-    <br>
-    <br>
-    <h1 class='text-center'>Product creator</h1>
+    <h1 class='text-center ma-4'>Product creator</h1>
      <v-stepper class='text-center set--margin' id='v--stepper' v-model="e6" vertical>
       <v-stepper-step :complete="e6 > 1" 
         editable
@@ -24,7 +21,6 @@
                 :rules='titleRules'
                 required
               ></v-text-field>
-    <br>
     <v-slider
                 v-model="price"
                 color="purple darken-2"
@@ -35,12 +31,10 @@
                 max="100" 
                 thumb-label
               ></v-slider>
-    <br>
         <quill-editor
               :options='editorOptions'
               v-model='text'></quill-editor>
         </div>
-        <br>
         <div v-if='text.length < 10' class='alert alert-info'>Description must have atleast 3 characters</div>
           
         </v-card>
@@ -90,8 +84,6 @@
   
       <v-stepper-content step="3">
         <v-card color="" class="mb-5" height="700px">
-      
-    <br>
     <div class="container tex-center">
 
       <div class="row">

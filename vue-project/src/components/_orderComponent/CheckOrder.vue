@@ -1,9 +1,7 @@
 <template>
 <div>
-    <br>
-    <br>
   <v-card
-    class="mx-auto"
+    class="mx-auto mt-4"
     max-width="600"
   >
     <v-card-title class="title font-weight-regular justify-space-between">
@@ -25,7 +23,6 @@
         <v-btn large v-else-if='id.length === 24' @click='checkOrder()'  class='success' >Check your order</v-btn>
         <v-btn large v-else-if='id.length > 24'  class='success' disabled>ID is to long</v-btn>
         </div>
-        <br>
             <transition 
             mode='out-in'
             enter-active-class="animated fadeInDown" 
@@ -35,7 +32,6 @@
         <strong>Order</strong> doesn't exist, try again!
     </div>
         </transition>
-        <br>
   </v-card>
   
   </div>

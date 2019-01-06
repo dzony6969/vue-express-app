@@ -1,9 +1,6 @@
 <template>
     <div id="inspire">
-        <br>
-        <br>
-        <br>
-        <div class='text-center'>
+        <div class='text-center ma-4'>
             <v-btn x-large round color='success' @click='toggle'>Filter by date</v-btn>
         </div>
         <v-card class='text-center' v-if='!datePopup'>

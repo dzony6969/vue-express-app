@@ -9,9 +9,6 @@
                 </v-avatar>
             </v-card-title>
             <v-card-text>
-                <p class='text-center'>ORDER DETAIL</p>
-                <br>
-                <br>
                 <p>Person: <strong>{{order.name}}</strong></p>
                 <p>address: 
                 <strong>
@@ -29,7 +26,6 @@
                 </div>
                 <hr>
                 <h4 class='text-center'>Order status</h4>
-                <br>
                 <p>Current status: <strong>{{order.status}}</strong></p>
                 <hr>
                 <h4 class='text-center'>Set status</h4>
@@ -46,10 +42,9 @@
                 <router-link to='/dashboard'>
                     <v-btn dark align-center>Back to order list</v-btn>
                 </router-link>
-                <v-btn dark @click='upPost'>Update posts</v-btn>
+                <v-btn class='mb-4' dark @click='upPost'>Update posts</v-btn>
 
             </div>
-            <br>
         </v-card>
     </div>
 </template>

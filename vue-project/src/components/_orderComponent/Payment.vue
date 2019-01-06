@@ -1,7 +1,6 @@
 <template>
 <div>
 <div>
-  <br>
     <div v-if='cart.length > 0'>
 <v-alert
         :value="true"
@@ -95,13 +94,10 @@ Please fill in the form correctly!</strong></p>
         </v-card>
       </v-flex>
     </v-layout>
-      <br>
-      <br>
-      <br>
         <v-data-table
         :headers='headers'
         :items="cart"
-        class="elevation-10"
+        class="elevation-10 mt-4"
         color='indigo'
     >
       <template slot="items" scope="props">
@@ -110,9 +106,7 @@ Please fill in the form correctly!</strong></p>
         <td class='text-sm'>{{props.item.quantity}}</td>
       </template>
     </v-data-table>
-     <br>
      {{checkForm}}
-        <br>
     </div>
     </div>
   </div>

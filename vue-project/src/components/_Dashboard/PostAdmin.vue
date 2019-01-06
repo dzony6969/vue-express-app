@@ -1,8 +1,6 @@
 <template>
 <div>
-    <br>
-    <br>
-    <div class='text-center'>
+    <div class='mt-5 text-center'>
     <v-btn round large color="primary" @click='dialogs = true' dark class="m-auto">New Item</v-btn>
     </div>
     <v-dialog v-model="dialogs" max-width="500px">

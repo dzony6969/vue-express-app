@@ -32,15 +32,13 @@
                         <quill-editor 
                         :options='editorOptions' 
                         v-model='product.text'></quill-editor>
-                        <br>
-                        <br>
 
                         <v-btn 
                         v-if='checkValidation' 
                         :disabled='disableButton'
                         @click='updatePost()' 
                         color="success" 
-                        class="white--text" 
+                        class="white--text mt-5" 
                         medium right bottom>
                             Update product
                         </v-btn>

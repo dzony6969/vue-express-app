@@ -1,10 +1,6 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <v-container sm12 class='set--width--chart elevation-10 grey lighten-4'>
-            <br>
+        <v-container sm12 class='mt-4 set--width--chart elevation-10 grey lighten-4'>
             <strong><hr></strong>
             <v-layout row wrap>
                 <v-flex xs12 offset-sm1 sm5 pl-1>
@@ -30,13 +26,7 @@
 
                     </ul>
                 </v-flex>
-
-                <br>
-                <v-flex>
-                    <br>
-                    <br>
-                    <br>
-
+                <v-flex class='mt-4'>
                     <div class='alert alert-success text-center alert--connect elevation-5'>
                         <h4>DAILY CHART</h4>
                     </div>
@@ -46,26 +36,22 @@
                     @ready="onChartReady" 
                     :createChart="(el, google) => new google.charts.Bar(el)" 
                     :settings="{packages: ['bar']}" />
-                    <br>
+
                     <div class='text-center'>
-                        <br>
-                        <br>
                         <hr>
                         <div class='alert alert-success text-center alert--connect elevation-5 alert--conect-margin'>
                             <h4>LINE CHART FOR ALL DAYS</h4>
                             <p>(soon for month)</p>
                         </div>
-                        <br>
                         <line-chart 
                         class='elevation-15 line--chart' 
                         height='300px' 
                         :data="lineChartValueArray"></line-chart>
-                        <br>
-                        <br>
-                        <div class='alert alert-success text-center alert--connect elevation-5'>
+                        <div class='ma-5 alert alert-success text-center alert--connect elevation-5'>
                             <h4>OVERALL</h4>
                         </div>
-                        <pie-chart :data="lineChartValueArray"></pie-chart>
+                        <pie-chart 
+                        :data="lineChartValueArray"></pie-chart>
                         <app-overall :sumAllAmount='sumAllAmount'></app-overall>
 
                     </div>
