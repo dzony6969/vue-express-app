@@ -1,67 +1,58 @@
 <template>
-<div>
-    <br>
-    <br>    
-    <br>
-    <br>
-    <br>
-    <br>
-       <v-card
-      class="mx-auto elevation-20"
-      
-      max-width="600"
-    >
-      <v-card-title class="title font-weight-regular justify-space-between">
-        order ID:<h3>  <strong>{{order.id}}</strong> </h3>
-        <v-avatar
-          color="green lighten-2"
-          class="subheading white--text"
-          size="40"
-        ><v-icon>done</v-icon></v-avatar>
-      </v-card-title>
-          <v-card-text>
-              <p class='text-center'>ORDER DETAIL</p>
-              <br>
-              <br>
-              <p>Person: <strong>{{order.name}}</strong></p>
-              <p>address: <strong>{{order.address}}, {{order.city}}, {{order.zip}}, {{order.country}}</strong></p>
-              <p>Price: <strong>{{order.summary}}$</strong></p>
-              <p>Order list:</p>
-              <div v-for='item in order.order' :key='item.id'>
-                  <router-link v-bind:to="{ name: 'showPost', params: { id: item.id } }" >
-                {{` ${item.title} - quantity ${item.quantity}, `}}
-                </router-link>
-              </div>
-              <hr>
-              <h4 class='text-center'>Order status</h4>
-              <br>
-                <p>Current status:  <strong>{{order.status}}</strong></p>
+    <div>
+        <v-card class="mx-auto elevation-20" max-width="600">
+            <v-card-title class="title font-weight-regular justify-space-between">
+                order ID:
+                <h3>  <strong>{{order.id}}</strong> </h3>
+                <v-avatar color="green lighten-2" class="subheading white--text" size="40">
+                    <v-icon>done</v-icon>
+                </v-avatar>
+            </v-card-title>
+            <v-card-text>
+                <p class='text-center'>ORDER DETAIL</p>
+                <br>
+                <br>
+                <p>Person: <strong>{{order.name}}</strong></p>
+                <p>address: 
+                <strong>
+                  {{order.address}}, 
+                  {{order.city}}, 
+                  {{order.zip}}, 
+                  {{order.country}}</strong></p>
+                <p>Price: <strong>{{order.summary}}$</strong></p>
+                <p>Order list:</p>
+                <div v-for='item in order.order' :key='item.id'>
+                    <router-link 
+                    v-bind:to="{ name: 'showPost', params: { id: item.id } }">
+                        {{` ${item.title} - quantity ${item.quantity}, `}}
+                    </router-link>
+                </div>
+                <hr>
+                <h4 class='text-center'>Order status</h4>
+                <br>
+                <p>Current status: <strong>{{order.status}}</strong></p>
                 <hr>
                 <h4 class='text-center'>Set status</h4>
-                 <v-radio-group 
-                 row
-                 v-model="order.status">
-                    <v-radio
-                      v-for='status in statusValue' 
+                <v-radio-group row v-model="order.status">
+                    <v-radio 
+                    v-for='status in statusValue' 
                     :key='status' 
-                    :label="status"
-                    :value="status"
-        ></v-radio>
-      </v-radio-group>
-          </v-card-text>
-          <hr>
-          <div class='text-center'>
-          <router-link to='/dashboard'>
-            <v-btn dark align-center>Back to order list</v-btn>
-            </router-link>
-            <v-btn dark @click='upPost'>Update posts</v-btn>
-          
-          </div>
-          <br>
+                    :label="status" 
+                    :value="status"></v-radio>
+                </v-radio-group>
+            </v-card-text>
+            <hr>
+            <div class='text-center'>
+                <router-link to='/dashboard'>
+                    <v-btn dark align-center>Back to order list</v-btn>
+                </router-link>
+                <v-btn dark @click='upPost'>Update posts</v-btn>
+
+            </div>
+            <br>
         </v-card>
     </div>
 </template>
-
 <script>
 import PostsService from "../../../services/PostsService";
 import { mapActions } from "vuex";

@@ -1,87 +1,78 @@
 <template>
-<div>
-  <br>
-  <br>
-  <br>
-  <v-container sm12 class='set--width--chart elevation-10 grey lighten-4' >
-    <br>
-    <strong><hr></strong>
-<v-layout row wrap >
-      <v-flex xs12 offset-sm1 sm5 pl-1>
-        <v-date-picker
-          ref="picker"
-          v-model="typeDate"
-          full-width
-        ></v-date-picker>
-      </v-flex>
-      <v-flex xs12 sm5 pl-3>
-        <div class="title">Daily news({{ typeDate || 'change month...' }})
-          <v-btn large round class='info' @click='filterChart()'>Pick date</v-btn>
-          </div>
-        <div class="subheading">wrap up for selected date</div>
-        <div></div>
-        <ul>
-          <div v-if='chartValueObject.length === 1'>
-          <strong><li>Overall amount: {{`${chartValueArray[1][1].toFixed(2)}`}}$</li></strong>
-          <strong><li>Tax due: {{`${chartValueArray[1][2].toFixed(2)}`}}$</li></strong>
-          <strong><li>Profit: {{`${chartValueArray[1][3].toFixed(2)}`}}$</li></strong>
-          </div>
-          <div v-if='chartValueObject.length >1'><v-alert
-        :value="true"
-        type="warning"
-      >
-        Data not found
-      </v-alert></div>
-          
-        </ul>
-      </v-flex>
-    
-    <br>
-    <v-flex>
-      <br>
-      <br>
-      <br>
+    <div>
+        <br>
+        <br>
+        <br>
+        <v-container sm12 class='set--width--chart elevation-10 grey lighten-4'>
+            <br>
+            <strong><hr></strong>
+            <v-layout row wrap>
+                <v-flex xs12 offset-sm1 sm5 pl-1>
+                    <v-date-picker ref="picker" v-model="typeDate" full-width></v-date-picker>
+                </v-flex>
+                <v-flex xs12 sm5 pl-3>
+                    <div class="title">Daily news({{ typeDate || 'change month...' }})
+                        <v-btn large round class='info' @click='filterChart()'>Pick date</v-btn>
+                    </div>
+                    <div class="subheading">wrap up for selected date</div>
+                    <div></div>
+                    <ul>
+                        <div v-if='chartValueObject.length === 1'>
+                            <strong><li>Overall amount: {{`${chartValueArray[1][1].toFixed(2)}`}}$</li></strong>
+                            <strong><li>Tax due: {{`${chartValueArray[1][2].toFixed(2)}`}}$</li></strong>
+                            <strong><li>Profit: {{`${chartValueArray[1][3].toFixed(2)}`}}$</li></strong>
+                        </div>
+                        <div v-if='chartValueObject.length >1'>
+                            <v-alert :value="true" type="warning">
+                                Data not found
+                            </v-alert>
+                        </div>
 
-    <div class='alert alert-success text-center alert--connect elevation-5'>
-                <h4>DAILY CHART</h4>
-              </div>
-     <GChart
-     class='elevation-15 pa-5'
-    type="ColumnChart"
-    :data="chartValueArray"
-    :options="chartOptions"
-    @ready="onChartReady"
-    :createChart="(el, google) => new google.charts.Bar(el)"
-    :settings="{packages: ['bar']}"    
-  />
-  <br>
-  <div class='text-center'>
-    <br>
-    <br>
-    <hr>
-    <div class='alert alert-success text-center alert--connect elevation-5 alert--conect-margin'>
-                <h4>LINE CHART FOR ALL DAYS</h4>
-                <p>(soon for month)</p>
-              </div>
-    <br>
- <line-chart 
- class='elevation-15 line--chart'
- height='300px'
- :data="lineChartValueArray"></line-chart>
- <br>
- <br>
-      <div class='alert alert-success text-center alert--connect elevation-5'>
-                <h4>OVERALL</h4>
-              </div>
- <pie-chart :data="lineChartValueArray"></pie-chart>
-  <app-overall :sumAllAmount='sumAllAmount'></app-overall>
+                    </ul>
+                </v-flex>
 
+                <br>
+                <v-flex>
+                    <br>
+                    <br>
+                    <br>
 
- </div>
- </v-flex>
- </v-layout>
-  </v-container>
-  </div>
+                    <div class='alert alert-success text-center alert--connect elevation-5'>
+                        <h4>DAILY CHART</h4>
+                    </div>
+                    <GChart class='elevation-15 pa-5' type="ColumnChart" 
+                    :data="chartValueArray" 
+                    :options="chartOptions" 
+                    @ready="onChartReady" 
+                    :createChart="(el, google) => new google.charts.Bar(el)" 
+                    :settings="{packages: ['bar']}" />
+                    <br>
+                    <div class='text-center'>
+                        <br>
+                        <br>
+                        <hr>
+                        <div class='alert alert-success text-center alert--connect elevation-5 alert--conect-margin'>
+                            <h4>LINE CHART FOR ALL DAYS</h4>
+                            <p>(soon for month)</p>
+                        </div>
+                        <br>
+                        <line-chart 
+                        class='elevation-15 line--chart' 
+                        height='300px' 
+                        :data="lineChartValueArray"></line-chart>
+                        <br>
+                        <br>
+                        <div class='alert alert-success text-center alert--connect elevation-5'>
+                            <h4>OVERALL</h4>
+                        </div>
+                        <pie-chart :data="lineChartValueArray"></pie-chart>
+                        <app-overall :sumAllAmount='sumAllAmount'></app-overall>
+
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </div>
 </template>
 
 <script>

@@ -30,10 +30,7 @@
                       Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti. 
                     </v-card-text>
                   </v-card>
-  
                 </v-flex>
-                <!-- <slot></slot> -->
-
               </v-layout>
             </v-container>
           </v-flex>

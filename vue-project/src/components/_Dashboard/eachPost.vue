@@ -1,126 +1,94 @@
 <template>
- <div class="container tex-center">
+    <div class="container tex-center">
 
-      <div class="row">
-        <!-- /.col-lg-3 -->
+        <div class="row">
 
-        <div class="col-lg-offset-3 col-lg-6">
+            <div class="col-lg-offset-3 col-lg-6">
 
-          <div class="card mt-4">
-            <img class="card-img-top img-fluid" :src="product.img" alt="">
-            <v-text-field
-        v-model="product.img"
-        :rules='imageRules'
+                <div class="card mt-4">
+                    <img class="card-img-top img-fluid" :src="product.img" alt="">
+                    <v-text-field 
+                    v-model="product.img" 
+                    :rules='imageRules' 
+                    color="purple darken-2" 
+                    label='Image link' 
+                    required></v-text-field>
+                    <div class="card-body">
+                        <h3 class="card-title">{{product.title}}</h3>
+                        <v-text-field label='Change product name here' 
+                        v-model='product.title' 
+                        :rules='titleRules' color="deep-purple"></v-text-field>
+                        <h4>{{product.price}} $</h4>
+                        <v-slider 
+                        v-model="product.price" 
+                        color="purple darken-2" 
+                        min="1"
+                        max="100" 
+                        :rules='priceRules' 
+                        thumb-label></v-slider>
+                        <span class='note--description' 
+                        v-html='product.text'>{{product.text}}</span>
 
-        color="purple darken-2"
-        label='Image link'
-        required
-      ></v-text-field>
-            <div class="card-body">
-              <h3 class="card-title">{{product.title}}</h3>
-              <v-text-field 
-              label='Change product name here' 
-              v-model='product.title'
-              :rules='titleRules'
-              color="deep-purple"
-              ></v-text-field>
-              <h4>{{product.price}} $</h4>
-              <v-slider
-                v-model="product.price"
-                color="purple darken-2"
-                min="1"
-                :rules='priceRules'
-                max="100" 
-                thumb-label
-              ></v-slider>
-              <span class='note--description' v-html='product.text'>{{product.text}}</span>
-              
-              
-              
-              <quill-editor 
-              :options='editorOptions'
-              v-model='product.text'></quill-editor>
-              <br>
-              <br>
-              
-               <v-btn
-          v-if='checkValidation'
-          :disabled='disableButton' 
-          @click='updatePost()'
-          color="success"
-          class="white--text"
-          medium
-          right
-          bottom
-        >
-          Update product
-        </v-btn>
-        <v-alert
-        :value="true"
-        v-if='!checkValidation'
-        type="warning"
-      >
-        Check your form
-      </v-alert>
-  
+                        <quill-editor 
+                        :options='editorOptions' 
+                        v-model='product.text'></quill-editor>
+                        <br>
+                        <br>
+
+                        <v-btn 
+                        v-if='checkValidation' 
+                        :disabled='disableButton'
+                        @click='updatePost()' 
+                        color="success" 
+                        class="white--text" 
+                        medium right bottom>
+                            Update product
+                        </v-btn>
+                        <v-alert 
+                        :value="true" 
+                        v-if='!checkValidation' type="warning">
+                            Check your form
+                        </v-alert>
+
+                    </div>
+                </div>
             </div>
-          </div>
-          <!-- /.card -->
-          <!-- /.card -->
         </div>
-        <!-- /.col-lg-9 -->
-      </div>
-      {{checkIfUpdate}}
-      {{checkFormValidation}}
-      <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <v-card>
-          <v-card-title
-            class="headline grey lighten-2"
-            primary-title
-          >
-            Changes:
-          </v-card-title>
-          <v-card-text>
-          <p v-if='product.title !== beforeUpdate.title'>
-            Product name changed from <s>{{beforeUpdate.title}}</s> to <strong>{{product.title}}</strong>
-          </p>
-          <p v-if='product.text !== beforeUpdate.text'>You change description</p>
-          <p v-if='product.price !== beforeUpdate.price'>
-            Price changed from <s>{{beforeUpdate.price}}$</s> to {{product.price}}$
-          </p>
-          <p v-if='product.img !== beforeUpdate.img'>Image changed</p>
-          
-          </v-card-text>
-  
-          <v-divider></v-divider>
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <router-link to='/adminpost'>
-            <v-btn
-              color="primary"
-              flat
-              @click="dialog = false, getPost()"
-            >
-              back to product list
-            </v-btn>
-            </router-link>
-            <v-btn
-              color="primary"
-              flat
-              @click="dialog = false, getPost()"
-            >
-              I accept
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+        {{checkIfUpdate}} {{checkFormValidation}}
+        <v-dialog v-model="dialog" width="500">
+            <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                    Changes:
+                </v-card-title>
+                <v-card-text>
+                    <p v-if='product.title !== beforeUpdate.title'>
+                        Product name changed from <s>{{beforeUpdate.title}}</s> to <strong>{{product.title}}</strong>
+                    </p>
+                    <p v-if='product.text !== beforeUpdate.text'>You change description</p>
+                    <p v-if='product.price !== beforeUpdate.price'>
+                        Price changed from <s>{{beforeUpdate.price}}$</s> to {{product.price}}$
+                    </p>
+                    <p v-if='product.img !== beforeUpdate.img'>Image changed</p>
+
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <router-link to='/adminpost'>
+                        <v-btn color="primary" flat @click="dialog = false, getPost()">
+                            back to product list
+                        </v-btn>
+                    </router-link>
+                    <v-btn color="primary" flat @click="dialog = false, getPost()">
+                        I accept
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
-
 <script>
 import PostsService from "../../../services/PostsService";
 

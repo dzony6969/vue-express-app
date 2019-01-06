@@ -1,146 +1,103 @@
 <template>
- <div>
-   <!-- sooon repiar :> -->
-    <!-- <v-container>
+    <div>
+        <!-- sooon repiar :> -->
+        <!-- <v-container>
       <v-layout row wrap>
           <recommend :cutId='product.id' :productType='product.type'></recommend>
           </v-layout>
     </v-container> -->
-    <v-container v-if='product.id.length > 3'>
-      <v-layout row>
-        <v-flex lg6 md12 offset-lg1>
-          <v-card class="card mt-4">
-            <img class="card-img-top img-fluid" :src="product.img" alt="">
-            <div class="card-body">
-              <v-btn
-          absolute
-          color="orange"
-          class="white--text"
-          fab
-          medium
-          right
-          middle
-          @click='addToCart(product)'
-        >
-          <v-icon  >shopping_basket</v-icon>
-        </v-btn>
-              <h3 class="card-title">{{product.title}}</h3>
-              <h4>{{product.price}} $</h4>
-               <hr>
-             <div v-if='vampire' class='grey lighten-4 vampire--color' v-html='product.text'>{{product.text}}</div>
-              <div v-if='!vampire' v-html='product.text'>{{product.text}}</div>
+        <v-container v-if='product.id.length > 3'>
+            <v-layout row>
+                <v-flex lg6 md12 offset-lg1>
+                    <v-card class="card mt-4">
+                        <img class="card-img-top img-fluid" :src="product.img" alt="">
+                        <div class="card-body">
+                            <v-btn absolute color="orange" class="white--text" fab medium right middle @click='addToCart(product)'>
+                                <v-icon>shopping_basket</v-icon>
+                            </v-btn>
+                            <h3 class="card-title">{{product.title}}</h3>
+                            <h4>{{product.price}} $</h4>
+                            <hr>
+                            <div v-if='vampire' class='grey lighten-4 vampire--color' v-html='product.text'>{{product.text}}</div>
+                            <div v-if='!vampire' v-html='product.text'>{{product.text}}</div>
 
-              <hr>
-              <v-rating      
-                background-color="purple lighten-3"
-                color="purple"
-                medium
-                half-increments
-                :value='avgRating'
-                readonly
-              ></v-rating>
-              <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
-              <h4 v-if='product.comments.length === 0'>There is no review of this product</h4> 
-            </div>
-          </v-card>
-          <v-card class='elevation-10'>
-                      <div>
-                      <div>
-    
-                          <div class="col-sm-12">
-                              <v-textarea
-                                    v-model='comment.text'
-                                    auto-grow
-                                    box
-                                    outline
-                                    color="deep-purple"
-                                    label="Comment"
-                                    rows="1"
-                                  ></v-textarea>
-                            </div>
-                        <div class="form-group">
-                          
-                            <div class="col-sm-12 col-md-6 col-lg-5">                    
-                                <div class="input-group">
-                                  <v-text-field
-                                    v-model="comment.author"
-                                    color="purple darken-2"
-                                    label="Author"
-                                    required
-                                    
-                                  ></v-text-field>
+                            <hr>
+                            <v-rating background-color="purple lighten-3" color="purple" medium half-increments :value='avgRating' readonly></v-rating>
+                            <h4 v-if='product.comments.length > 0'>average rating for this product: <strong>{{`${avgRating.toFixed(2)}`}}</strong></h4>
+                            <h4 v-if='product.comments.length === 0'>There is no review of this product</h4>
+                        </div>
+                    </v-card>
+                    <v-card class='elevation-10'>
+                        <div>
+                            <div>
+
+                                <div class="col-sm-12">
+                                    <v-textarea v-model='comment.text' auto-grow box outline color="deep-purple" label="Comment" rows="1"></v-textarea>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-sm-12 col-md-6 col-lg-5">
+                                        <div class="input-group">
+                                            <v-text-field v-model="comment.author" color="purple darken-2" label="Author" required></v-text-field>
+                                        </div>
+                                    </div>
+                                    <div class='col-sm-12 col-md-5 col-lg-5'>
+                                        <p>Rating:</p>
+                                        <v-rating v-model.number='comment.rating' background-color="purple lighten-3" color="purple" medium></v-rating>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4 col-sm-10">
+                                        <br>
+                                        <br>
+                                        <v-btn @click='addComment(), updateRating()' :disabled='disabledButton' color='secondary' v-if='!spinner' class="btn btn-success btn-circle text-uppercase text-center" type="submit" id="submitComment">
+                                            <span class="glyphicon glyphicon-send"></span>Add comment</v-btn>
+                                        <div class="text-xs-center" v-if='spinner'>
+                                            <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class='col-sm-12 col-md-5 col-lg-5'>
-                              <p>Rating:</p>
-                            <v-rating
-                           v-model.number='comment.rating'
-                              background-color="purple lighten-3"
-                              color="purple"
-                              medium
-                            ></v-rating>
-                        
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-10">   
-                              <br>
-                              <br>                 
-        <v-btn @click='addComment(), updateRating()' 
-        :disabled='disabledButton'
-        color='secondary'
-        v-if='!spinner'
-        class="btn btn-success btn-circle text-uppercase text-center" 
-        type="submit" id="submitComment">
-        <span class="glyphicon glyphicon-send"></span>Add comment</v-btn>
-                            <div class="text-xs-center"  v-if='spinner'>
-      <v-progress-circular
-        :size="50"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
-            </div>
-              </div>
-            </div>  
-        </div>
-        </div>
-          </v-card>
-          <v-flex class="my-4 col-sm-12">
-            <div class="card-header">
-            Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
-            </div>
-         
-            <div class="card-body">
-                <transition-group 
-       mode='in-out'
-       v-if='!showComment'
-       enter-active-class="animated slideInDown" 
-       leave-active-class="animated slideOutDown"
-       >
-                <all-comment  v-for='comment in product.comments' :comment='comment' :key='comment._id'></all-comment>
-                </transition-group>  
-            </div>
-          </v-flex>
-          <!-- /.card -->
-        </v-flex>
-        <v-flex class='recommend--media' lg3 md3>
-            <recommend :cutId='product.id' :productType='product.type'></recommend>
-        </v-flex>
+                    </v-card>
+                    <v-flex class="my-4 col-sm-12">
+                        <div class="card-header">
+                            Product Reviews <strong class='show--comment' @click='loadComment'>({{product.comments.length}})</strong>
+                        </div>
 
-      </v-layout>
-      
-    </v-container>
+                        <div class="card-body">
+                            <transition-group mode='in-out' v-if='!showComment' enter-active-class="animated slideInDown" leave-active-class="animated slideOutDown">
+                                <all-comment 
+                                v-for='comment in product.comments' 
+                                :comment='comment' 
+                                :key='comment._id'></all-comment>
+                            </transition-group>
+                        </div>
+                    </v-flex>
+                    <!-- /.card -->
+                </v-flex>
+                <v-flex class='recommend--media' lg3 md3>
+                    <recommend :cutId='product.id' :productType='product.type'></recommend>
+                </v-flex>
+
+            </v-layout>
+
+        </v-container>
     </div>
 </template>
 
 <script>
 import PostsService from "../../../services/PostsService";
-import AddComment from "./AddComment.vue";
 import AllComment from "./AllComment";
 import Recommend from './Recommend';
 import { mapState } from "vuex";
 export default {
   name: "showPost",
+    components: {
+    AllComment,
+    Recommend,
+  },
   data() {
     return {
       showComment: true,
@@ -165,11 +122,6 @@ export default {
         avgRating: 0
       }
     };
-  },
-  components: {
-    AllComment,
-    AddComment,
-    Recommend,
   },
   mounted() {
     this.getPost();

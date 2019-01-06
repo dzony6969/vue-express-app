@@ -2,9 +2,6 @@
 <div>
     <br>
     <br>
-    <br>
-    <br>
-
   <v-card
     class="mx-auto"
     max-width="600"
