@@ -161,7 +161,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      drawer: false,
+      drawer: true,
       adminPassword: "",
       adminUser: "",
       clipped: false
